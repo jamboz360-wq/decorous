@@ -1,0 +1,1034 @@
+/* ============================================================
+   Décorous Plus — Main Stylesheet
+   Quality · Luxury · Exclusivity
+   ============================================================ */
+
+/* ── VARIABLES ── */
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --cream: #f8f5f0;
+  --gold: #c9a84c;
+  --gold-light: #e8d5a3;
+  --grey-light: #f0eeeb;
+  --grey-mid: #ccc8c3;
+  --text-dark: #1a1a1a;
+  --text-mid: #555;
+}
+
+/* ── RESET ── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--white);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ── NAVIGATION ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 48px;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+
+.nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.nav-logo img { height: 44px; width: auto; }
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 500; letter-spacing: 0.03em; color: var(--black);
+  line-height: 1.1;
+}
+.nav-brand span {
+  display: block; font-size: 9px; font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.25em; font-weight: 400; color: var(--gold);
+  text-transform: uppercase; margin-top: 2px;
+}
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  text-decoration: none; color: var(--text-dark); font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  background: var(--black); color: var(--white);
+  padding: 10px 24px; font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; text-decoration: none; font-weight: 600;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--gold); }
+.nav-hamburger {
+  display: none; background: none; border: none; cursor: pointer;
+  flex-direction: column; gap: 5px;
+}
+.nav-hamburger span { width: 22px; height: 2px; background: var(--black); display: block; transition: all 0.3s; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  padding-top: 80px;
+  background: var(--cream);
+  overflow: hidden;
+}
+.hero-content {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 60px 80px 80px;
+}
+.hero-eyebrow {
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); font-weight: 500; margin-bottom: 24px;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(48px, 5.5vw, 76px);
+  font-weight: 300; line-height: 1.08;
+  color: var(--black); margin-bottom: 28px;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-subtitle {
+  font-size: 13px; color: var(--text-mid); line-height: 1.8;
+  max-width: 420px; margin-bottom: 48px; font-weight: 300;
+}
+.hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero-stats {
+  display: flex; gap: 48px; margin-top: 60px;
+  padding-top: 40px; border-top: 1px solid var(--grey-mid);
+}
+.hero-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px; font-weight: 300; color: var(--black); line-height: 1;
+}
+.hero-stat-label {
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-mid); margin-top: 6px;
+}
+.hero-image {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+.hero-image img {
+  width: 100%; height: 100%; object-fit: cover; object-position: top center;
+  opacity: 0.92; mix-blend-mode: luminosity;
+  transition: transform 6s ease;
+}
+.hero-image:hover img { transform: scale(1.03); }
+.hero-image-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 40px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+}
+.hero-image-text {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--white); font-size: 14px; letter-spacing: 0.08em; font-style: italic;
+}
+
+/* ── BUTTONS ── */
+.btn-primary {
+  background: var(--black); color: var(--white);
+  padding: 14px 36px; font-size: 10px; letter-spacing: 0.2em;
+  text-transform: uppercase; text-decoration: none; font-weight: 600;
+  transition: all 0.25s; border: 2px solid var(--black);
+}
+.btn-primary:hover { background: var(--gold); border-color: var(--gold); }
+.btn-outline {
+  background: transparent; color: var(--black);
+  padding: 14px 36px; font-size: 10px; letter-spacing: 0.2em;
+  text-transform: uppercase; text-decoration: none; font-weight: 600;
+  border: 2px solid var(--black); transition: all 0.25s;
+}
+.btn-outline:hover { background: var(--black); color: var(--white); }
+
+/* ── SECTION COMMON ── */
+section { padding: 100px 0; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+.section-header { text-align: center; margin-bottom: 64px; }
+.section-eyebrow {
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); font-weight: 500; margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 52px); font-weight: 300; line-height: 1.1;
+}
+.section-title em { font-style: italic; }
+.section-line {
+  width: 60px; height: 1px; background: var(--gold);
+  margin: 24px auto 0; display: block;
+}
+
+/* ── WHAT'S INCLUDED ── */
+.included-bg { background: var(--cream); }
+.included-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.included-card {
+  background: var(--white); padding: 52px 40px;
+  display: flex; flex-direction: column; align-items: flex-start;
+  position: relative; overflow: hidden; transition: transform 0.3s;
+}
+.included-card:hover { transform: translateY(-4px); }
+.included-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 3px; height: 0; background: var(--gold);
+  transition: height 0.4s ease;
+}
+.included-card:hover::before { height: 100%; }
+.included-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px; font-weight: 300; color: var(--grey-light); line-height: 1; margin-bottom: 24px;
+}
+.included-icon { width: 120px; height: 120px; object-fit: contain; margin-bottom: 28px; }
+.included-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 500; margin-bottom: 14px;
+}
+.included-desc { font-size: 12px; color: var(--text-mid); line-height: 1.8; font-weight: 300; }
+
+/* ── PRODUCTS ── */
+.products-bg { background: var(--white); }
+.products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.product-card { position: relative; cursor: pointer; transition: transform 0.3s; }
+.product-card:hover { transform: translateY(-6px); }
+.product-img-wrap {
+  background: var(--cream); overflow: hidden;
+  aspect-ratio: 3/4; position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.product-img-wrap img {
+  width: 100%; height: 100%; object-fit: contain;
+  object-position: center top;
+  transition: transform 0.5s ease; padding: 12px;
+}
+.product-card:hover .product-img-wrap img { transform: scale(1.06); }
+.product-badge {
+  position: absolute; top: 16px; left: 16px;
+  background: var(--black); color: var(--white);
+  font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 6px 12px; font-weight: 600;
+}
+.product-info { padding: 20px 0 0; }
+.product-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 500; margin-bottom: 6px;
+}
+.product-colors { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.color-dot {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.15); cursor: pointer; transition: transform 0.2s;
+}
+.color-dot:hover { transform: scale(1.3); }
+.product-price { font-size: 13px; color: var(--text-mid); font-weight: 500; letter-spacing: 0.05em; }
+.product-price strong { color: var(--black); font-size: 16px; }
+
+/* ── PRICING ── */
+.pricing-bg { background: var(--black); color: var(--white); }
+.pricing-bg .section-title { color: var(--white); }
+.pricing-table { width: 100%; border-collapse: collapse; margin-top: 48px; }
+.pricing-table th {
+  font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); font-weight: 500; padding: 16px 32px;
+  text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.pricing-table td {
+  padding: 24px 32px; font-size: 14px; font-weight: 300;
+  border-bottom: 1px solid rgba(255,255,255,0.06); transition: background 0.2s;
+}
+.pricing-table tr:hover td { background: rgba(201,168,76,0.05); }
+.pricing-table td:last-child {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 300; color: var(--gold-light);
+}
+.pricing-note {
+  margin-top: 32px; font-size: 11px; color: rgba(255,255,255,0.4);
+  text-align: center; letter-spacing: 0.1em;
+}
+.addon-section-label {
+  margin-bottom: 20px; color: rgba(255,255,255,0.6);
+  font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+  grid-column: 1 / -1;
+}
+.addon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 64px; }
+.addon-card {
+  background: rgba(255,255,255,0.03); padding: 40px;
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex; gap: 32px; align-items: center; transition: border-color 0.3s;
+}
+.addon-card:hover { border-color: var(--gold); }
+.addon-img { width: 80px; height: 80px; object-fit: cover; border-radius: 2px; }
+.addon-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; color: var(--white); margin-bottom: 6px;
+}
+.addon-subtitle { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 10px; letter-spacing: 0.1em; }
+.addon-price { color: var(--gold-light); font-size: 22px; font-family: 'Cormorant Garamond', serif; }
+
+/* ── SIZES ── */
+.sizes-bg { background: var(--cream); }
+.size-table { width: 100%; border-collapse: collapse; }
+.size-table th {
+  background: var(--black); color: var(--white);
+  padding: 16px 24px; font-size: 10px;
+  letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; text-align: left;
+}
+.size-table td {
+  padding: 18px 24px; font-size: 13px; font-weight: 300;
+  border-bottom: 1px solid var(--grey-mid); transition: background 0.2s;
+}
+.size-table tr:hover td { background: rgba(201,168,76,0.05); }
+.size-table td:first-child {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 500; color: var(--gold);
+}
+.size-note {
+  margin-top: 20px; font-size: 11px; color: var(--text-mid);
+  text-align: center; letter-spacing: 0.08em;
+}
+
+/* ── DELIVERY ── */
+.delivery-bg { background: var(--white); }
+.delivery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.delivery-card {
+  border: 1px solid var(--grey-mid); padding: 40px 36px;
+  display: flex; align-items: center; gap: 28px;
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.delivery-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s;
+}
+.delivery-card:hover { border-color: transparent; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+.delivery-card:hover::after { transform: scaleX(1); }
+.delivery-icon {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px; font-weight: 300; color: var(--gold);
+  line-height: 1; min-width: 80px; text-align: center;
+}
+.delivery-label { font-size: 11px; color: var(--text-mid); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+.delivery-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 500; margin-bottom: 4px;
+}
+.delivery-desc { font-size: 12px; color: var(--text-mid); line-height: 1.7; font-weight: 300; }
+.delivery-note {
+  margin-top: 40px; padding: 28px 36px;
+  background: var(--cream); border-left: 3px solid var(--gold);
+  font-size: 12px; color: var(--text-mid); line-height: 1.8;
+}
+.delivery-note strong { font-family: 'Cormorant Garamond', serif; font-size: 16px; }
+
+/* ── ORDER FORM ── */
+.order-bg { background: var(--black); }
+.order-bg .section-title { color: var(--white); }
+.order-form { max-width: 720px; margin: 0 auto; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-label {
+  font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); font-weight: 500;
+}
+.form-input, .form-select, .form-textarea {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+  color: var(--white); padding: 14px 18px; font-size: 13px;
+  font-family: 'Montserrat', sans-serif; font-weight: 300;
+  outline: none; transition: border-color 0.2s;
+  appearance: none; -webkit-appearance: none;
+}
+/* FIX: Dropdown options readability - dark background, white text */
+.form-select {
+  background: #1a1a1a;  /* solid dark background for the select itself */
+  color: var(--white);
+}
+.form-select option {
+  background: #1a1a1a;
+  color: var(--white);
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
+.form-input::placeholder { color: rgba(255,255,255,0.25); }
+.form-textarea { resize: vertical; min-height: 100px; }
+.form-submit {
+  width: 100%; background: var(--gold); color: var(--black);
+  padding: 16px; font-size: 11px; letter-spacing: 0.25em;
+  text-transform: uppercase; font-weight: 700; border: none; cursor: pointer;
+  font-family: 'Montserrat', sans-serif; margin-top: 8px; transition: background 0.25s;
+}
+.form-submit:hover { background: var(--gold-light); }
+.form-note { text-align: center; font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 16px; letter-spacing: 0.1em; }
+
+/* ── FOOTER ── */
+footer { background: #0a0a0a; color: rgba(255,255,255,0.5); padding: 60px 0 32px; }
+.footer-inner {
+  display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px;
+  max-width: 1280px; margin: 0 auto; padding: 0 48px 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; color: var(--white); margin-bottom: 14px; }
+.footer-tagline { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; }
+.footer-desc { font-size: 12px; line-height: 1.9; font-weight: 300; max-width: 280px; }
+.footer-heading { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--white); margin-bottom: 20px; font-weight: 500; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { font-size: 12px; color: rgba(255,255,255,0.45); text-decoration: none; font-weight: 300; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-bottom {
+  max-width: 1280px; margin: 0 auto; padding: 24px 48px 0;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 10px; letter-spacing: 0.08em;
+}
+.footer-gold { color: var(--gold); }
+
+/* ── TOAST ── */
+.toast {
+  display: none; position: fixed; bottom: 32px; right: 32px;
+  background: var(--gold); color: #000;
+  padding: 16px 28px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.1em; z-index: 999; box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+.toast.toast-error {
+  background: #c0392b; color: var(--white);
+}
+
+/* ── ANIMATIONS ── */
+.fade-up {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE — Apple HIG proportions · Décorous Plus brand identity
+   
+   Guiding principles:
+   - Nav bar: 52px (Apple standard)  
+   - Touch targets: minimum 44×44px
+   - Safe area padding: env(safe-area-inset-*)
+   - Type scale: SF-inspired rhythm, Cormorant + Montserrat
+   - Spacing unit: 8px base grid (16, 20, 24, 32, 40, 48, 56)
+   - Container: 20px horizontal margin
+   - Sections: 56px top/bottom padding
+   - Inputs: 52px height (comfortable thumb tap)
+   - Border radius: 0 (brand has no radius — sharp luxury)
+══════════════════════════════════════════════════════════════ */
+
+/* ── TABLET (≤ 900px) ── */
+@media (max-width: 900px) {
+
+  /* Nav */
+  nav {
+    padding: 0 20px;
+    height: 52px;
+    background: rgba(255,255,255,1); /* solid white for mobile menu */
+    backdrop-filter: none;
+  }
+  .nav-logo img { height: 34px; }
+  .nav-brand { font-size: 19px; }
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* Mobile nav overlay — solid white background, high contrast */
+  .nav-links.mobile-open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--white);
+    padding: 80px 28px 40px;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+    gap: 0;
+    z-index: 200;
+    animation: navFadeIn 0.22s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  @keyframes navFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .nav-links.mobile-open li {
+    border-bottom: 1px solid var(--grey-light);
+  }
+
+  .nav-links.mobile-open a {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--black);
+    text-decoration: none;
+    transition: color 0.18s ease;
+  }
+
+  .nav-links.mobile-open a:active { color: var(--gold); }
+
+  .nav-links.mobile-open::after {
+    content: 'Order Now';
+    position: absolute;
+    bottom: 32px;
+    bottom: calc(32px + env(safe-area-inset-bottom));
+    left: 28px; right: 28px;
+    display: block;
+    background: var(--black);
+    color: var(--white);
+    text-align: center;
+    padding: 0;
+    height: 52px;
+    line-height: 52px;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* Hero */
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-top: 52px;
+  }
+  .hero-image { order: 0; height: 56vw; min-height: 280px; }
+  .hero-content { order: 1; padding: 40px 24px 40px; }
+  .hero-title { font-size: clamp(36px, 7vw, 52px); }
+  .hero-stats { gap: 32px; padding-top: 28px; margin-top: 32px; }
+
+  /* Layout */
+  .container { padding: 0 20px; }
+  section { padding: 56px 0; }
+
+  /* Included */
+  .included-grid { grid-template-columns: 1fr; gap: 1px; }
+
+  /* Products */
+  .products-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Pricing */
+  .addon-grid { grid-template-columns: 1fr; gap: 1px; }
+  .pricing-table th,
+  .pricing-table td { padding: 14px 16px; }
+
+  /* Size table — scrollable on tablet too */
+  .size-table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -20px;
+    padding: 0 20px;
+  }
+  .size-table { min-width: 440px; }
+
+  /* Form */
+  .form-row { grid-template-columns: 1fr; gap: 12px; }
+
+  /* Delivery */
+  .delivery-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  /* Footer */
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 0 20px 48px;
+  }
+  .footer-bottom {
+    padding: 24px 20px 0;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+}
+
+
+/* ── MOBILE (≤ 430px — iPhone Pro Max and below) ── */
+@media (max-width: 430px) {
+
+  /* ─────────────────────────────────
+     GLOBAL
+  ───────────────────────────────── */
+  * { -webkit-tap-highlight-color: transparent; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body { overflow-x: hidden; }
+
+  .container { padding: 0 20px; }
+
+  section { padding: 56px 0; }
+
+  .section-header { margin-bottom: 36px; }
+
+  .section-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 34px;
+    line-height: 1.05;
+  }
+
+  .section-line { margin-top: 18px; }
+
+  /* ─────────────────────────────────
+     NAVIGATION — 52px Apple standard
+  ───────────────────────────────── */
+  nav {
+    height: 52px;
+    padding: 0 16px 0 20px;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .nav-logo { gap: 10px; }
+  .nav-logo img { height: 32px; }
+
+  .nav-brand {
+    font-size: 18px;
+    letter-spacing: 0.02em;
+  }
+  .nav-brand span { display: none; } /* hide tagline — no space */
+
+  .nav-hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;       /* 44px touch target */
+    margin-right: -10px;
+  }
+  .nav-hamburger span {
+    width: 20px;
+    height: 1.5px;
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.28s ease;
+  }
+
+  /* ─────────────────────────────────
+     HERO
+  ───────────────────────────────── */
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 52px;            /* exact nav height */
+    min-height: auto;
+  }
+
+  /* Image first — visual hook before reading */
+  .hero-image {
+    order: 0;
+    height: 68vw;
+    max-height: 320px;
+  }
+
+  .hero-content {
+    order: 1;
+    padding: 32px 20px 40px;
+  }
+
+  .hero-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    margin-bottom: 14px;
+  }
+
+  .hero-title {
+    font-size: 38px;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+
+  .hero-subtitle {
+    font-size: 13px;
+    line-height: 1.75;
+    margin-bottom: 28px;
+  }
+
+  /* Buttons — full width, 52px height (Apple standard) */
+  .hero-ctas {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    display: block;
+    text-align: center;
+    height: 52px;
+    line-height: 52px;
+    padding: 0 24px;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+  }
+
+  /* Stats row — 3-column divider grid */
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--grey-mid);
+    text-align: center;
+  }
+
+  .hero-stats > div {
+    padding: 0 4px;
+    border-right: 1px solid var(--grey-mid);
+  }
+  .hero-stats > div:last-child { border-right: none; }
+
+  .hero-stat-num {
+    font-size: 26px;
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 7px;
+    letter-spacing: 0.15em;
+    margin-top: 5px;
+  }
+
+  /* ─────────────────────────────────
+     WHAT'S INCLUDED
+  ───────────────────────────────── */
+  .included-grid {
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--grey-mid);   /* gap becomes a hairline divider */
+  }
+
+  .included-card {
+    background: var(--white);
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 28px 20px;
+  }
+
+  /* Hide the large ghost number — too noisy on mobile */
+  .included-num { display: none; }
+
+  .included-icon {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  .included-title { font-size: 20px; margin-bottom: 6px; }
+  .included-desc  { font-size: 12px; line-height: 1.7; }
+
+  /* ─────────────────────────────────
+     PRODUCTS / COLLECTIONS
+  ───────────────────────────────── */
+  .products-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--grey-mid);
+  }
+
+  .product-card {
+    background: var(--cream);
+    border-bottom: none;
+    padding: 0;
+  }
+
+  .product-img-wrap {
+    aspect-ratio: 2/3;
+    background: var(--cream);
+  }
+
+  .product-img-wrap img { padding: 10px 6px 4px; }
+
+  .product-info {
+    padding: 10px 12px 16px;
+    background: var(--white);
+  }
+
+  .product-name {
+    font-size: 16px;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .color-dot {
+    width: 14px;
+    height: 14px;
+  }
+
+  .product-colors { margin-bottom: 8px; }
+
+  .product-price {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .product-price strong { font-size: 14px; }
+
+  .product-badge {
+    top: 10px;
+    left: 10px;
+    font-size: 7px;
+    padding: 4px 8px;
+    letter-spacing: 0.12em;
+  }
+
+  /* ─────────────────────────────────
+     PRICING
+  ───────────────────────────────── */
+  .pricing-bg .section-title { font-size: 34px; }
+
+  .pricing-table { margin-top: 32px; }
+  .pricing-table th {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    padding: 14px 16px;
+  }
+  .pricing-table td {
+    padding: 18px 16px;
+    font-size: 13px;
+  }
+  .pricing-table td:last-child {
+    font-size: 22px;
+    text-align: right;
+  }
+
+  .pricing-note {
+    font-size: 10px;
+    margin-top: 24px;
+    letter-spacing: 0.08em;
+    padding: 0 4px;
+  }
+
+  .addon-grid {
+    grid-template-columns: 1fr;
+    gap: 1px;
+    margin-top: 48px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .addon-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 20px;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .addon-img {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  .addon-title { font-size: 18px; margin-bottom: 4px; }
+  .addon-subtitle { font-size: 10px; margin-bottom: 6px; }
+  .addon-price { font-size: 20px; }
+
+  /* ─────────────────────────────────
+     SIZE GUIDE
+  ───────────────────────────────── */
+  .size-table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -20px;                 /* bleed to screen edge */
+    padding: 0 20px;
+  }
+
+  .size-table { min-width: 440px; }
+
+  .size-table th {
+    padding: 14px 16px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    white-space: nowrap;
+  }
+
+  .size-table td {
+    padding: 16px 16px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .size-table td:first-child { font-size: 18px; }
+
+  .size-note {
+    font-size: 10px;
+    margin-top: 16px;
+    letter-spacing: 0.06em;
+    text-align: left;
+  }
+
+  /* ─────────────────────────────────
+     DELIVERY
+  ───────────────────────────────── */
+  .delivery-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .delivery-card {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 20px;
+  }
+
+  .delivery-icon {
+    font-size: 40px;
+    min-width: 56px;
+    text-align: center;
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .delivery-label { font-size: 9px; letter-spacing: 0.15em; }
+  .delivery-time  { font-size: 22px; margin-bottom: 6px; }
+  .delivery-desc  { font-size: 12px; line-height: 1.65; }
+
+  .delivery-note {
+    padding: 20px;
+    font-size: 12px;
+    margin-top: 24px;
+    line-height: 1.75;
+  }
+
+  /* ─────────────────────────────────
+     ORDER FORM
+  ───────────────────────────────── */
+  .order-bg .section-title { font-size: 34px; }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: 0;
+  }
+
+  .form-group {
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .form-label {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+  }
+
+  /* 52px height — Apple standard tap target */
+  .form-input,
+  .form-select {
+    height: 52px;
+    padding: 0 16px;
+    font-size: 16px;     /* CRITICAL: prevents iOS auto-zoom on focus */
+    font-weight: 300;
+    border-radius: 0;
+  }
+
+  /* ensure dropdown options remain readable on mobile */
+  .form-select {
+    background: #1a1a1a;
+  }
+  .form-select option {
+    background: #1a1a1a;
+    color: var(--white);
+  }
+
+  .form-textarea {
+    padding: 14px 16px;
+    font-size: 16px;
+    min-height: 96px;
+    resize: none;
+    border-radius: 0;
+  }
+
+  #estimated-price {
+    font-size: 17px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* 52px CTA — prominent, full width */
+  .form-submit {
+    height: 52px;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    margin-top: 12px;
+    border-radius: 0;
+  }
+
+  .form-note {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    margin-top: 14px;
+    padding: 0 4px;
+  }
+
+  /* ─────────────────────────────────
+     FOOTER
+  ───────────────────────────────── */
+  footer { padding: 48px 0 0; }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 0 20px 40px;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+  }
+
+  .footer-brand { font-size: 22px; margin-bottom: 10px; }
+  .footer-tagline { font-size: 8px; letter-spacing: 0.22em; margin-bottom: 14px; }
+  .footer-desc { font-size: 12px; line-height: 1.8; max-width: 100%; }
+
+  .footer-heading {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    margin-bottom: 16px;
+  }
+
+  .footer-links { gap: 0; }
+
+  .footer-links li {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .footer-links a {
+    display: block;
+    height: 44px;           /* Apple minimum touch target */
+    line-height: 44px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+
+  .footer-bottom {
+    padding: 20px 20px;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+    font-size: 10px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ─────────────────────────────────
+     TOAST
+  ───────────────────────────────── */
+  .toast {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    bottom: env(safe-area-inset-bottom);
+    border-radius: 0;
+    padding: 18px 20px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-align: center;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
+  }
+}
