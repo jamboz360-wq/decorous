@@ -1,6 +1,6 @@
 /* ============================================================
    Décorous Plus — Main Stylesheet
-   (Includes fixed hamburger menu + mobile footer row layout)
+   (Fixed: mobile "What's Included" now uses image + title/text columns)
    ============================================================ */
 
 /* ── VARIABLES ── */
@@ -402,7 +402,7 @@ footer { background: #0a0a0a; color: rgba(255,255,255,0.5); padding: 60px 0 32px
 .fade-up.visible { opacity: 1; transform: translateY(0); }
 
 /* ══════════════════════════════════════════════════════════════
-   MOBILE (≤ 900px) - FIXED HAMBURGER + FOOTER ROW LAYOUT
+   MOBILE (≤ 900px) - FIXED HAMBURGER + FOOTER ROW + INCLUDED 2‑COLUMN
 ══════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
   nav {
@@ -483,7 +483,6 @@ footer { background: #0a0a0a; color: rgba(255,255,255,0.5); padding: 60px 0 32px
   .hero-stats { gap: 32px; padding-top: 28px; margin-top: 32px; }
   .container { padding: 0 20px; }
   section { padding: 56px 0; }
-  .included-grid { grid-template-columns: 1fr; gap: 1px; }
   .products-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   .addon-grid { grid-template-columns: 1fr; gap: 1px; }
   .pricing-table th, .pricing-table td { padding: 14px 16px; }
@@ -492,34 +491,50 @@ footer { background: #0a0a0a; color: rgba(255,255,255,0.5); padding: 60px 0 32px
   .form-row { grid-template-columns: 1fr; gap: 12px; }
   .delivery-grid { grid-template-columns: 1fr; gap: 12px; }
 
+  /* ─── WHAT'S INCLUDED: 2‑column layout (image + title/text) ─── */
+  .included-grid {
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--grey-mid);
+  }
+  .included-card {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 28px 20px;
+    background: var(--white);
+  }
+  .included-num {
+    display: none;  /* hide the big numbers on mobile */
+  }
+  .included-icon {
+    width: 80px;
+    height: auto;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+  .included-title {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  .included-desc {
+    flex: 1;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
   /* ─── FOOTER: Navigate & Contact side by side ─── */
   .footer-inner {
     display: grid;
-    grid-template-columns: 1fr;          /* single column by default */
+    grid-template-columns: 1fr;
     gap: 32px;
     padding: 0 20px 48px;
   }
-  /* Brand description (first child) spans full width */
   .footer-inner > div:first-child {
     grid-column: 1 / -1;
   }
-  /* For screens 500px and below: force two columns for Navigate + Contact */
-  @media (max-width: 500px) {
-    .footer-inner {
-      grid-template-columns: 1fr 1fr;
-    }
-    .footer-inner > div:first-child {
-      grid-column: 1 / -1;
-    }
-    /* Ensure the two navigation divs take one column each */
-    .footer-inner > div:nth-child(2),
-    .footer-inner > div:nth-child(3) {
-      grid-column: span 1;
-    }
-  }
-  /* For screens between 501px and 900px, keep them stacked? 
-     We want side by side on all mobile, so we'll apply two columns above 500px as well */
-  @media (min-width: 501px) and (max-width: 900px) {
+  /* For all mobile widths (≤900px), force two columns for Navigate + Contact */
+  @media (min-width: 1px) {
     .footer-inner {
       grid-template-columns: 1fr 1fr;
     }
@@ -550,9 +565,10 @@ footer { background: #0a0a0a; color: rgba(255,255,255,0.5); padding: 60px 0 32px
   .hero-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; margin-top: 32px; text-align: center; }
   .hero-stats > div { border-right: 1px solid var(--grey-mid); }
   .hero-stats > div:last-child { border-right: none; }
-  .included-card { flex-direction: row; align-items: center; gap: 20px; padding: 28px 20px; }
-  .included-num { display: none; }
-  .included-icon { width: 72px; height: 72px; margin-bottom: 0; }
+
+  /* included cards: slightly smaller image */
+  .included-icon { width: 72px; }
+
   .product-card { background: var(--cream); }
   .product-info { background: var(--white); padding: 10px 12px 16px; }
   .product-name { font-size: 16px; }
