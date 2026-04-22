@@ -198,9 +198,12 @@ section { padding: 100px 0; }
 .product-img-wrap {
   background: var(--cream); overflow: hidden;
   aspect-ratio: 3/4; position: relative;
+  display: flex; align-items: center; justify-content: center;
 }
 .product-img-wrap img {
-  width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
+  width: 100%; height: 100%; object-fit: contain;
+  object-position: center top;
+  transition: transform 0.5s ease; padding: 12px;
 }
 .product-card:hover .product-img-wrap img { transform: scale(1.06); }
 .product-badge {
@@ -386,34 +389,618 @@ footer { background: #0a0a0a; color: rgba(255,255,255,0.5); padding: 60px 0 32px
 }
 .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-/* ── RESPONSIVE ── */
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE — Apple HIG proportions · Décorous Plus brand identity
+   
+   Guiding principles:
+   - Nav bar: 52px (Apple standard)  
+   - Touch targets: minimum 44×44px
+   - Safe area padding: env(safe-area-inset-*)
+   - Type scale: SF-inspired rhythm, Cormorant + Montserrat
+   - Spacing unit: 8px base grid (16, 20, 24, 32, 40, 48, 56)
+   - Container: 20px horizontal margin
+   - Sections: 56px top/bottom padding
+   - Inputs: 52px height (comfortable thumb tap)
+   - Border radius: 0 (brand has no radius — sharp luxury)
+══════════════════════════════════════════════════════════════ */
+
+/* ── TABLET (≤ 900px) ── */
 @media (max-width: 900px) {
-  nav { padding: 16px 24px; }
+
+  /* Nav */
+  nav {
+    padding: 0 20px;
+    height: 52px;
+  }
+  .nav-logo img { height: 34px; }
+  .nav-brand { font-size: 19px; }
   .nav-links { display: none; }
+  .nav-cta { display: none; }
   .nav-hamburger { display: flex; }
-  .hero { grid-template-columns: 1fr; min-height: auto; }
-  .hero-content { padding: 60px 24px 40px; }
-  .hero-image { height: 50vh; }
-  .container { padding: 0 24px; }
-  section { padding: 64px 0; }
-  .included-grid { grid-template-columns: 1fr; }
-  .products-grid { grid-template-columns: 1fr 1fr; }
-  .form-row { grid-template-columns: 1fr; }
-  .footer-inner { grid-template-columns: 1fr; gap: 40px; }
-  .delivery-grid { grid-template-columns: 1fr; }
-  .addon-grid { grid-template-columns: 1fr; }
-  .pricing-table th, .pricing-table td { padding: 14px 16px; }
-  .hero-stats { gap: 32px; }
-}
-@media (max-width: 600px) {
-  .products-grid { grid-template-columns: 1fr; }
-  .hero-ctas { flex-direction: column; }
+
+  /* Hero */
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-top: 52px;
+  }
+  .hero-image { order: 0; height: 56vw; min-height: 280px; }
+  .hero-content { order: 1; padding: 40px 24px 40px; }
+  .hero-title { font-size: clamp(36px, 7vw, 52px); }
+  .hero-stats { gap: 32px; padding-top: 28px; margin-top: 32px; }
+
+  /* Layout */
+  .container { padding: 0 20px; }
+  section { padding: 56px 0; }
+
+  /* Included */
+  .included-grid { grid-template-columns: 1fr; gap: 1px; }
+
+  /* Products */
+  .products-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Pricing */
+  .addon-grid { grid-template-columns: 1fr; gap: 1px; }
+  .pricing-table th,
+  .pricing-table td { padding: 14px 16px; }
+
+  /* Form */
+  .form-row { grid-template-columns: 1fr; gap: 12px; }
+
+  /* Delivery */
+  .delivery-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  /* Footer */
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 0 20px 48px;
+  }
+  .footer-bottom {
+    padding: 24px 20px 0;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
 }
 
-/* ── MOBILE NAV OPEN STATE ── */
-.nav-links.mobile-open {
-  display: flex; flex-direction: column;
-  position: absolute; top: 72px; left: 0; right: 0;
-  background: var(--white); padding: 24px 48px;
-  border-bottom: 1px solid #eee; gap: 20px; z-index: 99;
+
+/* ── MOBILE (≤ 430px — iPhone Pro Max and below) ── */
+@media (max-width: 430px) {
+
+  /* ─────────────────────────────────
+     GLOBAL
+  ───────────────────────────────── */
+  * { -webkit-tap-highlight-color: transparent; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body { overflow-x: hidden; }
+
+  .container { padding: 0 20px; }
+
+  section { padding: 56px 0; }
+
+  .section-header { margin-bottom: 36px; }
+
+  .section-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 34px;
+    line-height: 1.05;
+  }
+
+  .section-line { margin-top: 18px; }
+
+  /* ─────────────────────────────────
+     NAVIGATION — 52px Apple standard
+  ───────────────────────────────── */
+  nav {
+    height: 52px;
+    padding: 0 16px 0 20px;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .nav-logo { gap: 10px; }
+  .nav-logo img { height: 32px; }
+
+  .nav-brand {
+    font-size: 18px;
+    letter-spacing: 0.02em;
+  }
+  .nav-brand span { display: none; } /* hide tagline — no space */
+
+  .nav-hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;       /* 44px touch target */
+    margin-right: -10px;
+  }
+  .nav-hamburger span {
+    width: 20px;
+    height: 1.5px;
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.28s ease;
+  }
+
+  /* ─────────────────────────────────
+     FULL-SCREEN NAV OVERLAY
+  ───────────────────────────────── */
+  .nav-links.mobile-open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--white);
+    padding: 80px 28px 40px;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+    gap: 0;
+    z-index: 98;
+    animation: navFadeIn 0.22s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  @keyframes navFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .nav-links.mobile-open li {
+    border-bottom: 1px solid var(--grey-light);
+  }
+
+  .nav-links.mobile-open a {
+    display: flex;
+    align-items: center;
+    height: 64px;                    /* generous touch target */
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--black);
+    text-decoration: none;
+    transition: color 0.18s ease;
+  }
+
+  .nav-links.mobile-open a:active { color: var(--gold); }
+
+  /* "Order Now" CTA pinned at bottom of overlay */
+  .nav-links.mobile-open::after {
+    content: 'Order Now';
+    position: absolute;
+    bottom: 32px;
+    bottom: calc(32px + env(safe-area-inset-bottom));
+    left: 28px; right: 28px;
+    display: block;
+    background: var(--black);
+    color: var(--white);
+    text-align: center;
+    padding: 0;
+    height: 52px;
+    line-height: 52px;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* ─────────────────────────────────
+     HERO
+  ───────────────────────────────── */
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 52px;            /* exact nav height */
+    min-height: auto;
+  }
+
+  /* Image first — visual hook before reading */
+  .hero-image {
+    order: 0;
+    height: 68vw;
+    max-height: 320px;
+  }
+
+  .hero-content {
+    order: 1;
+    padding: 32px 20px 40px;
+  }
+
+  .hero-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    margin-bottom: 14px;
+  }
+
+  .hero-title {
+    font-size: 38px;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+
+  .hero-subtitle {
+    font-size: 13px;
+    line-height: 1.75;
+    margin-bottom: 28px;
+  }
+
+  /* Buttons — full width, 52px height (Apple standard) */
+  .hero-ctas {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    display: block;
+    text-align: center;
+    height: 52px;
+    line-height: 52px;
+    padding: 0 24px;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+  }
+
+  /* Stats row — 3-column divider grid */
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--grey-mid);
+    text-align: center;
+  }
+
+  .hero-stats > div {
+    padding: 0 4px;
+    border-right: 1px solid var(--grey-mid);
+  }
+  .hero-stats > div:last-child { border-right: none; }
+
+  .hero-stat-num {
+    font-size: 26px;
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 7px;
+    letter-spacing: 0.15em;
+    margin-top: 5px;
+  }
+
+  /* ─────────────────────────────────
+     WHAT'S INCLUDED
+  ───────────────────────────────── */
+  .included-grid {
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--grey-mid);   /* gap becomes a hairline divider */
+  }
+
+  .included-card {
+    background: var(--white);
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 28px 20px;
+  }
+
+  /* Hide the large ghost number — too noisy on mobile */
+  .included-num { display: none; }
+
+  .included-icon {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  .included-title { font-size: 20px; margin-bottom: 6px; }
+  .included-desc  { font-size: 12px; line-height: 1.7; }
+
+  /* ─────────────────────────────────
+     PRODUCTS / COLLECTIONS
+  ───────────────────────────────── */
+  .products-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--grey-mid);
+  }
+
+  .product-card {
+    background: var(--cream);
+    border-bottom: none;
+    padding: 0;
+  }
+
+  .product-img-wrap {
+    aspect-ratio: 2/3;
+    background: var(--cream);
+  }
+
+  .product-img-wrap img { padding: 10px 6px 4px; }
+
+  .product-info {
+    padding: 10px 12px 16px;
+    background: var(--white);
+  }
+
+  .product-name {
+    font-size: 16px;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .color-dot {
+    width: 14px;
+    height: 14px;
+  }
+
+  .product-colors { margin-bottom: 8px; }
+
+  .product-price {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .product-price strong { font-size: 14px; }
+
+  .product-badge {
+    top: 10px;
+    left: 10px;
+    font-size: 7px;
+    padding: 4px 8px;
+    letter-spacing: 0.12em;
+  }
+
+  /* ─────────────────────────────────
+     PRICING
+  ───────────────────────────────── */
+  .pricing-bg .section-title { font-size: 34px; }
+
+  .pricing-table { margin-top: 32px; }
+  .pricing-table th {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    padding: 14px 16px;
+  }
+  .pricing-table td {
+    padding: 18px 16px;
+    font-size: 13px;
+  }
+  .pricing-table td:last-child {
+    font-size: 22px;
+    text-align: right;
+  }
+
+  .pricing-note {
+    font-size: 10px;
+    margin-top: 24px;
+    letter-spacing: 0.08em;
+    padding: 0 4px;
+  }
+
+  .addon-grid {
+    grid-template-columns: 1fr;
+    gap: 1px;
+    margin-top: 48px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .addon-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 20px;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .addon-img {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  .addon-title { font-size: 18px; margin-bottom: 4px; }
+  .addon-subtitle { font-size: 10px; margin-bottom: 6px; }
+  .addon-price { font-size: 20px; }
+
+  /* ─────────────────────────────────
+     SIZE GUIDE
+  ───────────────────────────────── */
+  .size-table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -20px;                 /* bleed to screen edge */
+    padding: 0 20px;
+  }
+
+  .size-table { min-width: 440px; }
+
+  .size-table th {
+    padding: 14px 16px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    white-space: nowrap;
+  }
+
+  .size-table td {
+    padding: 16px 16px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .size-table td:first-child { font-size: 18px; }
+
+  .size-note {
+    font-size: 10px;
+    margin-top: 16px;
+    letter-spacing: 0.06em;
+    text-align: left;
+  }
+
+  /* ─────────────────────────────────
+     DELIVERY
+  ───────────────────────────────── */
+  .delivery-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .delivery-card {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 20px;
+  }
+
+  .delivery-icon {
+    font-size: 40px;
+    min-width: 56px;
+    text-align: center;
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .delivery-label { font-size: 9px; letter-spacing: 0.15em; }
+  .delivery-time  { font-size: 22px; margin-bottom: 6px; }
+  .delivery-desc  { font-size: 12px; line-height: 1.65; }
+
+  .delivery-note {
+    padding: 20px;
+    font-size: 12px;
+    margin-top: 24px;
+    line-height: 1.75;
+  }
+
+  /* ─────────────────────────────────
+     ORDER FORM
+  ───────────────────────────────── */
+  .order-bg .section-title { font-size: 34px; }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: 0;
+  }
+
+  .form-group {
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .form-label {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+  }
+
+  /* 52px height — Apple standard tap target */
+  .form-input,
+  .form-select {
+    height: 52px;
+    padding: 0 16px;
+    font-size: 16px;     /* CRITICAL: prevents iOS auto-zoom on focus */
+    font-weight: 300;
+    border-radius: 0;
+  }
+
+  .form-textarea {
+    padding: 14px 16px;
+    font-size: 16px;
+    min-height: 96px;
+    resize: none;
+    border-radius: 0;
+  }
+
+  #estimated-price {
+    font-size: 17px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* 52px CTA — prominent, full width */
+  .form-submit {
+    height: 52px;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    margin-top: 12px;
+    border-radius: 0;
+  }
+
+  .form-note {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    margin-top: 14px;
+    padding: 0 4px;
+  }
+
+  /* ─────────────────────────────────
+     FOOTER
+  ───────────────────────────────── */
+  footer { padding: 48px 0 0; }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 0 20px 40px;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+  }
+
+  .footer-brand { font-size: 22px; margin-bottom: 10px; }
+  .footer-tagline { font-size: 8px; letter-spacing: 0.22em; margin-bottom: 14px; }
+  .footer-desc { font-size: 12px; line-height: 1.8; max-width: 100%; }
+
+  .footer-heading {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    margin-bottom: 16px;
+  }
+
+  .footer-links { gap: 0; }
+
+  .footer-links li {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .footer-links a {
+    display: block;
+    height: 44px;           /* Apple minimum touch target */
+    line-height: 44px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+
+  .footer-bottom {
+    padding: 20px 20px;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+    font-size: 10px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ─────────────────────────────────
+     TOAST
+  ───────────────────────────────── */
+  .toast {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    bottom: env(safe-area-inset-bottom);
+    border-radius: 0;
+    padding: 18px 20px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-align: center;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
+  }
 }
