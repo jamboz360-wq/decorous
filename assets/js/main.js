@@ -101,3 +101,55 @@ document.addEventListener('DOMContentLoaded', () => {
   updatePrice();
 
 });
+
+  /* ── INCLUDED SLIDESHOW (mobile only) ── */
+  (function() {
+    const grid = document.getElementById('included-grid');
+    const nav  = document.getElementById('included-nav');
+    const dots = document.querySelectorAll('.included-dot');
+    const prev = document.getElementById('slide-prev');
+    const next = document.getElementById('slide-next');
+    if (!grid) return;
+
+    let current = 0;
+    const total = 3;
+
+    function isMobile() { return window.innerWidth <= 900; }
+
+    function goTo(idx) {
+      current = (idx + total) % total;
+      grid.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    function setup() {
+      if (isMobile()) {
+        grid.style.transition = 'transform 0.42s cubic-bezier(0.4,0,0.2,1)';
+        nav.style.display = 'flex';
+        goTo(0);
+
+        // touch swipe
+        let startX = 0;
+        grid.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+        grid.addEventListener('touchend', e => {
+          const diff = startX - e.changedTouches[0].clientX;
+          if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+        }, { passive: true });
+      } else {
+        grid.style.transform = '';
+        grid.style.transition = '';
+        nav.style.display = 'none';
+      }
+    }
+
+    prev.addEventListener('click', () => goTo(current - 1));
+    next.addEventListener('click', () => goTo(current + 1));
+    dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.slide)));
+
+    setup();
+    window.addEventListener('resize', setup);
+
+    // auto-advance on mobile
+    setInterval(() => { if (isMobile()) goTo(current + 1); }, 4000);
+  })();
+

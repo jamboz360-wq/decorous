@@ -17,7 +17,7 @@
 
   <!-- NAVIGATION -->
   <nav id="nav">
-    <a href="#" class="nav-logo">
+    <a href="index.html" class="nav-logo">
       <img src="assets/images/logo.png" alt="Décorous Plus Logo">
       <div class="nav-brand">
         Décorous Plus
@@ -26,12 +26,11 @@
     </a>
     <ul class="nav-links">
       <li><a href="#products">Collections</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#sizes">Sizing</a></li>
-      <li><a href="#delivery">Delivery</a></li>
-      <li><a href="#order">Order Now</a></li>
+      <li><a href="order.html#pricing">Pricing</a></li>
+      <li><a href="order.html#delivery">Delivery</a></li>
+      <li><a href="order.html#order">Order Now</a></li>
     </ul>
-    <a href="#order" class="nav-cta">Order Now</a>
+    <a href="order.html#order" class="nav-cta">Order Now</a>
     <button class="nav-hamburger" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
@@ -43,13 +42,13 @@
       <p class="hero-eyebrow">Graduation Robe Sets — Qatar's Premier</p>
       <h1 class="hero-title">Crafted for Your<br><em>Finest Moment</em></h1>
       <p class="hero-subtitle">Bespoke graduation robe sets with personalised Arabic name embroidery — made with precision and delivered to your door in Qatar.</p>
-      <div class="hero-ctas"><a href="#products" class="btn-primary">Explore Collections</a><a href="#order" class="btn-outline">Place an Order</a></div>
+      <div class="hero-ctas"><a href="#products" class="btn-primary">Explore Collections</a><a href="order.html#order" class="btn-outline">Place an Order</a></div>
       <div class="hero-stats"><div><div class="hero-stat-num">6</div><div class="hero-stat-label">Robe Styles</div></div><div><div class="hero-stat-num">5</div><div class="hero-stat-label">Sizes Available</div></div><div><div class="hero-stat-num">150+</div><div class="hero-stat-label">QAR / Piece (Bulk)</div></div></div>
     </div>
     <div class="hero-image"><img src="assets/images/hero-model.png" alt="Graduate wearing Décorous Plus robe"><div class="hero-image-overlay"><p class="hero-image-text">"Your name, your year, your legacy."</p></div></div>
   </section>
 
-  <!-- WHAT'S INCLUDED (fixed: image + title+desc wrapper) -->
+  <!-- WHAT'S INCLUDED -->
   <section class="included-bg" id="included">
     <div class="container">
       <div class="section-header fade-up">
@@ -57,95 +56,55 @@
         <h2 class="section-title">Three Pieces.<br><em>One Complete Look.</em></h2>
         <span class="section-line"></span>
       </div>
-      <div class="included-grid">
-        <div class="included-card fade-up">
-          <div class="included-num">01</div>
-          <img src="assets/images/robe-standalone.png" alt="Graduation Robe" class="included-icon">
-          <div class="included-text">
+      <div class="included-slideshow-wrap">
+        <div class="included-grid" id="included-grid">
+          <div class="included-card fade-up">
+            <div class="included-num">01</div>
+            <img src="assets/images/robe-standalone.png" alt="Graduation Robe" class="included-icon">
             <h3 class="included-title">Graduation Robe</h3>
             <p class="included-desc">A robe crafted in your chosen colour and size, tailored to XS–XL. Flowing, dignified, built to last well beyond the ceremony.</p>
           </div>
-        </div>
-        <div class="included-card fade-up" style="transition-delay:0.1s">
-          <div class="included-num">02</div>
-          <img src="assets/images/hat-gold.png" alt="Mortarboard Hat" class="included-icon">
-          <div class="included-text">
-            <h3 class="included-title">Mortarboard Hat</h3>
-            <p class="included-desc">A classic mortarboard hat with an elegantly attached decorative brooche — in gold or silver to complement your robe's colour palette.</p>
+          <div class="included-card fade-up" style="transition-delay:0.1s">
+            <div class="included-num">02</div>
+            <img src="assets/images/hat-gold.png" alt="Graduation Hat" class="included-icon">
+            <h3 class="included-title">Graduation Hat</h3>
+            <p class="included-desc">A classic mortarboard finished with a golden tassel — the iconic centrepiece of your graduation look.</p>
+          </div>
+          <div class="included-card fade-up" style="transition-delay:0.2s">
+            <div class="included-num">03</div>
+            <img src="assets/images/sash-black-gold.png" alt="Personalised Sash" class="included-icon">
+            <h3 class="included-title">Personalised Sash</h3>
+            <p class="included-desc">Your name embroidered in Arabic, alongside your graduation year — a personal touch that makes every set truly yours.</p>
           </div>
         </div>
-        <div class="included-card fade-up" style="transition-delay:0.2s">
-          <div class="included-num">03</div>
-          <img src="assets/images/sash-black-gold.png" alt="Personalised Shawl/Sash" class="included-icon">
-          <div class="included-text">
-            <h3 class="included-title">Personalised Shawl / Sash</h3>
-            <p class="included-desc">Your full name embroidered in Arabic calligraphy on one side, and your graduation year on the other — a keepsake you'll treasure forever.</p>
+        <div class="included-nav" id="included-nav" style="display:none;">
+          <button class="included-arrow" id="slide-prev" aria-label="Previous">&#8592;</button>
+          <div class="included-dots" id="included-dots">
+            <button class="included-dot active" data-slide="0"></button>
+            <button class="included-dot" data-slide="1"></button>
+            <button class="included-dot" data-slide="2"></button>
           </div>
+          <button class="included-arrow" id="slide-next" aria-label="Next">&#8594;</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PRODUCTS / COLLECTIONS -->
+  <!-- COLLECTIONS -->
   <section class="products-bg" id="products">
     <div class="container">
-      <div class="section-header fade-up">
-        <p class="section-eyebrow">Our Collections</p>
-        <h2 class="section-title">Six Signature<br><em>Robe Sets</em></h2>
-        <span class="section-line"></span>
-      </div>
+      <div class="section-header fade-up"><p class="section-eyebrow">Our Collections</p><h2 class="section-title">Six Styles.<br><em>One for Every Graduate.</em></h2><span class="section-line"></span></div>
       <div class="products-grid">
-        <div class="product-card fade-up"><div class="product-img-wrap"><img src="assets/images/product-set-black.png" alt="Black Classic Robe Set"><span class="product-badge">Most Popular</span></div><div class="product-info"><h3 class="product-name">Black Classic Set</h3><div class="product-colors"><div class="color-dot" style="background:#111111;"></div><div class="color-dot" style="background:#111111;border:1px solid #555;"></div><div class="color-dot" style="background:#c9a84c;"></div></div><p class="product-price">From <strong>150 QAR</strong> · Black sash, gold writing &amp; brooche · Velvet add-on available</p></div></div>
+        <div class="product-card fade-up"><div class="product-img-wrap"><span class="product-badge">Best Seller</span><img src="assets/images/product-set-black.png" alt="Black Classic Robe Set"></div><div class="product-info"><h3 class="product-name">Black Classic Set</h3><div class="product-colors"><div class="color-dot" style="background:#111111;border:1px solid #555;"></div><div class="color-dot" style="background:#c9a84c;"></div><div class="color-dot" style="background:#c9a84c;"></div></div><p class="product-price">From <strong>150 QAR</strong> · Gold sash, gold writing &amp; brooche · Velvet add-on available</p></div></div>
         <div class="product-card fade-up" style="transition-delay:0.1s"><div class="product-img-wrap"><img src="assets/images/product-set-white.png" alt="Navy Blue Robe Set"></div><div class="product-info"><h3 class="product-name">Navy Blue Set</h3><div class="product-colors"><div class="color-dot" style="background:#1a2a4a;"></div><div class="color-dot" style="background:#1a2a4a;border:1px solid #555;"></div><div class="color-dot" style="background:#c0c0c0;"></div></div><p class="product-price">From <strong>150 QAR</strong> · Navy sash, silver writing &amp; brooche · Velvet add-on available</p></div></div>
         <div class="product-card fade-up" style="transition-delay:0.2s"><div class="product-img-wrap"><img src="assets/images/product-set-navy.png" alt="White Robe Set"></div><div class="product-info"><h3 class="product-name">White Ivory Set</h3><div class="product-colors"><div class="color-dot" style="background:#f0f0f0;border:1px solid #ccc;"></div><div class="color-dot" style="background:#8a8a8a;"></div><div class="color-dot" style="background:#111111;border:1px solid #555;"></div><div class="color-dot" style="background:#c0c0c0;"></div></div><p class="product-price">From <strong>150 QAR</strong> · Grey sash, black writing, silver brooche</p></div></div>
         <div class="product-card fade-up"><div class="product-img-wrap"><img src="assets/images/product-set-brown.png" alt="Brown Robe Set"></div><div class="product-info"><h3 class="product-name">Brown Earthy Set</h3><div class="product-colors"><div class="color-dot" style="background:#6b4c2a;"></div><div class="color-dot" style="background:#f0f0f0;border:1px solid #ccc;"></div><div class="color-dot" style="background:#111111;border:1px solid #555;"></div></div><p class="product-price">From <strong>150 QAR</strong> · White sash, black writing &amp; brooche</p></div></div>
         <div class="product-card fade-up" style="transition-delay:0.1s"><div class="product-img-wrap"><img src="assets/images/product-set-purple.png" alt="Maroon Robe Set"></div><div class="product-info"><h3 class="product-name">Maroon Heritage Set</h3><div class="product-colors"><div class="color-dot" style="background:#7a1e2e;"></div><div class="color-dot" style="background:#f0f0f0;border:1px solid #ccc;"></div><div class="color-dot" style="background:#111111;border:1px solid #555;"></div><div class="color-dot" style="background:#f0f0f0;border:1px solid #ccc;"></div></div><p class="product-price">From <strong>150 QAR</strong> · White sash, black writing, white brooche</p></div></div>
         <div class="product-card fade-up" style="transition-delay:0.2s"><div class="product-img-wrap"><img src="assets/images/product-set-maroon.png" alt="Dark Purple Robe Set"></div><div class="product-info"><h3 class="product-name">Dark Purple Set</h3><div class="product-colors"><div class="color-dot" style="background:#3b1f5e;"></div><div class="color-dot" style="background:#111111;border:1px solid #555;"></div><div class="color-dot" style="background:#f0f0f0;border:1px solid #ccc;"></div></div><p class="product-price">From <strong>150 QAR</strong> · Black sash, white writing &amp; brooche</p></div></div>
       </div>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <section class="pricing-bg" id="pricing">
-    <div class="container">
-      <div class="section-header fade-up"><p class="section-eyebrow">Transparent Pricing</p><h2 class="section-title">The More You Order,<br><em style="color:var(--gold-light)">The Better the Value.</em></h2><span class="section-line"></span></div>
-      <table class="pricing-table fade-up"><thead><tr><th>Quantity</th><th>Price Per Set</th></tr></thead><tbody><tr><td>Less than 10 pieces</td><td>329 QAR</td></tr><tr><td>10 – 40 pieces</td><td>199 QAR</td></tr><tr><td>41 – 100 pieces</td><td>175 QAR</td></tr><tr><td>101+ pieces</td><td>150 QAR</td></tr></tbody></table>
-      <p class="pricing-note fade-up">All prices include the full 3-piece set (robe + hat + personalised sash). Bulk orders: pricing confirmed on direct contact.</p>
-      <div class="addon-grid fade-up"><p class="addon-section-label">Optional Add-Ons (Sets 1 &amp; 2 Only)</p><div class="addon-card"><img src="assets/images/addon-velvet-black.png" alt="Black Velvet Hands" class="addon-img"><div><div class="addon-subtitle">Add-on · Set 1 (Black)</div><div class="addon-title">Black Velvet Hands</div><div class="addon-price">+35 QAR</div></div></div><div class="addon-card"><img src="assets/images/addon-velvet-navy.png" alt="Navy-Blue Velvet Hands" class="addon-img"><div><div class="addon-subtitle">Add-on · Set 2 (Navy)</div><div class="addon-title">Navy-Blue Velvet Hands</div><div class="addon-price">+35 QAR</div></div></div></div>
-    </div>
-  </section>
-
-  <!-- SIZE GUIDE -->
-  <section class="sizes-bg" id="sizes">
-    <div class="container">
-      <div class="section-header fade-up"><p class="section-eyebrow">Size Guide</p><h2 class="section-title">Find Your<br><em>Perfect Fit</em></h2><span class="section-line"></span></div>
-      <div style="max-width:800px;margin:0 auto;" class="fade-up"><div class="size-table-scroll"><table class="size-table"><thead><tr><th>Size</th><th>Robe Length</th><th>Chest</th><th>Sleeve Length</th><th>Shoulder</th></tr></thead><tbody><tr><td>XS</td><td>48"</td><td>34"</td><td>20.5"</td><td>15"</td></tr><tr><td>S</td><td>50"</td><td>36"</td><td>21.5"</td><td>16"</td></tr><tr><td>M</td><td>52"</td><td>38"</td><td>22.5"</td><td>17"</td></tr><tr><td>L</td><td>54"</td><td>40"</td><td>23.5"</td><td>17.5"</td></tr><tr><td>XL</td><td>56"</td><td>42"</td><td>24.5"</td><td>18"</td></tr></tbody></table></div><p class="size-note">All measurements in inches. When between sizes, we recommend sizing up.</p></div>
-    </div>
-  </section>
-
-  <!-- DELIVERY -->
-  <section class="delivery-bg" id="delivery">
-    <div class="container">
-      <div class="section-header fade-up"><p class="section-eyebrow">Delivery Times</p><h2 class="section-title">Fast, Reliable<br><em>Delivery in Qatar</em></h2><span class="section-line"></span></div>
-      <div class="delivery-grid"><div class="delivery-card fade-up"><div class="delivery-icon">2–3</div><div><div class="delivery-label">Black Classic Set (Set 1)</div><div class="delivery-time">2–3 Days</div><div class="delivery-desc">Our fastest turnaround. The classic black robe is always in stock and ready to personalise with your name and year.</div></div></div><div class="delivery-card fade-up" style="transition-delay:0.1s"><div class="delivery-icon">7</div><div><div class="delivery-label">All Other Sets (Sets 2–6)</div><div class="delivery-time">1 Week</div><div class="delivery-desc">Navy, white, brown, maroon and dark purple sets — expertly assembled and delivered within one week of placing your order.</div></div></div></div>
-      <div class="delivery-note fade-up"><strong>Bulk Orders</strong><br>For orders of 10 pieces or more, delivery timelines are confirmed based on quantity. You will be contacted directly after placing your order to coordinate delivery.</div>
-    </div>
-  </section>
-
-  <!-- ORDER FORM -->
-  <section class="order-bg" id="order">
-    <div class="container">
-      <div class="section-header fade-up"><p class="section-eyebrow">Place Your Order</p><h2 class="section-title">Let's Make Your<br><em style="color:var(--gold-light)">Graduation Unforgettable</em></h2><span class="section-line"></span></div>
-      <form class="order-form fade-up" id="order-form" novalidate>
-        <div class="form-row"><div class="form-group"><label class="form-label" for="name-en">Full Name (English)</label><input type="text" id="name-en" class="form-input" placeholder="Your full name" required></div><div class="form-group"><label class="form-label" for="name-ar">Full Name in Arabic (for sash)</label><input type="text" id="name-ar" class="form-input" placeholder="اسمك الكامل بالعربي" dir="rtl"></div></div>
-        <div class="form-row"><div class="form-group"><label class="form-label" for="phone">WhatsApp / Phone</label><input type="tel" id="phone" class="form-input" placeholder="+974 XXXX XXXX" required></div><div class="form-group"><label class="form-label" for="grad-year">Graduation Year</label><input type="number" id="grad-year" class="form-input" placeholder="2025" min="2024" max="2030"></div></div>
-        <div class="form-row"><div class="form-group"><label class="form-label" for="robe-set">Robe Set</label><select id="robe-set" class="form-select" required><option value="" disabled selected>Choose your set…</option><option value="set1">Set 1 — Black (Gold sash)</option><option value="set2">Set 2 — Navy Blue (Silver sash)</option><option value="set3">Set 3 — White (Grey sash)</option><option value="set4">Set 4 — Brown (White sash)</option><option value="set5">Set 5 — Maroon (White sash)</option><option value="set6">Set 6 — Dark Purple (Black sash)</option></select></div><div class="form-group"><label class="form-label" for="size">Size</label><select id="size" class="form-select" required><option value="" disabled selected>Select size…</option><option value="xs">XS — 48" length, 34" chest</option><option value="s">S — 50" length, 36" chest</option><option value="m">M — 52" length, 38" chest</option><option value="l">L — 54" length, 40" chest</option><option value="xl">XL — 56" length, 42" chest</option></select></div></div>
-        <div class="form-row"><div class="form-group"><label class="form-label" for="quantity">Quantity</label><input type="number" id="quantity" class="form-input" placeholder="1" min="1" value="1" required></div><div class="form-group"><label class="form-label" for="addon">Add-On (Sets 1 &amp; 2 only)</label><select id="addon" class="form-select"><option value="">No add-on</option><option value="black-velvet">Black Velvet Hands (+35 QAR)</option><option value="navy-velvet">Navy-Blue Velvet Hands (+35 QAR)</option></select></div></div>
-        <p id="estimated-price" style="color: var(--gold-light); font-family: 'Cormorant Garamond', serif; font-size: 20px; text-align: right; margin-bottom: 16px; letter-spacing: 0.05em;"></p>
-        <div class="form-row"><div class="form-group full"><label class="form-label" for="notes">Additional Notes</label><textarea id="notes" class="form-textarea" placeholder="Any special requests, delivery address, or bulk order details…"></textarea></div></div>
-        <button type="submit" class="form-submit">Submit Order Request</button>
-        <p class="form-note">Our team will contact you on WhatsApp within 24 hours to confirm your order and process payment.</p>
-      </form>
+      <div style="text-align:center;margin-top:56px;" class="fade-up">
+        <a href="order.html#order" class="btn-primary">Place Your Order</a>
+      </div>
     </div>
   </section>
 
@@ -153,7 +112,7 @@
   <footer>
     <div class="footer-inner">
       <div><div class="footer-brand">Décorous Plus</div><div class="footer-tagline">Quality · Luxury · Exclusivity</div><p class="footer-desc">Qatar's premier destination for bespoke graduation robe sets — crafted with care, personalised with your name, delivered to your door.</p></div>
-      <div><div class="footer-heading">Navigate</div><ul class="footer-links"><li><a href="#products">Collections</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#sizes">Size Guide</a></li><li><a href="#delivery">Delivery</a></li><li><a href="#order">Order Now</a></li></ul></div>
+      <div><div class="footer-heading">Navigate</div><ul class="footer-links"><li><a href="#products">Collections</a></li><li><a href="order.html#pricing">Pricing</a></li><li><a href="order.html#delivery">Delivery</a></li><li><a href="order.html#order">Order Now</a></li></ul></div>
       <div><div class="footer-heading">Contact</div><ul class="footer-links"><li><a href="https://wa.me/974XXXXXXXX" target="_blank" rel="noopener">WhatsApp Us</a></li><li><a href="https://instagram.com/decorousplus" target="_blank" rel="noopener">Instagram</a></li><li><a href="mailto:hello@decorousplus.qa">Email Us</a></li></ul></div>
     </div>
     <div class="footer-bottom"><span>© 2025 <span class="footer-gold">Décorous Plus</span>. All rights reserved.</span><span>Doha, Qatar</span></div>
