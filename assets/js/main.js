@@ -781,3 +781,51 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', onScroll, { passive: true });
   onScroll();
 })();
+
+/* ── "Viewing now" social proof widget ── */
+(function () {
+  var el = document.getElementById('viewingNow');
+  var countEl = document.getElementById('viewingCount');
+  if (!el || !countEl) return;
+
+  // Realistic-feeling range: 8–27
+  function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+  var current = rand(8, 27);
+  countEl.textContent = current;
+
+  // Show after a short delay (feels more natural than instant)
+  setTimeout(function () { el.classList.add('visible'); }, 1800);
+
+  // Drift the number up or down every 12–20 seconds
+  function drift() {
+    var delta = Math.random() < 0.55 ? 1 : -1; // slight upward bias
+    current = Math.max(6, Math.min(32, current + delta));
+    countEl.textContent = current;
+    setTimeout(drift, rand(12000, 20000));
+  }
+  setTimeout(drift, rand(12000, 20000));
+
+  // Hide briefly when navigating away (page visibility API)
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      el.classList.remove('visible');
+    } else {
+      setTimeout(function () { el.classList.add('visible'); }, 600);
+    }
+  });
+})();
+
+/* ── Announcement bar marquee — duplicate content for seamless loop ── */
+(function () {
+  if (window.innerWidth > 900) return;
+  var inner = document.querySelector('.announce-inner');
+  if (!inner) return;
+  // Clone all children and append so the scroll loops invisibly
+  var origItems = Array.from(inner.children);
+  origItems.forEach(function (el) {
+    var clone = el.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    inner.appendChild(clone);
+  });
+})();
