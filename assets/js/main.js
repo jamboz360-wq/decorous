@@ -38,11 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') mnuClose(); });
 
   /* ── SCROLL REVEAL ── */
+  // threshold:0 + rootMargin ensures above-fold hero elements fire immediately on load
   const fadeObserver = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-    { threshold: 0.12 }
+    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); } }),
+    { threshold: 0, rootMargin: '50px 0px 50px 0px' }
   );
   document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+  // Hard fallback: reveal any still-hidden elements after 800ms
+  setTimeout(function() {
+    document.querySelectorAll('.fade-up:not(.visible)').forEach(el => el.classList.add('visible'));
+  }, 800);
 
   /* ═══════════════════════════════════
      CART SYSTEM
@@ -472,11 +477,31 @@ document.addEventListener('DOMContentLoaded', () => {
     popup.addEventListener('click', e => { if (e.target === popup) popup.style.display = 'none'; });
   })();
 
-
+  /* ── ORDERED TODAY COUNTER ── */
+  (function() {
+    const el = document.getElementById('orderedTodayNum');
+    if (!el) return;
+    // Seed from date so it's consistent within a day but varies daily
+    const seed = new Date().toDateString();
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+    const base = 14 + Math.abs(hash % 22); // 14–35 range
+    let current = base;
+    el.textContent = current;
+    // Randomly bump up every 25-60s
+    function bump() {
+      current += Math.floor(Math.random() * 2) + 1;
+      el.style.opacity = '0.3';
+      setTimeout(() => { el.textContent = current; el.style.opacity = '1'; }, 300);
+      setTimeout(bump, 25000 + Math.random() * 35000);
+    }
+    setTimeout(bump, 30000 + Math.random() * 30000);
+  })();
 
 });
 
 /* ── INCLUDED SLIDESHOW ── */
+document.addEventListener('DOMContentLoaded', function() {
 (function() {
   const grid = document.getElementById('included-grid');
   const nav  = document.getElementById('included-nav');
@@ -523,7 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 /* ══════════════════════════════════════════════════════════════
-   ROBE DETAIL MODAL  (was robes.js — merged after page removal)
+   ROBE DETAIL MODAL
 ══════════════════════════════════════════════════════════════ */
 (function() {
 
@@ -652,7 +677,6 @@ document.addEventListener('DOMContentLoaded', () => {
               '<div class="rm-detail-item"><strong>Hat:</strong> ' + d.hat + '</div>' +
               addonHtml +
               '<p class="rm-price">From <strong>150 QAR</strong> · per set</p>' +
-              '<button class="rm-add-cart" id="rmAddBtn">Add to Cart</button>' +
             '</div>' +
 
           '</div>' +
@@ -666,6 +690,9 @@ document.addEventListener('DOMContentLoaded', () => {
             '</table>' +
             '<p class="rm-size-note">Sizes are approximate. When between sizes, size up. The robe drapes — a little extra length is always better.</p>' +
           '</div>' +
+
+          // Add to Cart — always last, full width
+          '<button class="rm-add-cart" id="rmAddBtn">Add to Cart</button>' +
 
         '</div>' +
       '</div>';
@@ -717,4 +744,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+})();
+}); // end DOMContentLoaded (slideshow + robe modal)
+
+/* ── Pricing page: sticky mobile CTA bar ── */
+(function() {
+  var bar = document.getElementById('phMobileBar');
+  if (!bar) return; // not on pricing page
+
+  var shown = false;
+  var orderSection = document.getElementById('order');
+
+  function onScroll() {
+    var isMobile = window.innerWidth <= 900;
+    if (!isMobile) {
+      if (shown) { bar.classList.remove('ph-mobile-bar--visible'); document.body.classList.remove('ph-bar-active'); shown = false; }
+      return;
+    }
+    // Show after 300px scroll, hide when order form is in view
+    var scrollY = window.scrollY || window.pageYOffset;
+    var nearOrder = orderSection && (orderSection.getBoundingClientRect().top < window.innerHeight * 0.5);
+    var shouldShow = scrollY > 300 && !nearOrder;
+
+    if (shouldShow && !shown) {
+      bar.classList.add('ph-mobile-bar--visible');
+      document.body.classList.add('ph-bar-active');
+      shown = true;
+    } else if (!shouldShow && shown) {
+      bar.classList.remove('ph-mobile-bar--visible');
+      document.body.classList.remove('ph-bar-active');
+      shown = false;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll();
 })();

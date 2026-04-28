@@ -13,6 +13,7 @@ const ROBE_DATA = {
       'assets/images/set1-2.webp',
       'assets/images/set1-3.webp',
       'assets/images/set1-4.webp',
+      'assets/images/size-reference.png',
     ],
     sash: 'Gold sash with Arabic name embroidery',
     hat: 'Classic mortarboard with gold tassel',
@@ -29,6 +30,7 @@ const ROBE_DATA = {
       'assets/images/set2-2.webp',
       'assets/images/set2-3.webp',
       'assets/images/set2-4.webp',
+      'assets/images/size-reference.png',
     ],
     sash: 'Navy sash with silver Arabic name embroidery',
     hat: 'Classic mortarboard with silver tassel',
@@ -43,6 +45,7 @@ const ROBE_DATA = {
     images: [
       'assets/images/set3-1.webp',
       'assets/images/set3-2.webp',
+      'assets/images/size-reference.png',
     ],
     sash: 'Grey sash · Black writing · Silver brooche',
     hat: 'Classic mortarboard with silver tassel',
@@ -57,6 +60,7 @@ const ROBE_DATA = {
     images: [
       'assets/images/set4-1.webp',
       'assets/images/set4-2.webp',
+      'assets/images/size-reference.png',
     ],
     sash: 'White sash · Black writing · Brooche',
     hat: 'Classic mortarboard with gold tassel',
@@ -71,6 +75,7 @@ const ROBE_DATA = {
     images: [
       'assets/images/set5-1.webp',
       'assets/images/set5-2.webp',
+      'assets/images/size-reference.png',
     ],
     sash: 'White sash · Black writing · White brooche',
     hat: 'Classic mortarboard with gold tassel',
@@ -85,6 +90,7 @@ const ROBE_DATA = {
     images: [
       'assets/images/set6-1.webp',
       'assets/images/set6-2.webp',
+      'assets/images/size-reference.png',
     ],
     sash: 'Black sash · White writing · White brooche',
     hat: 'Classic mortarboard with gold tassel',
@@ -165,16 +171,7 @@ function openRobeModal(setId) {
     </div>
 
     <div class="rm-size-section">
-      <h3 class="rm-size-title">📏 Size Chart — Select Before Adding to Cart</h3>
-      <div class="rm-size-selector">
-        ${SIZE_CHART.map(s =>
-          `<button class="rm-size-btn" data-size="${s.size.toLowerCase()}">
-            <span class="rsb-size">${s.size}</span>
-            <span class="rsb-len">${s.length}</span>
-            <span class="rsb-height">${s.height}</span>
-          </button>`
-        ).join('')}
-      </div>
+      <h3 class="rm-size-title">📏 Size Guide</h3>
       <div class="rm-size-table-wrap">
         <table class="rm-size-table">
           <thead><tr><th>Size</th><th>Length</th><th>cm</th><th>Height Guide</th><th>Chest Guide</th></tr></thead>
@@ -194,23 +191,12 @@ function openRobeModal(setId) {
     });
   });
 
-  /* Size selector highlight */
-  robeModalInner.querySelectorAll('.rm-size-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      robeModalInner.querySelectorAll('.rm-size-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-    });
-  });
-
   /* Re-bind Add to Cart inside modal */
   robeModalInner.querySelectorAll('.btn-add-cart').forEach(btn => {
     btn.addEventListener('click', () => {
-      /* Find selected size, pass it as preselected */
-      const selectedSizeBtn = robeModalInner.querySelector('.rm-size-btn.selected');
-      const preSize = selectedSizeBtn ? selectedSizeBtn.dataset.size : null;
       closeRobeModal();
       if (typeof showQuickAdd === 'function') {
-        showQuickAdd(btn.dataset.set, btn.dataset.name, parseInt(btn.dataset.price), preSize);
+        showQuickAdd(btn.dataset.set, btn.dataset.name, parseInt(btn.dataset.price), null);
       }
     });
   });
