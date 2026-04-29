@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Place an Order — Décorous Plus</title>
+<meta name="description" content="Order your graduation robe set. Fill in your details and we'll confirm via WhatsApp within 24 hours.">
+<link rel="icon" type="image/png" href="assets/images/logo.png">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+<body>
+
+<div class="ann-bar" id="annBar">
+  <strong>Sets from QR 150</strong> &nbsp;·&nbsp; We'll confirm on WhatsApp within 24 hours &nbsp;·&nbsp; Payment on confirmation
+  <button class="ann-close" onclick="closeAnn()">×</button>
+</div>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/images/logo-with-text.png" alt="Décorous Plus"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="collections.html">Collections</a></li>
+      <li><a href="pricing.html">Pricing & Delivery</a></li>
+      <li><a href="order.html" class="active">Order</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-wa-btn" onclick="window.open('https://wa.me/97450393653','_blank')">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.821.487 3.53 1.338 5L2 22l5.1-1.32A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.083-1.12l-.29-.174-3.027.783.804-2.946-.19-.302A8 8 0 1112 20z"/></svg>
+        WhatsApp
+      </button>
+      <button class="nav-cart-btn" onclick="openCart()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Cart <div class="nav-cart-badge cart-count" style="display:none;">0</div>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<div style="background:var(--white);border-bottom:1px solid var(--border);padding:48px 0 40px;">
+  <div class="container">
+    <div class="eyebrow">Place Your Order</div>
+    <h1 class="display-title">Let's Make Your <em>Graduation Unforgettable</em></h1>
+    <p class="lead mt-16" style="max-width:580px;">Fill in your details and we'll confirm via WhatsApp within 24 hours. Payment is collected on confirmation.</p>
+    <a href="https://wa.me/97450393653" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;color:var(--gold);font-weight:600;margin-top:14px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.821.487 3.53 1.338 5L2 22l5.1-1.32A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.083-1.12l-.29-.174-3.027.783.804-2.946-.19-.302A8 8 0 1112 20z"/></svg>
+      Prefer to order directly? +974 5039 3653
+    </a>
+  </div>
+</div>
+
+<!-- Order Form -->
+<section class="section">
+  <div class="container">
+    <div class="order-grid">
+      <div class="order-form-card">
+        <form id="orderForm">
+          <div class="form-step-label">① Contact details</div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="form-label">Full name</label>
+              <input type="text" name="name" class="form-input" placeholder="Your full name" required>
+            </div>
+            <div class="form-field">
+              <label class="form-label">WhatsApp / phone</label>
+              <input type="tel" name="phone" class="form-input" placeholder="+974 ..." required>
+            </div>
+          </div>
+
+          <div class="form-step-label">② Set & size</div>
+          <div class="form-field">
+            <label class="form-label">Robe set</label>
+            <select name="set" class="form-select" required>
+              <option value="">Choose your set…</option>
+              <option>Set 1 — Black Classic (Gold sash)</option>
+              <option>Set 2 — Navy Blue (Silver sash)</option>
+              <option>Set 3 — White Ivory (Grey sash)</option>
+              <option>Set 4 — Brown Earthy (White sash)</option>
+              <option>Set 5 — Maroon Heritage (White sash)</option>
+              <option>Set 6 — Dark Purple (Black sash)</option>
+            </select>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="form-label">Size</label>
+              <select name="size" class="form-select" required>
+                <option value="">Select size…</option>
+                <option>XS — 48" / 122cm</option>
+                <option>S — 50" / 127cm</option>
+                <option>M — 52" / 132cm</option>
+                <option>L — 54" / 137cm</option>
+                <option>XL — 56" / 142cm</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Quantity (max 9)</label>
+              <div class="qty-control">
+                <button type="button" class="qty-btn" id="orderQtyMinus">−</button>
+                <div class="qty-num" id="orderQtyNum">1</div>
+                <button type="button" class="qty-btn" id="orderQtyPlus">+</button>
+                <span style="font-size:12px;color:var(--ink-l);">10+? <a href="https://wa.me/97450393653" style="color:var(--gold);">WhatsApp us</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Velvet cuff add-on (Sets 1 & 2 only)</label>
+            <select name="velvet" class="form-select">
+              <option value="none">No add-on</option>
+              <option value="black">Black Velvet Cuffs (+QR 35)</option>
+              <option value="navy">Navy-Blue Velvet Cuffs (+QR 35)</option>
+            </select>
+          </div>
+
+          <div class="form-step-label">③ Personalisation</div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="form-label">Arabic name for sash <span style="font-weight:400;color:var(--ink-f);">(optional)</span></label>
+              <input type="text" name="arabicName" class="form-input" placeholder="e.g. محمد علي" dir="rtl">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Graduation year</label>
+              <select name="year" class="form-select">
+                <option>2024</option>
+                <option selected>2025</option>
+                <option>2026</option>
+                <option>2027</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Additional notes <span style="font-weight:400;color:var(--ink-f);">(delivery address, special requests…)</span></label>
+            <textarea name="notes" class="form-textarea" placeholder="e.g. Deliver to West Bay, building 12…"></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">
+            Send order request on WhatsApp →
+          </button>
+          <div class="form-wa-alt">
+            or call us directly · <a href="https://wa.me/97450393653">+974 5039 3653</a>
+          </div>
+        </form>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="order-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">All 6 collections</div>
+          <div class="sidebar-set-list">
+            <div class="sidebar-set-item">
+              <img src="assets/images/product-set-black.png" class="sidebar-set-img" alt="Set 1">
+              <div><div class="sidebar-set-name">Black Classic</div><div class="sidebar-set-detail">Set 1 · Gold sash & writing</div></div>
+            </div>
+            <div class="sidebar-set-item">
+              <img src="assets/images/product-set-navy.png" class="sidebar-set-img" alt="Set 2">
+              <div><div class="sidebar-set-name">Navy Blue</div><div class="sidebar-set-detail">Set 2 · Silver sash & writing</div></div>
+            </div>
+            <div class="sidebar-set-item">
+              <img src="assets/images/product-set-white.png" class="sidebar-set-img" alt="Set 3">
+              <div><div class="sidebar-set-name">White Ivory</div><div class="sidebar-set-detail">Set 3 · Grey sash, silver brooche</div></div>
+            </div>
+            <div class="sidebar-set-item">
+              <img src="assets/images/product-set-brown.png" class="sidebar-set-img" alt="Set 4">
+              <div><div class="sidebar-set-name">Brown Earthy</div><div class="sidebar-set-detail">Set 4 · White sash, black writing</div></div>
+            </div>
+            <div class="sidebar-set-item">
+              <img src="assets/images/product-set-maroon.png" class="sidebar-set-img" alt="Set 5">
+              <div><div class="sidebar-set-name">Maroon Heritage</div><div class="sidebar-set-detail">Set 5 · White sash, black writing</div></div>
+            </div>
+            <div class="sidebar-set-item">
+              <img src="assets/images/product-set-purple.png" class="sidebar-set-img" alt="Set 6">
+              <div><div class="sidebar-set-name">Dark Purple</div><div class="sidebar-set-detail">Set 6 · Black sash, white writing</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Pricing tiers</div>
+          <div class="sidebar-price-row"><div class="sidebar-price-tier">1 – 9 pieces</div><div class="sidebar-price-amount">QR 329 / set</div></div>
+          <div class="sidebar-price-row"><div class="sidebar-price-tier">10 – 40 pieces</div><div class="sidebar-price-amount">QR 199 / set</div></div>
+          <div class="sidebar-price-row"><div class="sidebar-price-tier">41 – 100 pieces</div><div class="sidebar-price-amount">QR 175 / set</div></div>
+          <div class="sidebar-price-row"><div class="sidebar-price-tier">101+ pieces</div><div class="sidebar-price-amount">QR 150 / set</div></div>
+          <p style="font-size:12px;color:var(--ink-f);margin-top:10px;">Bulk orders (10+) coordinated via WhatsApp. Free velvet add-on included.</p>
+        </div>
+
+        <div class="sidebar-card" style="background:var(--ink);">
+          <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;">Payment methods</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:16px;">We accept SADAD (bill payment) and payment on delivery. For bulk orders, payment is arranged directly.</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;background:#3b5fe0;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><span style="font-size:13px;color:#fff;font-weight:500;">SADAD bill payment</span></div>
+            <div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;background:#25D366;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.821.487 3.53 1.338 5L2 22l5.1-1.32A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.083-1.12l-.29-.174-3.027.783.804-2.946-.19-.302A8 8 0 1112 20z"/></svg></div><span style="font-size:13px;color:#fff;font-weight:500;">WhatsApp — bulk &amp; coordination</span></div>
+            <div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;background:rgba(255,255,255,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><span style="font-size:13px;color:rgba(255,255,255,0.6);">Payment on delivery</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><img src="assets/images/logo-with-text.png" class="footer-logo" alt="Décorous Plus"><p class="footer-tagline">Qatar's premier destination for bespoke graduation robe sets.</p></div>
+      <div><div class="footer-col-title">Navigate</div><ul class="footer-links"><li><a href="collections.html">Collections</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="order.html">Order Now</a></li></ul></div>
+      <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="https://wa.me/97450393653">WhatsApp Us</a></li><li><a href="https://instagram.com/decorousplus">Instagram</a></li><li><a href="mailto:decorousmarketing@outlook.com">Email Us</a></li></ul></div>
+      <div><div class="footer-col-title">Quick links</div><ul class="footer-links"><li><a href="pricing.html#delivery">Delivery fees</a></li><li><a href="collections.html#sizes">Size guide</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><div class="footer-copy">© 2025 Décorous Plus. All rights reserved. · Doha, Qatar</div></div>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header"><div class="cart-drawer-title">Your Order</div><button class="cart-close-btn" onclick="closeCart()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+  <div id="cartEmpty" class="cart-empty-state"><div class="cart-empty-icon"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div><div class="cart-empty-text">Your order is empty</div><div class="cart-empty-sub">Browse collections to add sets</div></div>
+  <div class="cart-items-list" id="cartItemsList"></div>
+  <div class="cart-footer">
+    <div class="cart-zone-section"><div class="cart-zone-label">Delivery zone</div><div class="cart-zone-grid"><button class="zone-chip active" onclick="selectZone(0)">Doha +QR30</button><button class="zone-chip" onclick="selectZone(1)">Al Rayyan +QR30</button><button class="zone-chip" onclick="selectZone(2)">West Bay/Lusail +QR30</button><button class="zone-chip" onclick="selectZone(3)">Industrial/Ras Abu Fontas +QR40</button><button class="zone-chip" onclick="selectZone(4)">Umm Salal/Lusail North +QR40</button><button class="zone-chip" onclick="selectZone(5)">Al Wakrah +QR40</button><button class="zone-chip" onclick="selectZone(6)">Al Khor/Simaisma +QR50</button><button class="zone-chip" onclick="selectZone(7)">Shahaniya/Mesaieed +QR50</button><button class="zone-chip" onclick="selectZone(8)">North/Dukhan/Far +QR70</button><button class="zone-chip" onclick="selectZone(9)">Pickup — Free</button></div></div>
+    <div class="cart-summary"><div class="cart-sum-row"><div class="cart-sum-label">Subtotal</div><div class="cart-sum-value" id="cartSub">QR 0</div></div><div class="cart-sum-row"><div class="cart-sum-label">Delivery</div><div class="cart-sum-value" id="cartFee">QR 30</div></div><div class="cart-sum-row total"><div class="cart-sum-label">Total</div><div class="cart-sum-value" id="cartTotal">QR 0</div></div></div>
+    <div class="pay-section" id="paySection"></div>
+  </div>
+</div>
+<div class="toast-container" id="toastContainer"></div>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/mobile.js"></script>
+</body>
+</html>
