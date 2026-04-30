@@ -580,6 +580,25 @@ function showToast(msg, sub) {
   setTimeout(() => el.remove(), 2600);
 }
 
+// ---- SPLASH SCREEN ----
+(function() {
+  const isStandalone = window.navigator.standalone === true ||
+    window.matchMedia('(display-mode: standalone)').matches;
+  if (!isStandalone) return;
+
+  const splash = document.getElementById('splashScreen');
+  if (!splash) return;
+  splash.classList.add('active');
+
+  // Dismiss after bar fills + small buffer (bar takes ~2.6s total: 1s delay + 1.6s fill)
+  setTimeout(() => {
+    splash.classList.add('fade-out');
+    splash.addEventListener('animationend', () => {
+      splash.style.display = 'none';
+    }, { once: true });
+  }, 2800);
+})();
+
 // ---- PWA ----
 let pwaInstallPrompt = null;
 

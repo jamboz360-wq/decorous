@@ -1,4 +1,4 @@
-const CACHE = 'decorous-v2';
+const CACHE = 'decorous-v5';
 const PRECACHE = [
   '/',
   '/index.html',
