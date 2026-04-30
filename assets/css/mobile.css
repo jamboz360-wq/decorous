@@ -612,41 +612,83 @@
      ============================================= */
   .pricing-grid {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    gap: 14px !important;
   }
 
-  .pricing-card {
-    padding: 22px 20px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
+  /* Featured card first */
   .pricing-card.featured {
     order: -1;
   }
 
-  .pricing-card > * { width: auto; }
+  /* Clean vertical card layout — override the broken horizontal desktop flex */
+  .pricing-card {
+    display: block !important;
+    padding: 24px 20px 20px !important;
+    border-radius: 16px !important;
+    position: relative;
+  }
 
-  /* Make pricing cards more compact / horizontal on mobile */
+  .pricing-badge {
+    top: 0;
+    right: 16px;
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+
+  .pricing-range {
+    font-size: 12px;
+    margin-bottom: 6px;
+    display: block;
+  }
+
   .pricing-price {
-    font-size: 32px !important;
+    font-size: 44px !important;
+    display: block;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
+  .pricing-per {
+    font-size: 13px;
+    margin-bottom: 18px;
+    display: block;
   }
 
   .pricing-features {
-    gap: 7px;
-    margin-bottom: 16px;
+    gap: 10px;
+    margin-bottom: 18px;
   }
 
   .pricing-features li {
-    font-size: 12.5px;
+    font-size: 13px;
+    align-items: center;
   }
 
   .pricing-cta {
-    padding: 11px;
+    width: 100%;
+    display: block;
+    padding: 13px;
     font-size: 13px;
+    font-weight: 700;
     border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  /* Page header feature pills — stack vertically on mobile */
+  [style*="display:flex;gap:24px;margin-top:20px"] {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  /* Addon cards — full width on mobile */
+  [style*="display:flex;gap:20px;flex-wrap:wrap"] {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  [style*="background:var(--cream);border:1px solid var(--border);border-radius:16px;display:flex"][style*="width:320px"] {
+    width: 100% !important;
   }
 
   /* =============================================
