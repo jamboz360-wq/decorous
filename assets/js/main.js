@@ -218,30 +218,64 @@ function renderCartSummary() {
   const paySection = document.getElementById('paySection');
   if (!paySection) return;
 
+  if (isBulk) {
+    paySection.innerHTML = `
+      <div class="pay-label">Bulk order (${totalSets} sets)</div>
+      <p style="font-size:13px;color:var(--ink-l);line-height:1.6;margin-bottom:12px;">For 10+ sets we coordinate directly — from QR 199/set, free velvet included.</p>
+      <button class="pay-btn bulk" id="payBulkBtn">
+        ${waIcon()} Get bulk quote on WhatsApp
+      </button>`;
+    document.getElementById('payBulkBtn')?.addEventListener('click', checkoutWhatsApp);
+  } else {
+    paySection.innerHTML = `
+      <div class="pay-label">Confirm your order</div>
+      <button class="pay-btn whatsapp" id="payWaBtn">
+        ${waIcon()} Confirm order on WhatsApp
+      </button>
+      <button class="pay-btn sadad" id="paySadadBtn" style="margin-top:10px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        Pay with SADAD
+      </button>`;
+    document.getElementById('payWaBtn')?.addEventListener('click', checkoutWhatsApp);
+    document.getElementById('paySadadBtn')?.addEventListener('click', checkoutSadad);
+  }
+}
+
+// Build WhatsApp order message and open — called at click time, never embedded in HTML
+function checkoutWhatsApp() {
+  const sub = cartTotal();
+  const fee = ZONES[selectedZone].fee;
+  const total = sub + fee;
+  const totalSets = cartCount();
+  const isBulk = totalSets >= 10;
+
   const orderLines = cart.map(i => {
     const names = (i.sashNames || []).filter(n => n.trim());
     const nameStr = names.length ? '\nNames: ' + names.map((n, j) => `${j + 1}. ${n}`).join(', ') : '';
     return `• ${i.name} x${i.qty}, Size ${i.size}${i.velvetAddon ? ', +Velvet' : ''}${nameStr} — QR ${(i.price + (i.velvetAddon ? 35 : 0)) * i.qty}`;
   }).join('\n');
 
-  const waMsg = encodeURIComponent(`Hi Décorous Plus — I'd like to order:\n\n${orderLines}\n\nDelivery: ${ZONES[selectedZone].name}\nTotal: QR ${total}`);
-  const sadadMsg = encodeURIComponent(`Hi Décorous Plus — I'd like to pay via SADAD.\n\nOrder:\n${orderLines}\n\nDelivery: ${ZONES[selectedZone].name}\nTotal: QR ${total}\n\nPlease send me the SADAD bill number.`);
-  const bulkMsg = encodeURIComponent(`Hi Décorous Plus — Bulk order request (${totalSets} sets):\n\n${orderLines}\n\nDelivery: ${ZONES[selectedZone].name}`);
+  const msg = isBulk
+    ? `Hi Décorous Plus — Bulk order request (${totalSets} sets):\n\n${orderLines}\n\nDelivery: ${ZONES[selectedZone].name}`
+    : `Hi Décorous Plus — I'd like to order:\n\n${orderLines}\n\nDelivery: ${ZONES[selectedZone].name}\nTotal: QR ${total}`;
 
-  if (isBulk) {
-    paySection.innerHTML = `
-      <div class="pay-label">Bulk order (${totalSets} sets)</div>
-      <p style="font-size:13px;color:var(--ink-l);line-height:1.6;margin-bottom:12px;">For 10+ sets we coordinate directly — from QR 199/set, free velvet included.</p>
-      <button class="pay-btn bulk" onclick="window.open('https://wa.me/97450393653?text=${bulkMsg}','_blank')">
-        ${waIcon()} Get bulk quote on WhatsApp
-      </button>`;
-  } else {
-    paySection.innerHTML = `
-      <div class="pay-label">Confirm your order</div>
-      <button class="pay-btn whatsapp" onclick="window.open('https://wa.me/97450393653?text=${waMsg}','_blank')">
-        ${waIcon()} Confirm order on WhatsApp
-      </button>`;
-  }
+  window.open(`https://wa.me/97450393653?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// SADAD: send WhatsApp requesting a bill (swap for API redirect once integrated)
+function checkoutSadad() {
+  const sub = cartTotal();
+  const fee = ZONES[selectedZone].fee;
+  const total = sub + fee;
+
+  const orderLines = cart.map(i => {
+    const names = (i.sashNames || []).filter(n => n.trim());
+    const nameStr = names.length ? '\nNames: ' + names.map((n, j) => `${j + 1}. ${n}`).join(', ') : '';
+    return `• ${i.name} x${i.qty}, Size ${i.size}${i.velvetAddon ? ', +Velvet' : ''}${nameStr} — QR ${(i.price + (i.velvetAddon ? 35 : 0)) * i.qty}`;
+  }).join('\n');
+
+  const msg = `Hi Décorous Plus — I'd like to pay via SADAD:\n\n${orderLines}\n\nDelivery: ${ZONES[selectedZone].name}\nTotal: QR ${total}\n\nPlease send me the SADAD payment link.`;
+  window.open(`https://wa.me/97450393653?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
 function waIcon() {
