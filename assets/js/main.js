@@ -546,6 +546,42 @@ function showToast(msg, sub) {
   setTimeout(() => el.remove(), 2600);
 }
 
+// ---- PWA ----
+let pwaInstallPrompt = null;
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
+
+// Capture the browser's install prompt
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  pwaInstallPrompt = e;
+
+  // Only show on mobile and only if not dismissed before
+  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  if (isMobile && !sessionStorage.getItem('pwaBannerDismissed')) {
+    setTimeout(showPwaBanner, 3000);
+  }
+});
+
+function showPwaBanner() {
+  const banner = document.getElementById('pwaBanner');
+  if (!banner) return;
+  banner.style.display = 'flex';
+  requestAnimationFrame(() => requestAnimationFrame(() => banner.classList.add('show')));
+}
+
+function hidePwaBanner() {
+  const banner = document.getElementById('pwaBanner');
+  if (!banner) return;
+  banner.classList.remove('show');
+  setTimeout(() => { banner.style.display = 'none'; }, 400);
+  sessionStorage.setItem('pwaBannerDismissed', '1');
+}
+
 // ---- BULK POPUP ----
 function openBulkPopup() {
   document.getElementById('bulkPopupOverlay')?.classList.add('open');
@@ -610,6 +646,17 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!sessionStorage.getItem('bulkPopupSeen')) {
     setTimeout(openBulkPopup, 1200);
   }
+
+  // PWA install banner buttons
+  document.getElementById('pwaBannerInstall')?.addEventListener('click', async () => {
+    hidePwaBanner();
+    if (pwaInstallPrompt) {
+      pwaInstallPrompt.prompt();
+      await pwaInstallPrompt.userChoice;
+      pwaInstallPrompt = null;
+    }
+  });
+  document.getElementById('pwaBannerClose')?.addEventListener('click', hidePwaBanner);
 
   // Cart overlay close
   document.getElementById('cartOverlay')?.addEventListener('click', closeCart);

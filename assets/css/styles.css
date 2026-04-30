@@ -629,3 +629,53 @@ input, select, textarea { font-family: 'DM Sans', sans-serif; }
   transition: color 0.15s;
 }
 .bulk-popup-skip:hover { color: var(--ink-m); }
+
+/* ---- PWA INSTALL BANNER ---- */
+.pwa-banner {
+  display: none; /* shown by JS only on mobile when installable */
+  position: fixed;
+  bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px);
+  width: min(420px, calc(100vw - 32px));
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(28,26,23,0.14);
+  padding: 14px 16px;
+  align-items: center;
+  gap: 12px;
+  z-index: 1200;
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(.22,1,.36,1), opacity 0.4s ease;
+}
+.pwa-banner.show {
+  display: flex;
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+.pwa-banner-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  flex-shrink: 0; object-fit: contain;
+  background: var(--cream); padding: 4px;
+}
+.pwa-banner-text {
+  flex: 1; display: flex; flex-direction: column; gap: 2px;
+}
+.pwa-banner-text strong {
+  font-size: 13px; font-weight: 700; color: var(--ink);
+}
+.pwa-banner-text span {
+  font-size: 11px; color: var(--ink-l);
+}
+.pwa-banner-install {
+  background: var(--ink); color: #fff;
+  border: none; border-radius: 8px;
+  padding: 8px 16px; font-size: 13px; font-weight: 600;
+  cursor: pointer; white-space: nowrap;
+  transition: background 0.15s;
+}
+.pwa-banner-install:hover { background: var(--ink-m); }
+.pwa-banner-close {
+  background: none; border: none;
+  color: var(--ink-l); font-size: 20px; line-height: 1;
+  cursor: pointer; padding: 4px; flex-shrink: 0;
+}
