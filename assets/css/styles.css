@@ -58,6 +58,8 @@ input, select, textarea { font-family: 'DM Sans', sans-serif; }
   font-size: 18px; line-height: 1; cursor: pointer;
 }
 .ann-bar a { color: var(--gold-l); text-decoration: underline; }
+/* Desktop: hide marquee, show static */
+.ann-marquee-wrap { display: none; }
 
 /* ---- NAV ---- */
 .site-nav {
@@ -473,7 +475,10 @@ input, select, textarea { font-family: 'DM Sans', sans-serif; }
 .modal-qty-btn:hover { background: var(--cream-d); }
 .modal-qty-num { font-size: 18px; font-weight: 600; color: var(--ink); min-width: 24px; text-align: center; }
 .modal-names-list { display: flex; flex-direction: column; gap: 8px; margin-top: 2px; }
-.modal-name-row { display: flex; align-items: center; gap: 10px; }
+.modal-name-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.modal-item-sizes { display: flex; gap: 4px; flex-shrink: 0; }
+.modal-sz-sm { padding: 5px 9px; border-radius: 6px; border: 1px solid var(--border); background: var(--cream); color: var(--ink-m); font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+.modal-sz-sm.on { border-color: var(--ink); background: var(--ink); color: #fff; }
 .modal-name-num { width: 24px; height: 24px; border-radius: 50%; background: var(--cream-d); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--ink-m); flex-shrink: 0; }
 .modal-velvet { background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 13px 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: border-color 0.15s; }
 .modal-velvet.on { border-color: var(--gold); background: var(--gold-bg); }
@@ -546,3 +551,81 @@ input, select, textarea { font-family: 'DM Sans', sans-serif; }
   .cart-drawer { width: 100%; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* ---- BULK POPUP ---- */
+.bulk-popup-overlay {
+  position: fixed; inset: 0; background: rgba(28,26,23,0.5);
+  backdrop-filter: blur(3px); z-index: 1100;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.bulk-popup-overlay.open { opacity: 1; pointer-events: all; }
+
+.bulk-popup {
+  position: fixed; z-index: 1101;
+  top: 50%; left: 50%; transform: translate(-50%, -46%) scale(0.96);
+  width: min(480px, calc(100vw - 32px));
+  background: var(--white); border-radius: 20px;
+  box-shadow: 0 24px 72px rgba(28,26,23,0.18);
+  padding: 40px 36px 32px;
+  text-align: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.32s ease, transform 0.32s cubic-bezier(.22,1,.36,1);
+}
+.bulk-popup.open {
+  opacity: 1; pointer-events: all;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.bulk-popup-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 30px; height: 30px; border-radius: 50%;
+  border: none; background: var(--cream); color: var(--ink-m);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background 0.15s;
+}
+.bulk-popup-close:hover { background: var(--cream-d); }
+
+.bulk-popup-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--gold-bg); color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.bulk-popup-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+}
+
+.bulk-popup-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; font-weight: 700; color: var(--ink);
+  line-height: 1.25; margin-bottom: 14px;
+}
+.bulk-popup-price { color: var(--gold); }
+
+.bulk-popup-body {
+  font-size: 14px; color: var(--ink-m); line-height: 1.65;
+  margin-bottom: 28px; max-width: 340px; margin-left: auto; margin-right: auto;
+}
+
+.bulk-popup-wa-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 10px; width: 100%;
+  background: #25D366; color: #fff;
+  font-size: 15px; font-weight: 600;
+  padding: 15px 24px; border-radius: 12px;
+  text-decoration: none; cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  margin-bottom: 14px;
+}
+.bulk-popup-wa-btn:hover { background: #1ebe5c; transform: translateY(-1px); }
+.bulk-popup-wa-btn:active { transform: translateY(0); }
+
+.bulk-popup-skip {
+  background: none; border: none; cursor: pointer;
+  font-size: 13px; color: var(--ink-l);
+  text-decoration: underline; text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+.bulk-popup-skip:hover { color: var(--ink-m); }

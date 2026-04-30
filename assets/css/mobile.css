@@ -31,21 +31,37 @@
      ============================================= */
   .ann-bar {
     font-size: 11.5px;
-    padding: 9px 40px 9px 16px;
-    text-align: left;
-    white-space: nowrap;
+    padding: 9px 36px 9px 0;
     overflow: hidden;
-    text-overflow: ellipsis;
     letter-spacing: 0.1px;
   }
 
-  .ann-bar::after {
-    content: '';
-    position: absolute;
-    right: 36px; top: 0; bottom: 0;
-    width: 40px;
-    background: linear-gradient(to right, transparent, var(--ink));
+  /* Hide static text, show marquee on mobile */
+  .ann-static { display: none; }
+  .ann-marquee-wrap {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
   }
+  .ann-marquee-track {
+    display: inline-flex;
+    animation: ann-scroll 18s linear infinite;
+  }
+  .ann-marquee-item {
+    display: inline-block;
+    padding-right: 64px; /* gap between repetitions */
+  }
+  .ann-marquee-item a { color: var(--gold-l); text-decoration: underline; }
+  .ann-marquee-item strong { color: var(--gold-l); }
+
+  @keyframes ann-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* No fade overlay needed anymore */
+  .ann-bar::after { display: none; }
 
   /* =============================================
      TOP NAVIGATION — Streamlined mobile nav

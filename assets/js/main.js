@@ -274,6 +274,7 @@ let modalProduct = null;
 let modalSize = 'M';
 let modalQty = 1;
 let modalSashes = [''];
+let modalSizes = ['M'];   // per-item sizes when qty > 1
 let modalVelvet = false;
 let modalGalleryIdx = 0;
 let modalTab = 'order';
@@ -347,6 +348,7 @@ function openProductModal(productId) {
   modalSize = 'M';
   modalQty = 1;
   modalSashes = [''];
+  modalSizes = ['M'];
   modalVelvet = false;
   modalGalleryIdx = 0;
   modalTab = 'order';
@@ -388,7 +390,12 @@ function renderModal() {
   if (orderContent) orderContent.style.display = modalTab === 'order' ? 'block' : 'none';
   if (sizesContent) sizesContent.style.display = modalTab === 'sizes' ? 'block' : 'none';
 
-  // Sizes
+  // Sizes — hide global selector when qty > 1 (per-item selectors shown instead)
+  const sizeBtnsEl = modal.querySelector('.modal-size-btns');
+  const sizeSecEl  = sizeBtnsEl ? sizeBtnsEl.previousElementSibling : null;
+  if (sizeBtnsEl) sizeBtnsEl.style.display = modalQty > 1 ? 'none' : '';
+  if (sizeSecEl && sizeSecEl.classList.contains('modal-sec'))
+    sizeSecEl.style.display = modalQty > 1 ? 'none' : '';
   modal.querySelectorAll('.modal-sz').forEach(btn => {
     btn.classList.toggle('on', btn.dataset.size === modalSize);
   });
@@ -400,15 +407,22 @@ function renderModal() {
   // Sash names
   const namesContainer = modal.querySelector('#modalNamesContainer');
   if (namesContainer) {
+    const SIZES = ['XS','S','M','L','XL'];
     if (modalQty === 1) {
       namesContainer.innerHTML = `<input class="form-input" placeholder="e.g. محمد علي — optional" value="${modalSashes[0] || ''}" oninput="updateModalSash(0, this.value)" dir="rtl">`;
     } else {
       namesContainer.innerHTML = `<div class="modal-names-list">${
-        Array.from({length: modalQty}, (_, i) => `
-          <div class="modal-name-row">
+        Array.from({length: modalQty}, (_, i) => {
+          const sz = modalSizes[i] || 'M';
+          const szBtns = SIZES.map(s =>
+            `<button class="modal-sz-sm${s === sz ? ' on' : ''}" onclick="updateModalItemSize(${i},'${s}')">${s}</button>`
+          ).join('');
+          return `<div class="modal-name-row">
             <div class="modal-name-num">${i + 1}</div>
+            <div class="modal-item-sizes">${szBtns}</div>
             <input class="form-input" style="flex:1;" placeholder="Graduate ${i+1} — optional" value="${modalSashes[i] || ''}" oninput="updateModalSash(${i}, this.value)" dir="rtl">
-          </div>`).join('')
+          </div>`;
+        }).join('')
       }</div>`;
     }
   }
@@ -442,25 +456,45 @@ function renderModalDots() {
   ).join('');
 }
 
-function setModalSize(size) { modalSize = size; renderModal(); }
+function setModalSize(size) { modalSize = size; modalSizes = Array.from({length: modalQty}, () => size); renderModal(); }
 function setModalQty(qty) {
   modalQty = Math.max(1, Math.min(9, qty));
   modalSashes = Array.from({length: modalQty}, (_, i) => modalSashes[i] || '');
+  modalSizes  = Array.from({length: modalQty}, (_, i) => modalSizes[i]  || modalSize);
   renderModal();
 }
+function updateModalItemSize(idx, size) { modalSizes[idx] = size; renderModal(); }
 function updateModalSash(idx, val) { modalSashes[idx] = val; }
 function toggleModalVelvet() { modalVelvet = !modalVelvet; renderModal(); }
 function setModalTab(tab) { modalTab = tab; renderModal(); }
 
 function confirmAddToCart() {
   if (!modalProduct) return;
-  addToCart({
-    ...modalProduct,
-    size: modalSize,
-    qty: modalQty,
-    sashNames: [...modalSashes],
-    velvetAddon: modalVelvet,
-  });
+  if (modalQty === 1) {
+    addToCart({
+      ...modalProduct,
+      size: modalSizes[0] || modalSize,
+      qty: 1,
+      sashNames: [modalSashes[0] || ''],
+      velvetAddon: modalVelvet,
+    });
+  } else {
+    // Group consecutive items with the same size into one cart entry
+    let i = 0;
+    while (i < modalQty) {
+      const sz = modalSizes[i] || 'M';
+      let j = i;
+      while (j < modalQty && (modalSizes[j] || 'M') === sz) j++;
+      addToCart({
+        ...modalProduct,
+        size: sz,
+        qty: j - i,
+        sashNames: modalSashes.slice(i, j),
+        velvetAddon: modalVelvet,
+      });
+      i = j;
+    }
+  }
   closeProductModal();
 }
 
@@ -512,6 +546,19 @@ function showToast(msg, sub) {
   setTimeout(() => el.remove(), 2600);
 }
 
+// ---- BULK POPUP ----
+function openBulkPopup() {
+  document.getElementById('bulkPopupOverlay')?.classList.add('open');
+  document.getElementById('bulkPopup')?.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeBulkPopup() {
+  document.getElementById('bulkPopupOverlay')?.classList.remove('open');
+  document.getElementById('bulkPopup')?.classList.remove('open');
+  document.body.style.overflow = '';
+  sessionStorage.setItem('bulkPopupSeen', '1');
+}
+
 // ---- ANNOUNCEMENT ----
 function closeAnn() {
   const ann = document.getElementById('annBar');
@@ -558,6 +605,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initViewing();
   initGalleryScroll();
   initOrderForm();
+
+  // Bulk popup — show once per session after a short delay
+  if (!sessionStorage.getItem('bulkPopupSeen')) {
+    setTimeout(openBulkPopup, 1200);
+  }
 
   // Cart overlay close
   document.getElementById('cartOverlay')?.addEventListener('click', closeCart);
