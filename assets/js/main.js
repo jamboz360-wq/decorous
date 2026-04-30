@@ -8,17 +8,107 @@
 const CART_KEY = 'decorous_cart';
 let cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
 
+// Delivery zones grouped by fee tier
 const ZONES = [
-  { name: 'Doha & Greater Doha', fee: 30 },
-  { name: 'Al Rayyan / Al Waab / Al Aziziya', fee: 30 },
-  { name: 'West Bay / Lusail / Al Dafna', fee: 30 },
-  { name: 'Ras Abu Fontas / Industrial Area', fee: 40 },
-  { name: 'Jelaiah / Lusail North / Umm Salal', fee: 40 },
-  { name: 'Al Wakrah / Al Wukair', fee: 40 },
-  { name: 'Al Khor / Simaisma / Al Thakhira', fee: 50 },
-  { name: 'Al Shahaniya / Mesaieed / Al Kharrara', fee: 50 },
-  { name: 'North Qatar / Dukhan / Umm Bab / Far areas', fee: 70 },
-  { name: 'Pickup — Free', fee: 0 },
+  { name: 'Zone A — QR 30 (Most of Doha & Al Rayyan)', fee: 30 },
+  { name: 'Zone B — QR 40 (Al Wakrah, Lusail, Umm Salal)', fee: 40 },
+  { name: 'Zone C — QR 50 (Al Khor, Mesaieed, Al Shahaniya)', fee: 50 },
+  { name: 'Zone D — QR 70 (Far North, Dukhan, Abu Samra)', fee: 70 },
+];
+
+// Full zone lookup by zone number for reference
+const ALL_ZONES = [
+  { num: 1, name: 'Al Jasrah', ar: 'الجسرة', fee: 30 },
+  { num: 2, name: 'Al Bidda', ar: 'البدع', fee: 30 },
+  { num: 3, name: 'Fereej Mohamed Bin Jasim', ar: 'فريج محمد بن جاسم', fee: 30 },
+  { num: 4, name: 'Mushayrib', ar: 'مشيرب', fee: 30 },
+  { num: 5, name: 'Al Najada / Barahat Al Jufairi', ar: 'النجادة / براحة الجفيري', fee: 30 },
+  { num: 6, name: 'Old Al Ghanim', ar: 'الغانم العتيق', fee: 30 },
+  { num: 7, name: 'Al Souq', ar: 'السوق', fee: 30 },
+  { num: 10, name: 'Wadi Al Sail', ar: 'وادي السيل', fee: 30 },
+  { num: 11, name: 'Ar Rumeilah', ar: 'الرميلة', fee: 30 },
+  { num: 12, name: 'Al Bidda', ar: 'البدع', fee: 30 },
+  { num: 13, name: 'Mushayrib', ar: 'مشيرب', fee: 30 },
+  { num: 14, name: 'Fereej Abdel Aziz', ar: 'فريج عبد العزيز', fee: 30 },
+  { num: 15, name: 'Ad Dawhah Al Jadeedah', ar: 'الدوحة الجديدة', fee: 30 },
+  { num: 16, name: 'Old Al Ghanim', ar: 'الغانم العتيق', fee: 30 },
+  { num: 17, name: 'Ar Rufaa / Old Al Hitmi', ar: 'الرفاع / الهتمي العتيق', fee: 30 },
+  { num: 18, name: 'As Salatah / Al Mirqab', ar: 'اسلطة / المرقاب', fee: 30 },
+  { num: 19, name: 'Doha Port', ar: 'ميناء الدوحة', fee: 30 },
+  { num: 20, name: 'Wadi Al Sail', ar: 'وادي السيل', fee: 30 },
+  { num: 21, name: 'Ar Rumeilah', ar: 'الرميلة', fee: 30 },
+  { num: 22, name: 'Fereej Bin Mahmoud', ar: 'فريج بن محمود', fee: 30 },
+  { num: 23, name: 'Fereej Bin Mahmoud', ar: 'فريج بن محمود', fee: 30 },
+  { num: 24, name: 'Rawdat Al Khail', ar: 'روضة الخيل', fee: 30 },
+  { num: 25, name: 'Al Mansoura / Bin Durham', ar: 'المنصورة / بن درهم', fee: 30 },
+  { num: 26, name: 'Najma', ar: 'نجمة', fee: 30 },
+  { num: 27, name: 'Umm Ghuwailina', ar: 'أم غويلينة', fee: 30 },
+  { num: 28, name: 'Al Khulaifat / Ras Abu Aboud', ar: 'الخليفات / رأس أبو عبود', fee: 30 },
+  { num: 30, name: 'Ad Duhail', ar: 'دحيل', fee: 30 },
+  { num: 31, name: 'Umm Lekhba', ar: 'أم لخبا', fee: 30 },
+  { num: 32, name: 'Madinat Khalifa North', ar: 'مدينة خليفة الشمالية', fee: 30 },
+  { num: 33, name: 'Al Markhiya', ar: 'المرخية', fee: 30 },
+  { num: 34, name: 'Madinat Khalifa South', ar: 'مدينة خليفة الجنوبية', fee: 30 },
+  { num: 35, name: 'Fereej Kulaib', ar: 'فريج كليب', fee: 30 },
+  { num: 36, name: 'Al Messila', ar: 'المسيلة', fee: 30 },
+  { num: 37, name: 'Fereej Bin Omran / New Al Hitmi', ar: 'فريج بن عمران / الهتمي الجديد', fee: 30 },
+  { num: 38, name: 'Al Sadd', ar: 'السد', fee: 30 },
+  { num: 39, name: 'Al Nasr / Al Mirqab Al Jadeed', ar: 'النصر / المرقاب الجديد', fee: 30 },
+  { num: 40, name: 'New Salatah', ar: 'اسلطة الجديدة', fee: 30 },
+  { num: 41, name: 'Nuaija', ar: 'نعيجة', fee: 30 },
+  { num: 42, name: 'Al Hilal', ar: 'الهلال', fee: 30 },
+  { num: 43, name: 'Nuaija', ar: 'نعيجة', fee: 30 },
+  { num: 44, name: 'Nuaija', ar: 'نعيجة', fee: 30 },
+  { num: 45, name: 'Old Airport', ar: 'المطار العتيق', fee: 30 },
+  { num: 46, name: 'Al Thumama', ar: 'الثمامة', fee: 30 },
+  { num: 47, name: 'Al Thumama', ar: 'الثمامة', fee: 30 },
+  { num: 48, name: 'Doha International Airport', ar: 'مطار الدوحة الدولي', fee: 30 },
+  { num: 49, name: 'Ras Abu Fontas', ar: 'رأس أبو فنطاس', fee: 40 },
+  { num: 50, name: 'Al Thumama', ar: 'الثمامة', fee: 30 },
+  { num: 51, name: 'Al Gharrafa / Bani Hajer', ar: 'الغرافة / بني هاجر', fee: 30 },
+  { num: 52, name: 'Al Luqta / Old Al Rayyan', ar: 'اللقطة / الريان العتيق', fee: 30 },
+  { num: 53, name: 'New Al Rayyan / Al Wajba', ar: 'الريان الجديد / الوجبة', fee: 30 },
+  { num: 54, name: 'Fereej Al Amir / Muraikh', ar: 'فريج الأمير / مريخ', fee: 30 },
+  { num: 55, name: 'Al Waab / Al Aziziya', ar: 'الوعب / العزيزية', fee: 30 },
+  { num: 56, name: 'Abu Hamour / Ain Khaled / Mesaimeer', ar: 'أبو هامور / عين خالد / مسيمير', fee: 30 },
+  { num: 57, name: 'Industrial Area', ar: 'المنطقة الصناعية', fee: 40 },
+  { num: 58, name: 'Wholesale Market', ar: 'السوق المركزي', fee: 30 },
+  { num: 60, name: 'Al Dafna', ar: 'الدفنة', fee: 30 },
+  { num: 61, name: 'Al Dafna / Al Qassar', ar: 'الدفنة / القصار', fee: 30 },
+  { num: 62, name: 'Lekhwair', ar: 'لخواير', fee: 30 },
+  { num: 63, name: 'Onaiza', ar: 'عنيزة', fee: 30 },
+  { num: 64, name: 'Lejbailat', ar: 'لجبيلات', fee: 30 },
+  { num: 65, name: 'Onaiza', ar: 'عنيزة', fee: 30 },
+  { num: 66, name: 'Al Qassar / Leqtaifiya', ar: 'القصار / لقطيفية', fee: 30 },
+  { num: 67, name: 'Hazm Al Markhiya', ar: 'حزم المرخية', fee: 30 },
+  { num: 68, name: 'Jelaiah / Al Tarfa', ar: 'جليعة / الطرفة', fee: 40 },
+  { num: 69, name: 'Lusail / Jabal Thuaileb', ar: 'لوسيل / جبل ثعيلب', fee: 40 },
+  { num: 70, name: 'Al Kheesa / Rawdat Al Hamama', ar: 'الخيسة / روضة الحمامة', fee: 40 },
+  { num: 71, name: 'Umm Salal / Al Kharaitiyat', ar: 'أم صلال / الخريطيات', fee: 40 },
+  { num: 72, name: 'Al Utouriya', ar: 'العطورية', fee: 50 },
+  { num: 73, name: 'Al Jemailiya', ar: 'الجميلية', fee: 50 },
+  { num: 74, name: 'Al Khor City / Simaisma', ar: 'مدينة الخور / سميسمة', fee: 50 },
+  { num: 75, name: 'Al Thakhira / Ras Laffan', ar: 'الذخيرة / رأس لفان', fee: 50 },
+  { num: 76, name: 'Al Ghuwariyah', ar: 'الغويرية', fee: 50 },
+  { num: 77, name: 'Madinat Al Kaaban / Fuwayrit', ar: 'مدينة الكعبان / فويرط', fee: 50 },
+  { num: 78, name: 'Abu Dhalouf / Az Zubarah', ar: 'أبو ظلوف / الزبارة', fee: 70 },
+  { num: 79, name: 'Madinat Ash Shamal / Ar Ruwais', ar: 'مدينة الشمال / الرويس', fee: 70 },
+  { num: 80, name: 'Al Shahaniya', ar: 'الشيحانية', fee: 50 },
+  { num: 81, name: 'Mebaireek', ar: 'مبيريك', fee: 50 },
+  { num: 82, name: 'Rawdat Rashed', ar: 'روضة راشد', fee: 50 },
+  { num: 83, name: 'Al Karaana', ar: 'الكرعانة', fee: 50 },
+  { num: 84, name: 'Umm Bab', ar: 'أم باب', fee: 70 },
+  { num: 85, name: 'Al Nasraniya', ar: 'النصرانية', fee: 50 },
+  { num: 86, name: 'Dukhan', ar: 'دخان', fee: 70 },
+  { num: 90, name: 'Al Wakrah', ar: 'الوكرة', fee: 40 },
+  { num: 91, name: 'Al Wukair / Al Mashaf', ar: 'الوكير / المشاف', fee: 40 },
+  { num: 92, name: 'Mesaieed', ar: 'مسيعيد', fee: 50 },
+  { num: 93, name: 'Mesaieed Industrial Area', ar: 'مسيعيد الصناعية', fee: 50 },
+  { num: 94, name: 'Shagra', ar: 'شقراء', fee: 50 },
+  { num: 95, name: 'Al Kharrara', ar: 'الخرارة', fee: 50 },
+  { num: 96, name: 'Abu Samra', ar: 'أبو سمرة', fee: 70 },
+  { num: 97, name: 'Sawda Natheel', ar: 'سودا نثيل', fee: 70 },
+  { num: 98, name: 'Khor Al Udaid', ar: 'خور العديد', fee: 70 },
 ];
 
 let selectedZone = 0;
@@ -147,12 +237,8 @@ function renderCartSummary() {
       </button>`;
   } else {
     paySection.innerHTML = `
-      <div class="pay-label">Payment method</div>
-      <button class="pay-btn sadad" onclick="window.open('https://wa.me/97450393653?text=${sadadMsg}','_blank')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        Request SADAD bill · QR ${total}
-      </button>
-      <button class="pay-btn whatsapp" style="margin-top:8px;" onclick="window.open('https://wa.me/97450393653?text=${waMsg}','_blank')">
+      <div class="pay-label">Confirm your order</div>
+      <button class="pay-btn whatsapp" onclick="window.open('https://wa.me/97450393653?text=${waMsg}','_blank')">
         ${waIcon()} Confirm order on WhatsApp
       </button>`;
   }
@@ -195,20 +281,64 @@ let modalTab = 'order';
 const PRODUCTS = [
   { id: 1, name: 'Black Classic', set: 'Set 1', sash: 'Gold sash', price: 329, bestseller: true,
     img: 'product-set-black.png',
-    gallery: ['set1-1.webp','set1-2.webp','set1-3.webp','set1-4.webp'],
+    gallery: [
+      'product-set-black.png',   // full set (robe + hat + sash)
+      'set1-1.webp',             // woman wearing the robe
+      'set1-2.webp',             // sash close-up
+      'addon-velvet-black.png',  // velvet cuff add-on (Set 1 only)
+      'set1-3.webp',             // lifestyle / detail
+      'set1-4.webp',             // lifestyle / detail
+      'size-reference.png',      // size chart reference
+    ],
     velvet: true, velvetImg: 'addon-velvet-black.png' },
   { id: 2, name: 'Navy Blue', set: 'Set 2', sash: 'Silver sash', price: 329,
     img: 'product-set-navy.png',
-    gallery: ['set2-1.webp','set2-2.webp','set2-3.webp','set2-4.webp'],
+    gallery: [
+      'product-set-navy.png',    // full set
+      'set2-1.webp',             // woman wearing the robe
+      'set2-2.webp',             // sash close-up
+      'addon-velvet-navy.png',   // velvet cuff add-on (Set 2 only)
+      'set2-3.webp',             // lifestyle / detail
+      'set2-4.webp',             // lifestyle / detail
+      'size-reference.png',      // size chart reference
+    ],
     velvet: true, velvetImg: 'addon-velvet-navy.png' },
   { id: 3, name: 'White Ivory', set: 'Set 3', sash: 'Grey sash', price: 329,
-    img: 'product-set-white.png', gallery: ['set3-1.webp','set3-2.webp'], velvet: false },
+    img: 'product-set-white.png',
+    gallery: [
+      'product-set-white.png',   // full set
+      'set3-1.webp',             // woman wearing the robe
+      'set3-2.webp',             // sash / detail
+      'size-reference.png',      // size chart reference
+    ],
+    velvet: false },
   { id: 4, name: 'Brown Earthy', set: 'Set 4', sash: 'White sash', price: 329,
-    img: 'product-set-brown.png', gallery: ['set4-1.webp','set4-2.webp'], velvet: false },
+    img: 'product-set-brown.png',
+    gallery: [
+      'product-set-brown.png',   // full set
+      'set4-1.webp',             // woman wearing the robe
+      'set4-2.webp',             // sash / detail
+      'size-reference.png',      // size chart reference
+    ],
+    velvet: false },
   { id: 5, name: 'Maroon Heritage', set: 'Set 5', sash: 'White sash', price: 329,
-    img: 'product-set-maroon.png', gallery: ['set5-1.webp','set5-2.webp'], velvet: false },
+    img: 'product-set-maroon.png',
+    gallery: [
+      'product-set-maroon.png',  // full set
+      'set5-1.webp',             // woman wearing the robe
+      'set5-2.webp',             // sash / detail
+      'size-reference.png',      // size chart reference
+    ],
+    velvet: false },
   { id: 6, name: 'Dark Purple', set: 'Set 6', sash: 'Black sash', price: 329,
-    img: 'product-set-purple.png', gallery: ['set6-1.webp','set6-2.webp'], velvet: false },
+    img: 'product-set-purple.png',
+    gallery: [
+      'product-set-purple.png',  // full set
+      'set6-1.webp',             // woman wearing the robe
+      'set6-2.webp',             // sash / detail
+      'size-reference.png',      // size chart reference
+    ],
+    velvet: false },
 ];
 
 function openProductModal(productId) {
@@ -222,9 +352,11 @@ function openProductModal(productId) {
   modalTab = 'order';
   renderModal();
   document.getElementById('productModal')?.classList.add('open');
+  startGalleryAuto();
 }
 
 function closeProductModal() {
+  stopGalleryAuto();
   document.getElementById('productModal')?.classList.remove('open');
 }
 
@@ -333,6 +465,24 @@ function confirmAddToCart() {
 }
 
 // ---- GALLERY SCROLL ----
+let galleryAutoTimer = null;
+
+function startGalleryAuto() {
+  stopGalleryAuto();
+  galleryAutoTimer = setInterval(() => {
+    if (!modalProduct) return;
+    const gallery = document.querySelector('#productModal .modal-gallery');
+    if (!gallery) return;
+    const total = modalProduct.gallery.length;
+    const next = (modalGalleryIdx + 1) % total;
+    gallery.scrollTo({ left: next * gallery.offsetWidth, behavior: 'smooth' });
+  }, 2800);
+}
+
+function stopGalleryAuto() {
+  if (galleryAutoTimer) { clearInterval(galleryAutoTimer); galleryAutoTimer = null; }
+}
+
 function initGalleryScroll() {
   const modal = document.getElementById('productModal');
   if (!modal) return;
@@ -342,6 +492,9 @@ function initGalleryScroll() {
     modalGalleryIdx = Math.round(gallery.scrollLeft / gallery.offsetWidth);
     renderModalDots();
   });
+  // Pause auto-slide while user manually swipes, resume after
+  gallery.addEventListener('touchstart', stopGalleryAuto, { passive: true });
+  gallery.addEventListener('touchend', () => setTimeout(startGalleryAuto, 1200), { passive: true });
 }
 
 // ---- TOAST ----

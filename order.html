@@ -18,7 +18,7 @@
 
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><img src="assets/images/logo-with-text.png" alt="Décorous Plus"></a>
+    <a href="index.html" class="nav-logo"><img src="assets/images/logo.png" alt="Décorous Plus" class="logo-icon"><span class="nav-logo-text"><span class="nav-logo-name">Décorous Plus</span><span class="nav-logo-tagline">Quality · Luxury · Exclusivity</span></span></a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="collections.html">Collections</a></li>
@@ -186,11 +186,11 @@
 
         <div class="sidebar-card" style="background:var(--ink);">
           <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;">Payment methods</div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:16px;">We accept SADAD (bill payment) and payment on delivery. For bulk orders, payment is arranged directly.</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:16px;">We accept SADAD (bill payment). For bulk orders, payment is arranged directly.</div>
           <div style="display:flex;flex-direction:column;gap:8px;">
             <div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;background:#3b5fe0;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><span style="font-size:13px;color:#fff;font-weight:500;">SADAD bill payment</span></div>
             <div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;background:#25D366;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.821.487 3.53 1.338 5L2 22l5.1-1.32A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.083-1.12l-.29-.174-3.027.783.804-2.946-.19-.302A8 8 0 1112 20z"/></svg></div><span style="font-size:13px;color:#fff;font-weight:500;">WhatsApp — bulk &amp; coordination</span></div>
-            <div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;background:rgba(255,255,255,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><span style="font-size:13px;color:rgba(255,255,255,0.6);">Payment on delivery</span></div>
+
           </div>
         </div>
       </div>
@@ -217,13 +217,13 @@
   <div id="cartEmpty" class="cart-empty-state"><div class="cart-empty-icon"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div><div class="cart-empty-text">Your order is empty</div><div class="cart-empty-sub">Browse collections to add sets</div></div>
   <div class="cart-items-list" id="cartItemsList"></div>
   <div class="cart-footer">
-    <div class="cart-zone-section"><div class="cart-zone-label">Delivery zone</div><div class="cart-zone-grid"><button class="zone-chip active" onclick="selectZone(0)">Doha +QR30</button><button class="zone-chip" onclick="selectZone(1)">Al Rayyan +QR30</button><button class="zone-chip" onclick="selectZone(2)">West Bay/Lusail +QR30</button><button class="zone-chip" onclick="selectZone(3)">Industrial/Ras Abu Fontas +QR40</button><button class="zone-chip" onclick="selectZone(4)">Umm Salal/Lusail North +QR40</button><button class="zone-chip" onclick="selectZone(5)">Al Wakrah +QR40</button><button class="zone-chip" onclick="selectZone(6)">Al Khor/Simaisma +QR50</button><button class="zone-chip" onclick="selectZone(7)">Shahaniya/Mesaieed +QR50</button><button class="zone-chip" onclick="selectZone(8)">North/Dukhan/Far +QR70</button><button class="zone-chip" onclick="selectZone(9)">Pickup — Free</button></div></div>
-    <div class="cart-summary"><div class="cart-sum-row"><div class="cart-sum-label">Subtotal</div><div class="cart-sum-value" id="cartSub">QR 0</div></div><div class="cart-sum-row"><div class="cart-sum-label">Delivery</div><div class="cart-sum-value" id="cartFee">QR 30</div></div><div class="cart-sum-row total"><div class="cart-sum-label">Total</div><div class="cart-sum-value" id="cartTotal">QR 0</div></div></div>
+    <div class="cart-zone-section"><div class="cart-zone-label">Delivery zone</div><div class="cart-zone-grid"><button class="zone-chip active" onclick="selectZone(0)">Most of Doha +QR30</button><button class="zone-chip" onclick="selectZone(1)">Wakrah / Lusail +QR40</button><button class="zone-chip" onclick="selectZone(2)">Al Khor / Mesaieed +QR50</button><button class="zone-chip" onclick="selectZone(3)">Far North / Dukhan +QR70</button></div></div>
+    <div class="cart-summary"><div class="cart-sum-row"><div class="cart-sum-label">Subtotal</div><div class="cart-sum-value" id="cartSub">QR 0</div></div><div class="cart-sum-row"><div class="cart-sum-label">Delivery</div><div class="cart-sum-value" id="cartFee">QR 15</div></div><div class="cart-sum-row total"><div class="cart-sum-label">Total</div><div class="cart-sum-value" id="cartTotal">QR 0</div></div></div>
     <div class="pay-section" id="paySection"></div>
   </div>
 </div>
 <div class="toast-container" id="toastContainer"></div>
 <script src="assets/js/main.js"></script>
-<script src="assets/js/mobile.js"></script>
+<script src="assets/js/mobile-init.js"></script>
 </body>
 </html>

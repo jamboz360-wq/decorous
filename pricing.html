@@ -18,7 +18,7 @@
 
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><img src="assets/images/logo-with-text.png" alt="Décorous Plus"></a>
+    <a href="index.html" class="nav-logo"><img src="assets/images/logo.png" alt="Décorous Plus" class="logo-icon"><span class="nav-logo-text"><span class="nav-logo-name">Décorous Plus</span><span class="nav-logo-tagline">Quality · Luxury · Exclusivity</span></span></a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="collections.html">Collections</a></li>
@@ -165,20 +165,13 @@
       <div>
         <div style="font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink-f);margin-bottom:12px;">Delivery fees</div>
         <div class="rate-table">
-          <div class="rate-row"><div class="rate-area">Doha & Greater Doha (all central zones)</div><div class="rate-fee">QR 30</div></div>
-          <div class="rate-row"><div class="rate-area">Al Rayyan / Al Waab / Al Aziziya / Abu Hamour</div><div class="rate-fee">QR 30</div></div>
-          <div class="rate-row"><div class="rate-area">West Bay / Lusail / Al Dafna / Lekhwair / Onaiza</div><div class="rate-fee">QR 30</div></div>
-          <div class="rate-row"><div class="rate-area">Al Gharrafa / Al Thumama / Al Luqta / Al Waab</div><div class="rate-fee">QR 30</div></div>
-          <div class="rate-row"><div class="rate-area">Ras Abu Fontas / Industrial Area / Wholesale Market</div><div class="rate-fee">QR 40</div></div>
-          <div class="rate-row"><div class="rate-area">Jelaiah / Lusail North / Umm Salal / Al Kharaitiyat</div><div class="rate-fee">QR 40</div></div>
-          <div class="rate-row"><div class="rate-area">Al Wakrah / Al Wukair / Al Meshaf</div><div class="rate-fee">QR 40</div></div>
-          <div class="rate-row"><div class="rate-area">Al Khor City / Simaisma / Al Thakhira / Ras Laffan</div><div class="rate-fee">QR 50</div></div>
-          <div class="rate-row"><div class="rate-area">Al Shahaniya / Mesaieed / Al Jemailiya / Mebaireek</div><div class="rate-fee">QR 50</div></div>
-          <div class="rate-row"><div class="rate-area">Umm Bab / Al Karaana / Abu Samra / Khor Al Udaid</div><div class="rate-fee">QR 50</div></div>
-          <div class="rate-row"><div class="rate-area">North Qatar / Dukhan / Al Ruwais / Az Zubarah / Far South</div><div class="rate-fee">QR 70</div></div>
-          <div class="rate-row" style="background:var(--cream-d);"><div class="rate-area" style="font-size:12px;color:var(--ink-l);font-style:italic;">Exact fee confirmed at checkout based on your zone number</div><div class="rate-fee" style="color:var(--ink-l);">—</div></div>
-          <div class="rate-row"><div class="rate-area">Pickup (in person)</div><div class="rate-fee free">Free</div></div>
+          <div class="rate-row"><div class="rate-area">Most of Doha, Al Rayyan &amp; surrounds</div><div class="rate-fee">QR 30</div></div>
+          <div class="rate-row"><div class="rate-area">Al Wakrah, Lusail, Umm Salal, Industrial Area</div><div class="rate-fee">QR 40</div></div>
+          <div class="rate-row"><div class="rate-area">Al Khor, Mesaieed, Al Shahaniya &amp; mid-Qatar</div><div class="rate-fee">QR 50</div></div>
+          <div class="rate-row"><div class="rate-area">Far North, Dukhan, Abu Samra, Khor Al Udaid</div><div class="rate-fee">QR 70</div></div>
+          
         </div>
+        <p style="font-size:12px;color:var(--ink-l);margin-top:10px;line-height:1.6;">Not sure which zone you're in? Just message us on WhatsApp with your area and we'll confirm.</p>
       </div>
     </div>
   </div>
@@ -204,13 +197,13 @@
   <div id="cartEmpty" class="cart-empty-state"><div class="cart-empty-icon"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div><div class="cart-empty-text">Your order is empty</div><div class="cart-empty-sub">Browse collections to add sets</div></div>
   <div class="cart-items-list" id="cartItemsList"></div>
   <div class="cart-footer">
-    <div class="cart-zone-section"><div class="cart-zone-label">Delivery zone</div><div class="cart-zone-grid"><button class="zone-chip active" onclick="selectZone(0)">Doha +QR30</button><button class="zone-chip" onclick="selectZone(1)">Al Rayyan +QR30</button><button class="zone-chip" onclick="selectZone(2)">West Bay/Lusail +QR30</button><button class="zone-chip" onclick="selectZone(3)">Industrial/Ras Abu Fontas +QR40</button><button class="zone-chip" onclick="selectZone(4)">Umm Salal/Lusail North +QR40</button><button class="zone-chip" onclick="selectZone(5)">Al Wakrah +QR40</button><button class="zone-chip" onclick="selectZone(6)">Al Khor/Simaisma +QR50</button><button class="zone-chip" onclick="selectZone(7)">Shahaniya/Mesaieed +QR50</button><button class="zone-chip" onclick="selectZone(8)">North/Dukhan/Far +QR70</button><button class="zone-chip" onclick="selectZone(9)">Pickup — Free</button></div></div>
-    <div class="cart-summary"><div class="cart-sum-row"><div class="cart-sum-label">Subtotal</div><div class="cart-sum-value" id="cartSub">QR 0</div></div><div class="cart-sum-row"><div class="cart-sum-label">Delivery</div><div class="cart-sum-value" id="cartFee">QR 30</div></div><div class="cart-sum-row total"><div class="cart-sum-label">Total</div><div class="cart-sum-value" id="cartTotal">QR 0</div></div></div>
+    <div class="cart-zone-section"><div class="cart-zone-label">Delivery zone</div><div class="cart-zone-grid"><button class="zone-chip active" onclick="selectZone(0)">Most of Doha +QR30</button><button class="zone-chip" onclick="selectZone(1)">Wakrah / Lusail +QR40</button><button class="zone-chip" onclick="selectZone(2)">Al Khor / Mesaieed +QR50</button><button class="zone-chip" onclick="selectZone(3)">Far North / Dukhan +QR70</button></div></div>
+    <div class="cart-summary"><div class="cart-sum-row"><div class="cart-sum-label">Subtotal</div><div class="cart-sum-value" id="cartSub">QR 0</div></div><div class="cart-sum-row"><div class="cart-sum-label">Delivery</div><div class="cart-sum-value" id="cartFee">QR 15</div></div><div class="cart-sum-row total"><div class="cart-sum-label">Total</div><div class="cart-sum-value" id="cartTotal">QR 0</div></div></div>
     <div class="pay-section" id="paySection"></div>
   </div>
 </div>
 <div class="toast-container" id="toastContainer"></div>
 <script src="assets/js/main.js"></script>
-<script src="assets/js/mobile.js"></script>
+<script src="assets/js/mobile-init.js"></script>
 </body>
 </html>

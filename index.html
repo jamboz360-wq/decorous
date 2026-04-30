@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/mobile.css">
 </head>
-<body>
+<body data-page="home">
 
 <!-- Announcement -->
 <div class="ann-bar" id="annBar">
@@ -21,7 +21,7 @@
 <!-- Nav -->
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><img src="assets/images/logo-with-text.png" alt="Décorous Plus"></a>
+    <a href="index.html" class="nav-logo"><img src="assets/images/logo.png" alt="Décorous Plus" class="logo-icon"><span class="nav-logo-text"><span class="nav-logo-name">Décorous Plus</span><span class="nav-logo-tagline">Quality · Luxury · Exclusivity</span></span></a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="collections.html">Collections</a></li>
@@ -87,7 +87,7 @@
       </div>
       <a href="collections.html" class="btn btn-outline">View all collections</a>
     </div>
-    <div class="products-grid">
+    <div class="products-grid" id="homeProductsGrid">
       <div class="product-card">
         <div class="product-card-img-wrap">
           <div class="product-badge">Best Seller</div>
@@ -137,6 +137,57 @@
             <div class="product-card-cta">
               <button class="btn btn-outline btn-sm" onclick="openProductModal(3)">Details</button>
               <button class="btn btn-gold btn-sm" onclick="openProductModal(3)">Add to cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img-wrap">
+          <img src="assets/images/product-set-brown.png" class="product-card-img" alt="Brown Earthy Set">
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-set">Set 4</div>
+          <div class="product-card-name">Brown Earthy</div>
+          <div class="product-card-sash">Brown sash · Gold writing</div>
+          <div class="product-card-footer">
+            <div class="product-card-price">From QR 150</div>
+            <div class="product-card-cta">
+              <button class="btn btn-outline btn-sm" onclick="openProductModal(4)">Details</button>
+              <button class="btn btn-gold btn-sm" onclick="openProductModal(4)">Add to cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img-wrap">
+          <img src="assets/images/product-set-maroon.png" class="product-card-img" alt="Maroon Heritage Set">
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-set">Set 5</div>
+          <div class="product-card-name">Maroon Heritage</div>
+          <div class="product-card-sash">Maroon sash · Gold writing</div>
+          <div class="product-card-footer">
+            <div class="product-card-price">From QR 150</div>
+            <div class="product-card-cta">
+              <button class="btn btn-outline btn-sm" onclick="openProductModal(5)">Details</button>
+              <button class="btn btn-gold btn-sm" onclick="openProductModal(5)">Add to cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img-wrap">
+          <img src="assets/images/product-set-purple.png" class="product-card-img" alt="Dark Purple Set">
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-set">Set 6</div>
+          <div class="product-card-name">Dark Purple</div>
+          <div class="product-card-sash">Purple sash · Silver writing</div>
+          <div class="product-card-footer">
+            <div class="product-card-price">From QR 150</div>
+            <div class="product-card-cta">
+              <button class="btn btn-outline btn-sm" onclick="openProductModal(6)">Details</button>
+              <button class="btn btn-gold btn-sm" onclick="openProductModal(6)">Add to cart</button>
             </div>
           </div>
         </div>
@@ -326,25 +377,20 @@
     <div class="cart-zone-section">
       <div class="cart-zone-label">Delivery zone</div>
       <div class="cart-zone-grid">
-        <button class="zone-chip active" onclick="selectZone(0)">Doha +QR30</button>
-        <button class="zone-chip" onclick="selectZone(1)">Al Rayyan +QR30</button>
-        <button class="zone-chip" onclick="selectZone(2)">West Bay/Lusail +QR30</button>
-        <button class="zone-chip" onclick="selectZone(3)">Industrial/Ras Abu Fontas +QR40</button>
-        <button class="zone-chip" onclick="selectZone(4)">Umm Salal/Lusail North +QR40</button>
-        <button class="zone-chip" onclick="selectZone(5)">Al Wakrah +QR40</button>
-        <button class="zone-chip" onclick="selectZone(6)">Al Khor/Simaisma +QR50</button>
-        <button class="zone-chip" onclick="selectZone(7)">Shahaniya/Mesaieed +QR50</button>
-        <button class="zone-chip" onclick="selectZone(8)">North/Dukhan/Far +QR70</button>
-        <button class="zone-chip" onclick="selectZone(9)">Pickup — Free</button>
+        <button class="zone-chip active" onclick="selectZone(0)">Most of Doha +QR30</button>
+        <button class="zone-chip" onclick="selectZone(1)">Wakrah / Lusail +QR40</button>
+        <button class="zone-chip" onclick="selectZone(2)">Al Khor / Mesaieed +QR50</button>
+        <button class="zone-chip" onclick="selectZone(3)">Far North / Dukhan +QR70</button>
+        
       </div>
     </div>
     <div class="cart-summary">
       <div class="cart-sum-row"><div class="cart-sum-label">Subtotal</div><div class="cart-sum-value" id="cartSub">QR 0</div></div>
-      <div class="cart-sum-row"><div class="cart-sum-label">Delivery</div><div class="cart-sum-value" id="cartFee">QR 30</div></div>
+      <div class="cart-sum-row"><div class="cart-sum-label">Delivery</div><div class="cart-sum-value" id="cartFee">QR 15</div></div>
       <div class="cart-sum-row total"><div class="cart-sum-label">Total</div><div class="cart-sum-value" id="cartTotal">QR 0</div></div>
     </div>
     <div class="pay-section" id="paySection"></div>
-    <div class="pay-bulk-note" style="margin-top:10px;">We'll confirm within 24 hours · Payment via SADAD or on delivery</div>
+    <div class="pay-bulk-note" style="margin-top:10px;">We'll confirm within 24 hours · Payment via SADAD</div>
   </div>
 </div>
 
@@ -419,6 +465,6 @@
 <div class="toast-container" id="toastContainer"></div>
 
 <script src="assets/js/main.js"></script>
-<script src="assets/js/mobile.js"></script>
+<script src="assets/js/mobile-init.js"></script>
 </body>
 </html>
