@@ -521,8 +521,23 @@
     <strong data-i18n="pwa_title">Add to Home Screen</strong>
     <span data-i18n="pwa_sub">Quick access, works offline</span>
   </div>
-  <button class="pwa-banner-install" id="pwaBannerInstall">Install</button>
+  <button class="pwa-banner-install" id="pwaBannerInstall" data-i18n="pwa_install">Install</button>
   <button class="pwa-banner-close" id="pwaBannerClose" aria-label="Dismiss">×</button>
+</div>
+
+<!-- iOS-specific install instructions banner -->
+<div class="pwa-ios-banner" id="pwaBannerIos">
+  <button class="pwa-ios-close" id="pwaBannerIosClose" aria-label="Dismiss">×</button>
+  <div class="pwa-ios-content">
+    <img src="assets/images/icon-192.png" alt="Décorous+" class="pwa-ios-icon">
+    <div class="pwa-ios-text">
+      <strong data-i18n="pwa_title">Add to Home Screen</strong>
+      <span data-i18n="pwa_ios_sub">Tap <span class="pwa-ios-share-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+      </span> then "Add to Home Screen"</span>
+    </div>
+  </div>
+  <div class="pwa-ios-arrow"></div>
 </div>
 
 <!-- Bulk Popup -->

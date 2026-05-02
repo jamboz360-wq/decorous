@@ -679,12 +679,33 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// Capture the browser's install prompt
+// Detect iOS Safari (no beforeinstallprompt support)
+function isIos() {
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent) && !window.MSStream;
+}
+function isInStandaloneMode() {
+  return ('standalone' in window.navigator) && window.navigator.standalone;
+}
+
+// iOS: show manual instructions banner
+function showIosBanner() {
+  const banner = document.getElementById('pwaBannerIos');
+  if (!banner) return;
+  banner.style.display = 'block';
+  requestAnimationFrame(() => requestAnimationFrame(() => banner.classList.add('show')));
+}
+function hideIosBanner() {
+  const banner = document.getElementById('pwaBannerIos');
+  if (!banner) return;
+  banner.classList.remove('show');
+  setTimeout(() => { banner.style.display = 'none'; }, 400);
+  sessionStorage.setItem('pwaBannerDismissed', '1');
+}
+
+// Android/desktop: capture browser install prompt
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   pwaInstallPrompt = e;
-
-  // Only show on mobile and only if not dismissed before
   const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
   if (isMobile && !sessionStorage.getItem('pwaBannerDismissed')) {
     setTimeout(showPwaBanner, 3000);
@@ -705,6 +726,13 @@ function hidePwaBanner() {
   setTimeout(() => { banner.style.display = 'none'; }, 400);
   sessionStorage.setItem('pwaBannerDismissed', '1');
 }
+
+// On page load: show iOS banner if on iOS Safari, not already installed, not dismissed
+window.addEventListener('load', () => {
+  if (isIos() && !isInStandaloneMode() && !sessionStorage.getItem('pwaBannerDismissed')) {
+    setTimeout(showIosBanner, 3500);
+  }
+});
 
 // ---- BULK POPUP ----
 function openBulkPopup() {
@@ -781,6 +809,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   document.getElementById('pwaBannerClose')?.addEventListener('click', hidePwaBanner);
+  document.getElementById('pwaBannerIosClose')?.addEventListener('click', hideIosBanner);
 
   // Cart overlay close
   document.getElementById('cartOverlay')?.addEventListener('click', closeCart);

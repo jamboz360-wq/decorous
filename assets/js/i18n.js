@@ -287,6 +287,7 @@ const TRANSLATIONS = {
     pwa_title: 'Add to Home Screen',
     pwa_sub: 'Quick access, works offline',
     pwa_install: 'Install',
+    pwa_ios_sub: 'Tap the Share button then "Add to Home Screen"',
   },
 
   ar: {
@@ -573,6 +574,7 @@ const TRANSLATIONS = {
     pwa_title: 'أضفه للشاشة الرئيسية',
     pwa_sub: 'وصول سريع، يشتغل بدون نت',
     pwa_install: 'ثبّت',
+    pwa_ios_sub: 'اضغط على زر المشاركة ثم "Add to Home Screen"',
   }
 };
 
