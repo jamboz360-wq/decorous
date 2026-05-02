@@ -1054,3 +1054,60 @@ input, select, textarea { font-family: 'DM Sans', sans-serif; }
   left: 50%;
   transform: translateX(-50%);
 }
+
+/* ── Out-of-zone banner ── */
+.out-of-zone-banner {
+  display: none;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fff8ec;
+  border: 1.5px solid #f0c040;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 10px 0 4px;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.25s, transform 0.25s;
+}
+.out-of-zone-banner.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.out-of-zone-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  line-height: 1.2;
+}
+.out-of-zone-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.out-of-zone-text strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.out-of-zone-text span {
+  font-size: 12px;
+  color: var(--ink-l);
+  line-height: 1.5;
+}
+.out-of-zone-close {
+  flex-shrink: 0;
+  background: #f0c040;
+  border: none;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 4px 10px;
+  cursor: pointer;
+  align-self: flex-start;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.out-of-zone-close:hover { background: #e0b030; }
+[dir="rtl"] .out-of-zone-banner { direction: rtl; text-align: right; }

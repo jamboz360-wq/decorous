@@ -479,8 +479,19 @@
     font-size: 11px;
   }
 
+  @keyframes marqueeScrollRTL {
+    from { transform: translateX(0); }
+    to   { transform: translateX(50%); }
+  }
+
+  [dir="rtl"] [data-page="home"] .products-grid {
+    flex-direction: row-reverse !important;
+  }
+
   [dir="rtl"] [data-page="home"] .products-marquee-track {
-    animation-direction: reverse;
+    flex-direction: row-reverse;
+    animation-name: marqueeScrollRTL;
+    animation-direction: normal;
   }
 
   [dir="rtl"] .product-card-body {

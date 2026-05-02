@@ -255,9 +255,17 @@ function checkoutWhatsApp() {
     return `• ${i.name} x${i.qty}, Size ${i.size}${i.velvetAddon ? ', +Velvet' : ''}${nameStr} — QR ${(i.price + (i.velvetAddon ? 35 : 0)) * i.qty}`;
   }).join('\n');
 
+  // Build location line if user shared their location
+  let locationLine = '';
+  if (detectedLocation) {
+    const { lat, lng, label } = detectedLocation;
+    const mapsLink = `https://maps.google.com/?q=${lat},${lng}`;
+    locationLine = `\nLocation: ${label ? label + ' — ' : ''}${mapsLink}`;
+  }
+
   const msg = isBulk
-    ? `Hi Décorous Plus — Bulk order request (${totalSets} sets):\n\n${orderLines}\n\nDelivery: ${ZONES[selectedZone].name}`
-    : `Hi Décorous Plus — I'd like to order:\n\n${orderLines}\n\nDelivery: ${ZONES[selectedZone].name}\nTotal: QR ${total}`;
+    ? `Hi Décorous Plus — Bulk order request (${totalSets} sets):\n\n${orderLines}\n\nDelivery: ${ZONES[selectedZone].name}${locationLine}`
+    : `Hi Décorous Plus — I'd like to order:\n\n${orderLines}\n\nDelivery: ${ZONES[selectedZone].name}${locationLine}\nTotal: QR ${total}`;
 
   window.open(`https://wa.me/97450393653?text=${encodeURIComponent(msg)}`, '_blank');
 }
@@ -274,7 +282,14 @@ function checkoutSadad() {
     return `• ${i.name} x${i.qty}, Size ${i.size}${i.velvetAddon ? ', +Velvet' : ''}${nameStr} — QR ${(i.price + (i.velvetAddon ? 35 : 0)) * i.qty}`;
   }).join('\n');
 
-  const msg = `Hi Décorous Plus — I'd like to pay via SADAD:\n\n${orderLines}\n\nDelivery: ${ZONES[selectedZone].name}\nTotal: QR ${total}\n\nPlease send me the SADAD payment link.`;
+  let locationLine = '';
+  if (detectedLocation) {
+    const { lat, lng, label } = detectedLocation;
+    const mapsLink = `https://maps.google.com/?q=${lat},${lng}`;
+    locationLine = `\nLocation: ${label ? label + ' — ' : ''}${mapsLink}`;
+  }
+
+  const msg = `Hi Décorous Plus — I'd like to pay via SADAD:\n\n${orderLines}\n\nDelivery: ${ZONES[selectedZone].name}${locationLine}\nTotal: QR ${total}\n\nPlease send me the SADAD payment link.`;
   window.open(`https://wa.me/97450393653?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
@@ -295,18 +310,42 @@ function selectZone(idx) {
   renderCartSummary();
 }
 
-// ---- DETECT ZONE via Geolocation ----
-// Qatar bounding boxes (approximate)
-const ZONE_BOUNDS = [
-  // Zone 0: Most of Doha / Al Rayyan — central Qatar
-  { minLat: 25.15, maxLat: 25.45, minLng: 51.35, maxLng: 51.65 },
-  // Zone 1: Wakrah (south) + Lusail (north of Doha) + Umm Salal
-  { minLat: 25.10, maxLat: 25.70, minLng: 51.20, maxLng: 51.65 },
-  // Zone 2: Al Khor (north) + Mesaieed (south-east) + Al Shahaniya
-  { minLat: 25.00, maxLat: 26.20, minLng: 51.00, maxLng: 51.85 },
-  // Zone 3: Far north + Dukhan (west) + Abu Samra + Khor Al Udaid — all of Qatar
-  { minLat: 24.50, maxLat: 26.20, minLng: 50.60, maxLng: 52.00 },
-];
+// ---- DETECT ZONE via Geolocation + Nominatim reverse geocode ----
+// Stores last detected coordinates for WhatsApp sharing
+let detectedLocation = null; // { lat, lng, label }
+
+// Qatar bounding box (generous — covers all of Qatar incl. islands)
+const QATAR_BOUNDS = { minLat: 24.47, maxLat: 26.20, minLng: 50.55, maxLng: 52.00 };
+
+function isInQatar(lat, lng) {
+  return lat >= QATAR_BOUNDS.minLat && lat <= QATAR_BOUNDS.maxLat &&
+         lng >= QATAR_BOUNDS.minLng && lng <= QATAR_BOUNDS.maxLng;
+}
+
+function showOutOfZoneBanner(cityName) {
+  let banner = document.getElementById('outOfZoneBanner');
+  if (!banner) {
+    banner = document.createElement('div');
+    banner.id = 'outOfZoneBanner';
+    banner.className = 'out-of-zone-banner';
+    const zoneSection = document.querySelector('.cart-zone-section');
+    if (zoneSection) zoneSection.after(banner);
+  }
+  const city = cityName || (typeof I18N !== 'undefined' ? I18N.get('cart_outside_unknown') : 'your location');
+  const msg  = (typeof I18N !== 'undefined' ? I18N.get('cart_outside_msg') : 'We currently deliver within Qatar only.')
+    .replace('{city}', city);
+  const sub  = typeof I18N !== 'undefined' ? I18N.get('cart_outside_sub') : 'You can still browse and share the order details with someone in Qatar.';
+  const dismiss = typeof I18N !== 'undefined' ? I18N.get('cart_outside_dismiss') : 'Got it';
+  banner.innerHTML = `
+    <div class="out-of-zone-icon">📍</div>
+    <div class="out-of-zone-text">
+      <strong>${msg}</strong>
+      <span>${sub}</span>
+    </div>
+    <button class="out-of-zone-close" onclick="this.closest('.out-of-zone-banner').remove()">${dismiss}</button>`;
+  banner.style.display = 'flex';
+  requestAnimationFrame(() => banner.classList.add('show'));
+}
 
 function detectZone() {
   const btn = document.querySelector('.zone-locate-btn');
@@ -315,26 +354,130 @@ function detectZone() {
     return;
   }
   if (btn) btn.classList.add('loading');
+
   navigator.geolocation.getCurrentPosition(
     pos => {
-      if (btn) btn.classList.remove('loading');
       const { latitude: lat, longitude: lng } = pos.coords;
-      // Find tightest matching zone
-      let zone = 3; // fallback to widest
-      for (let i = 0; i < ZONE_BOUNDS.length; i++) {
-        const b = ZONE_BOUNDS[i];
-        if (lat >= b.minLat && lat <= b.maxLat && lng >= b.minLng && lng <= b.maxLng) {
-          zone = i; break;
+
+      // ── Outside Qatar entirely ──────────────────────────────────────────
+      if (!isInQatar(lat, lng)) {
+        if (btn) btn.classList.remove('loading');
+        // Reverse geocode just to get the city name for the message
+        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=en`)
+          .then(r => r.json())
+          .then(d => {
+            const city = d.address?.city || d.address?.town || d.address?.country || '';
+            showOutOfZoneBanner(city);
+          })
+          .catch(() => showOutOfZoneBanner(''));
+        return;
+      }
+
+      // ── Inside Qatar — store coords for WhatsApp link ───────────────────
+      detectedLocation = { lat, lng, label: null };
+
+      // Reverse geocode with Nominatim to get Qatar zone number
+      fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1&accept-language=en`, {
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (btn) btn.classList.remove('loading');
+
+        const addr = data.address || {};
+        const rawArea = (addr.quarter || addr.suburb || addr.city_district || addr.neighbourhood || '').trim();
+        const city    = (addr.city || addr.town || addr.village || '').trim();
+
+        // Alias map: Nominatim popular names → canonical ALL_ZONES name fragment
+        const ALIASES = {
+          'west bay':              'al dafna',
+          'the pearl':             'lekhwair',
+          'the pearl-qatar island':'lekhwair',
+          'pearl island':          'lekhwair',
+          'msheireb':              'mushayrib',
+          'msheireb downtown':     'mushayrib',
+          'al msheireb':           'mushayrib',
+          'old doha':              'al bidda',
+          'souq waqif':            'al souq',
+          'corniche':              'al bidda',
+          'education city':        'al rayyan',
+          'sports city':           'al rayyan',
+          'aspire zone':           'al waab',
+          'ain khaled':            'abu hamour',
+          'new doha':              'al dafna',
+          'diplomatic area':       'al dafna',
+          'marina district':       'lusail',
+          'qatar foundation':      'al rayyan',
+          'hamad international airport': 'doha international airport',
+          'hia':                   'doha international airport',
+          'al gharafa':            'al gharrafa',
+        };
+
+        // Normalise and apply alias
+        let areaName = rawArea.toLowerCase();
+        areaName = ALIASES[areaName] || areaName;
+        let cityName = city.toLowerCase();
+        cityName = ALIASES[cityName] || cityName;
+
+        // Match function: exact before partial, longer name wins
+        function matchZone(query) {
+          if (!query) return null;
+          // 1. Exact full match
+          for (const z of ALL_ZONES) {
+            if (z.name.toLowerCase() === query) return z;
+          }
+          // 2. Exact match on first segment (before /)
+          for (const z of ALL_ZONES) {
+            const first = z.name.toLowerCase().split('/')[0].trim();
+            if (first === query) return z;
+          }
+          // 3. Exact match on second segment (after /)
+          for (const z of ALL_ZONES) {
+            const parts = z.name.toLowerCase().split('/');
+            if (parts[1] && parts[1].trim() === query) return z;
+          }
+          // 4. Zone name contains query (minimum 5 chars to avoid false positives)
+          if (query.length >= 5) {
+            for (const z of ALL_ZONES) {
+              if (z.name.toLowerCase().includes(query)) return z;
+            }
+          }
+          // 5. Query contains zone first segment (minimum 5 chars)
+          if (query.length >= 5) {
+            for (const z of ALL_ZONES) {
+              const first = z.name.toLowerCase().split('/')[0].trim();
+              if (first.length >= 5 && query.includes(first)) return z;
+            }
+          }
+          return null;
         }
-      }
-      selectZone(zone);
-      // Brief visual confirmation on the button
-      if (btn) {
-        const span = btn.querySelector('span');
-        const orig = span ? span.textContent : '';
-        if (span) span.textContent = ZONES[zone].name;
-        setTimeout(() => { if (span) span.textContent = orig; }, 2500);
-      }
+
+        let matched = matchZone(areaName) || matchZone(cityName);
+
+        // Store human-readable label
+        const displayName = rawArea || city || 'Your location';
+        detectedLocation.label = displayName;
+
+        if (matched) {
+          const zoneIdx = matched.fee === 30 ? 0 : matched.fee === 40 ? 1 : matched.fee === 50 ? 2 : 3;
+          selectZone(zoneIdx);
+          if (btn) {
+            const span = btn.querySelector('span');
+            if (span) {
+              span.textContent = matched.name;
+              setTimeout(() => { if (I18N) span.textContent = I18N.get('cart_locate'); }, 3000);
+            }
+          }
+        } else {
+          const zone = coordZoneFallback(lat, lng);
+          selectZone(zone);
+        }
+      })
+      .catch(() => {
+        if (btn) btn.classList.remove('loading');
+        const zone = coordZoneFallback(lat, lng);
+        selectZone(zone);
+      });
     },
     err => {
       if (btn) btn.classList.remove('loading');
@@ -342,6 +485,34 @@ function detectZone() {
     },
     { timeout: 8000, maximumAge: 60000 }
   );
+}
+
+// Coordinate fallback using tight zone bounds (used if Nominatim fails)
+function coordZoneFallback(lat, lng) {
+  const bounds = [
+    // Zone 1 areas checked first (they overlap Doha's broad bounds)
+    { zone: 1, minLat: 25.395, maxLat: 25.490, minLng: 51.455, maxLng: 51.560 }, // Lusail
+    { zone: 1, minLat: 25.090, maxLat: 25.215, minLng: 51.535, maxLng: 51.680 }, // Al Wakrah
+    { zone: 1, minLat: 25.390, maxLat: 25.540, minLng: 51.340, maxLng: 51.480 }, // Umm Salal
+    { zone: 1, minLat: 25.100, maxLat: 25.270, minLng: 51.440, maxLng: 51.560 }, // Industrial Area
+    // Zone 2
+    { zone: 2, minLat: 25.650, maxLat: 25.760, minLng: 51.450, maxLng: 51.600 }, // Al Khor
+    { zone: 2, minLat: 24.960, maxLat: 25.100, minLng: 51.500, maxLng: 51.620 }, // Mesaieed
+    { zone: 2, minLat: 25.300, maxLat: 25.430, minLng: 51.050, maxLng: 51.340 }, // Al Shahaniya
+    { zone: 2, minLat: 25.500, maxLat: 25.680, minLng: 51.520, maxLng: 51.620 }, // Simaisma
+    // Zone 3
+    { zone: 3, minLat: 25.370, maxLat: 25.500, minLng: 50.720, maxLng: 50.860 }, // Dukhan
+    { zone: 3, minLat: 24.680, maxLat: 24.820, minLng: 50.780, maxLng: 50.920 }, // Abu Samra
+    { zone: 3, minLat: 24.530, maxLat: 24.680, minLng: 51.280, maxLng: 51.450 }, // Khor Al Udaid
+    { zone: 3, minLat: 25.750, maxLat: 26.200, minLng: 50.800, maxLng: 52.000 }, // Far north
+    { zone: 3, minLat: 25.000, maxLat: 25.900, minLng: 50.600, maxLng: 51.050 }, // Far west
+    // Zone 0 fallback
+    { zone: 0, minLat: 25.150, maxLat: 25.420, minLng: 51.340, maxLng: 51.660 },
+  ];
+  for (const b of bounds) {
+    if (lat >= b.minLat && lat <= b.maxLat && lng >= b.minLng && lng <= b.maxLng) return b.zone;
+  }
+  return 0;
 }
 
 // ---- CART DRAWER ----

@@ -59,8 +59,12 @@
       var key = el.getAttribute('data-navkey');
       el.textContent = label(key, el.textContent);
     });
-    // Also re-render product cards on home page after lang switch
-    if (document.body.dataset.page === 'home') refreshHomeCards();
+    // Rebuild marquee so track direction is correct
+    if (document.body.dataset.page === 'home') {
+      rebuildMarquee();
+    } else {
+      refreshHomeCards();
+    }
     // Re-render sidebar sets on order page
     if (path === 'order.html') renderSidebarSets();
   });
@@ -100,8 +104,17 @@
         el.addEventListener('click', function() { eval(fn); });
       });
 
-      grid.appendChild(track);
-      grid.appendChild(clone);
+      // In RTL the clone must come first so the seamless loop works correctly
+      var isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+      if (isRTL) {
+        track.style.direction = 'rtl';
+        clone.style.direction = 'rtl';
+        grid.appendChild(clone);
+        grid.appendChild(track);
+      } else {
+        grid.appendChild(track);
+        grid.appendChild(clone);
+      }
 
       grid.addEventListener('touchstart', function() { grid.classList.add('paused'); }, { passive: true });
       grid.addEventListener('touchend',   function() { setTimeout(function(){ grid.classList.remove('paused'); }, 1200); }, { passive: true });
@@ -117,6 +130,41 @@
       var val = I18N.get(key);
       if (val) el.innerHTML = val;
     });
+  }
+
+  /* ---- Rebuild marquee tracks (called on lang switch) ---- */
+  function rebuildMarquee() {
+    var grid = document.getElementById('homeProductsGrid');
+    if (!grid) return;
+    // Collect all unique cards (first track only to avoid duplicates)
+    var firstTrack = grid.querySelector('.products-marquee-track');
+    if (!firstTrack) return;
+    // Remove all existing tracks
+    grid.querySelectorAll('.products-marquee-track').forEach(function(t) { t.remove(); });
+    // Re-translate cards in first track
+    firstTrack.querySelectorAll('[data-i18n]').forEach(function(el) {
+      if (typeof I18N !== 'undefined') {
+        var val = I18N.get(el.getAttribute('data-i18n'));
+        if (val) el.innerHTML = val;
+      }
+    });
+    var clone = firstTrack.cloneNode(true);
+    clone.querySelectorAll('[onclick]').forEach(function(el) {
+      var fn = el.getAttribute('onclick');
+      el.addEventListener('click', function() { eval(fn); });
+    });
+    var isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+    if (isRTL) {
+      firstTrack.style.direction = 'rtl';
+      clone.style.direction = 'rtl';
+      grid.appendChild(clone);
+      grid.appendChild(firstTrack);
+    } else {
+      firstTrack.style.direction = '';
+      clone.style.direction = '';
+      grid.appendChild(firstTrack);
+      grid.appendChild(clone);
+    }
   }
 
   /* ============================================================
