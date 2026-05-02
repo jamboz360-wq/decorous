@@ -889,7 +889,7 @@ input, select, textarea { font-family: 'DM Sans', sans-serif; }
 [dir="rtl"] .delivery-time-card { direction: rtl; text-align: right; }
 [dir="rtl"] .rate-table { direction: rtl; }
 [dir="rtl"] .addon-card { direction: rtl; }
-[dir="rtl"] .product-card-body { text-align: right; }
+[dir="rtl"] .product-card-body { text-align: right; direction: rtl; }
 [dir="rtl"] .product-card-footer { flex-direction: row-reverse; }
 [dir="rtl"] .product-card-cta { flex-direction: row-reverse; }
 [dir="rtl"] .bulk-popup { direction: rtl; text-align: right; }

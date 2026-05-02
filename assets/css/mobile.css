@@ -146,19 +146,32 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 3px;
     text-decoration: none;
     color: var(--ink-l);
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 500;
-    letter-spacing: 0.3px;
-    padding: 8px 4px 0;
+    letter-spacing: 0.2px;
+    padding: 8px 2px 0;
     transition: color 0.15s;
     position: relative;
     background: none;
     border: none;
     cursor: pointer;
     font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .mobile-nav-item span {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    text-align: center;
   }
 
   .mobile-nav-item.active,
@@ -464,6 +477,38 @@
     justify-content: center;
     padding: 7px 8px;
     font-size: 11px;
+  }
+
+  [dir="rtl"] [data-page="home"] .products-marquee-track {
+    animation-direction: reverse;
+  }
+
+  [dir="rtl"] .product-card-body {
+    text-align: right;
+    direction: rtl;
+  }
+
+  [dir="rtl"] .product-card-set,
+  [dir="rtl"] .product-card-name,
+  [dir="rtl"] .product-card-sash {
+    text-align: right;
+    direction: rtl;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [dir="rtl"] .product-card-footer {
+    direction: rtl;
+  }
+
+  [dir="rtl"] .product-card-cta {
+    direction: rtl;
+  }
+
+  [dir="rtl"] [data-page="home"] .product-card {
+    direction: rtl;
   }
 
   .product-badge {
