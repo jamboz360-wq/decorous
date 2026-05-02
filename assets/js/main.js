@@ -210,7 +210,7 @@ function renderCartSummary() {
   const totalEl = document.getElementById('cartTotal');
   if (subEl) subEl.textContent = `QR ${sub}`;
   if (feeEl) {
-    feeEl.textContent = fee === 0 ? 'Free' : `QR ${fee}`;
+    feeEl.textContent = fee === 0 ? t('cart_free') : `QR ${fee}`;
     feeEl.className = `cart-sum-value${fee === 0 ? ' sum-free' : ''}`;
   }
   if (totalEl) totalEl.textContent = `QR ${total}`;
@@ -220,21 +220,21 @@ function renderCartSummary() {
 
   if (isBulk) {
     paySection.innerHTML = `
-      <div class="pay-label">Bulk order (${totalSets} sets)</div>
-      <p style="font-size:13px;color:var(--ink-l);line-height:1.6;margin-bottom:12px;">For 10+ sets we coordinate directly — from QR 199/set, free velvet included.</p>
+      <div class="pay-label">${t('cart_bulk_label')} (${totalSets} ${t('cart_bulk_sets')})</div>
+      <p style="font-size:13px;color:var(--ink-l);line-height:1.6;margin-bottom:12px;">${t('cart_bulk_desc')}</p>
       <button class="pay-btn bulk" id="payBulkBtn">
-        ${waIcon()} Get bulk quote on WhatsApp
+        ${waIcon()} ${t('cart_bulk_btn')}
       </button>`;
     document.getElementById('payBulkBtn')?.addEventListener('click', checkoutWhatsApp);
   } else {
     paySection.innerHTML = `
-      <div class="pay-label">Confirm your order</div>
+      <div class="pay-label">${t('cart_confirm_label')}</div>
       <button class="pay-btn whatsapp" id="payWaBtn">
-        ${waIcon()} Confirm order on WhatsApp
+        ${waIcon()} ${t('cart_confirm_btn')}
       </button>
       <button class="pay-btn sadad" id="paySadadBtn" style="margin-top:10px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        Pay with SADAD
+        ${t('cart_sadad_btn')}
       </button>`;
     document.getElementById('payWaBtn')?.addEventListener('click', checkoutWhatsApp);
     document.getElementById('paySadadBtn')?.addEventListener('click', checkoutSadad);
@@ -285,10 +285,63 @@ function waIcon() {
 // ---- ZONE SELECTION ----
 function selectZone(idx) {
   selectedZone = idx;
+  // sync chips
   document.querySelectorAll('.zone-chip').forEach((el, i) => {
     el.classList.toggle('active', i === idx);
   });
+  // sync dropdown
+  const sel = document.getElementById('zoneSelect');
+  if (sel) sel.value = idx;
   renderCartSummary();
+}
+
+// ---- DETECT ZONE via Geolocation ----
+// Qatar bounding boxes (approximate)
+const ZONE_BOUNDS = [
+  // Zone 0: Most of Doha / Al Rayyan — central Qatar
+  { minLat: 25.15, maxLat: 25.45, minLng: 51.35, maxLng: 51.65 },
+  // Zone 1: Wakrah (south) + Lusail (north of Doha) + Umm Salal
+  { minLat: 25.10, maxLat: 25.70, minLng: 51.20, maxLng: 51.65 },
+  // Zone 2: Al Khor (north) + Mesaieed (south-east) + Al Shahaniya
+  { minLat: 25.00, maxLat: 26.20, minLng: 51.00, maxLng: 51.85 },
+  // Zone 3: Far north + Dukhan (west) + Abu Samra + Khor Al Udaid — all of Qatar
+  { minLat: 24.50, maxLat: 26.20, minLng: 50.60, maxLng: 52.00 },
+];
+
+function detectZone() {
+  const btn = document.querySelector('.zone-locate-btn');
+  if (!navigator.geolocation) {
+    alert(typeof I18N !== 'undefined' ? I18N.get('cart_locate_unsupported') : 'Geolocation not supported');
+    return;
+  }
+  if (btn) btn.classList.add('loading');
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      if (btn) btn.classList.remove('loading');
+      const { latitude: lat, longitude: lng } = pos.coords;
+      // Find tightest matching zone
+      let zone = 3; // fallback to widest
+      for (let i = 0; i < ZONE_BOUNDS.length; i++) {
+        const b = ZONE_BOUNDS[i];
+        if (lat >= b.minLat && lat <= b.maxLat && lng >= b.minLng && lng <= b.maxLng) {
+          zone = i; break;
+        }
+      }
+      selectZone(zone);
+      // Brief visual confirmation on the button
+      if (btn) {
+        const span = btn.querySelector('span');
+        const orig = span ? span.textContent : '';
+        if (span) span.textContent = ZONES[zone].name;
+        setTimeout(() => { if (span) span.textContent = orig; }, 2500);
+      }
+    },
+    err => {
+      if (btn) btn.classList.remove('loading');
+      console.warn('Geolocation error:', err.message);
+    },
+    { timeout: 8000, maximumAge: 60000 }
+  );
 }
 
 // ---- CART DRAWER ----
@@ -314,67 +367,85 @@ let modalGalleryIdx = 0;
 let modalTab = 'order';
 
 const PRODUCTS = [
-  { id: 1, name: 'Black Classic', set: 'Set 1', sash: 'Gold sash', price: 329, bestseller: true,
+  { id: 1,
+    name: 'Black Classic',   name_ar: 'الكلاسيك الأسود',
+    set: 'Set 1',            set_ar: 'الطقم 1',
+    sash: 'Gold sash',       sash_ar: 'شريط ذهبي',
+    badge: 'Best Seller',    badge_ar: 'الأكثر مبيعاً',
+    cardSash: 'Black sash · Gold writing',
+    cardSash_ar: 'شريط أسود · كتابة ذهبية',
+    price: 329, bestseller: true,
     img: 'product-set-black.png',
     gallery: [
-      'product-set-black.png',   // full set (robe + hat + sash)
-      'set1-1.webp',             // woman wearing the robe
-      'set1-2.webp',             // sash close-up
-      'addon-velvet-black.png',  // velvet cuff add-on (Set 1 only)
-      'set1-3.webp',             // lifestyle / detail
-      'set1-4.webp',             // lifestyle / detail
-      'size-reference.png',      // size chart reference
+      'product-set-black.png','set1-1.webp','set1-2.webp',
+      'addon-velvet-black.png','set1-3.webp','set1-4.webp','size-reference.png',
     ],
     velvet: true, velvetImg: 'addon-velvet-black.png' },
-  { id: 2, name: 'Navy Blue', set: 'Set 2', sash: 'Silver sash', price: 329,
+  { id: 2,
+    name: 'Navy Blue',       name_ar: 'الأزرق الكحلي',
+    set: 'Set 2',            set_ar: 'الطقم 2',
+    sash: 'Silver sash',     sash_ar: 'شريط فضي',
+    badge: 'Most Popular',   badge_ar: 'الأكثر طلباً',
+    cardSash: 'Navy sash · Silver writing',
+    cardSash_ar: 'شريط كحلي · كتابة فضية',
+    price: 329,
     img: 'product-set-navy.png',
     gallery: [
-      'product-set-navy.png',    // full set
-      'set2-1.webp',             // woman wearing the robe
-      'set2-2.webp',             // sash close-up
-      'addon-velvet-navy.png',   // velvet cuff add-on (Set 2 only)
-      'set2-3.webp',             // lifestyle / detail
-      'set2-4.webp',             // lifestyle / detail
-      'size-reference.png',      // size chart reference
+      'product-set-navy.png','set2-1.webp','set2-2.webp',
+      'addon-velvet-navy.png','set2-3.webp','set2-4.webp','size-reference.png',
     ],
     velvet: true, velvetImg: 'addon-velvet-navy.png' },
-  { id: 3, name: 'White Ivory', set: 'Set 3', sash: 'Grey sash', price: 329,
+  { id: 3,
+    name: 'White Ivory',     name_ar: 'الأبيض العاجي',
+    set: 'Set 3',            set_ar: 'الطقم 3',
+    sash: 'Grey sash',       sash_ar: 'شريط رمادي',
+    cardSash: 'Grey sash · Silver brooche',
+    cardSash_ar: 'شريط رمادي · مشبك فضي',
+    price: 329,
     img: 'product-set-white.png',
-    gallery: [
-      'product-set-white.png',   // full set
-      'set3-1.webp',             // woman wearing the robe
-      'set3-2.webp',             // sash / detail
-      'size-reference.png',      // size chart reference
-    ],
+    gallery: ['product-set-white.png','set3-1.webp','set3-2.webp','size-reference.png'],
     velvet: false },
-  { id: 4, name: 'Brown Earthy', set: 'Set 4', sash: 'White sash', price: 329,
+  { id: 4,
+    name: 'Brown Earthy',    name_ar: 'البني الترابي',
+    set: 'Set 4',            set_ar: 'الطقم 4',
+    sash: 'White sash',      sash_ar: 'شريط أبيض',
+    cardSash: 'Brown sash · Gold writing',
+    cardSash_ar: 'شريط بني · كتابة ذهبية',
+    price: 329,
     img: 'product-set-brown.png',
-    gallery: [
-      'product-set-brown.png',   // full set
-      'set4-1.webp',             // woman wearing the robe
-      'set4-2.webp',             // sash / detail
-      'size-reference.png',      // size chart reference
-    ],
+    gallery: ['product-set-brown.png','set4-1.webp','set4-2.webp','size-reference.png'],
     velvet: false },
-  { id: 5, name: 'Maroon Heritage', set: 'Set 5', sash: 'White sash', price: 329,
+  { id: 5,
+    name: 'Maroon Heritage', name_ar: 'الكرزي التراثي',
+    set: 'Set 5',            set_ar: 'الطقم 5',
+    sash: 'White sash',      sash_ar: 'شريط أبيض',
+    cardSash: 'Maroon sash · Gold writing',
+    cardSash_ar: 'شريط كرزي · كتابة ذهبية',
+    price: 329,
     img: 'product-set-maroon.png',
-    gallery: [
-      'product-set-maroon.png',  // full set
-      'set5-1.webp',             // woman wearing the robe
-      'set5-2.webp',             // sash / detail
-      'size-reference.png',      // size chart reference
-    ],
+    gallery: ['product-set-maroon.png','set5-1.webp','set5-2.webp','size-reference.png'],
     velvet: false },
-  { id: 6, name: 'Dark Purple', set: 'Set 6', sash: 'Black sash', price: 329,
+  { id: 6,
+    name: 'Dark Purple',     name_ar: 'البنفسجي الداكن',
+    set: 'Set 6',            set_ar: 'الطقم 6',
+    sash: 'Black sash',      sash_ar: 'شريط أسود',
+    cardSash: 'Purple sash · Silver writing',
+    cardSash_ar: 'شريط بنفسجي · كتابة فضية',
+    price: 329,
     img: 'product-set-purple.png',
-    gallery: [
-      'product-set-purple.png',  // full set
-      'set6-1.webp',             // woman wearing the robe
-      'set6-2.webp',             // sash / detail
-      'size-reference.png',      // size chart reference
-    ],
+    gallery: ['product-set-purple.png','set6-1.webp','set6-2.webp','size-reference.png'],
     velvet: false },
 ];
+
+/* Helper: return localised field from a product */
+function pL(p, field) {
+  const ar = typeof I18N !== 'undefined' && I18N.current() === 'ar';
+  return ar && p[field + '_ar'] ? p[field + '_ar'] : p[field];
+}
+/* Helper: i18n string shortcut */
+function t(key) {
+  return typeof I18N !== 'undefined' ? I18N.get(key) : key;
+}
 
 function openProductModal(productId) {
   modalProduct = PRODUCTS.find(p => p.id === productId);
@@ -402,8 +473,8 @@ function renderModal() {
   const p = modalProduct;
   const total = (p.price + (modalVelvet ? 35 : 0)) * modalQty;
 
-  modal.querySelector('.modal-set-label').textContent = `${p.set} · ${p.sash}`;
-  modal.querySelector('.modal-name').textContent = p.name;
+  modal.querySelector('.modal-set-label').textContent = `${pL(p,'set')} · ${pL(p,'sash')}`;
+  modal.querySelector('.modal-name').textContent = pL(p,'name');
   modal.querySelector('.modal-price').innerHTML = `QR ${total} <span>total</span>`;
 
   // Gallery
@@ -443,7 +514,7 @@ function renderModal() {
   if (namesContainer) {
     const SIZES = ['XS','S','M','L','XL'];
     if (modalQty === 1) {
-      namesContainer.innerHTML = `<input class="form-input" placeholder="e.g. محمد علي — optional" value="${modalSashes[0] || ''}" oninput="updateModalSash(0, this.value)" dir="rtl">`;
+      namesContainer.innerHTML = `<input class="form-input" placeholder="${t('modal_name_placeholder')}" value="${modalSashes[0] || ''}" oninput="updateModalSash(0, this.value)" dir="rtl">`;
     } else {
       namesContainer.innerHTML = `<div class="modal-names-list">${
         Array.from({length: modalQty}, (_, i) => {
@@ -454,7 +525,7 @@ function renderModal() {
           return `<div class="modal-name-row">
             <div class="modal-name-num">${i + 1}</div>
             <div class="modal-item-sizes">${szBtns}</div>
-            <input class="form-input" style="flex:1;" placeholder="Graduate ${i+1} — optional" value="${modalSashes[i] || ''}" oninput="updateModalSash(${i}, this.value)" dir="rtl">
+            <input class="form-input" style="flex:1;" placeholder="${t('modal_name_placeholder').replace('— optional','').trim()} ${i+1}" value="${modalSashes[i] || ''}" oninput="updateModalSash(${i}, this.value)" dir="rtl">
           </div>`;
         }).join('')
       }</div>`;
@@ -477,7 +548,7 @@ function renderModal() {
 
   // Add btn
   const addBtn = modal.querySelector('.modal-add-btn');
-  if (addBtn) addBtn.textContent = `Add to order · QR ${total}`;
+  if (addBtn) addBtn.textContent = `${t('modal_add_btn').split('·')[0].trim()} · QR ${total}`;
 }
 
 function renderModalDots() {
@@ -724,4 +795,39 @@ document.addEventListener('DOMContentLoaded', () => {
     chip.addEventListener('click', () => selectZone(i));
   });
   document.querySelector('.zone-chip')?.classList.add('active');
+});
+
+/* ---- Re-translate dynamic content when language changes ---- */
+document.addEventListener('langchange', function() {
+  // Re-translate all static [data-i18n] product card elements
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (typeof I18N !== 'undefined') {
+      var val = I18N.get(key);
+      if (val) {
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = val;
+        } else if (el.tagName === 'OPTION') {
+          el.textContent = val;
+        } else {
+          el.innerHTML = val;
+        }
+      }
+    }
+  });
+
+  // Re-render open modal if any
+  if (typeof renderModal === 'function' && typeof modalProduct !== 'undefined' && modalProduct) {
+    renderModal();
+  }
+
+  // Re-render cart items (size label etc.)
+  if (typeof updateCartUI === 'function') updateCartUI();
+
+  // Re-render cart summary (pay section uses t() strings)
+  if (typeof renderCartSummary === 'function') renderCartSummary();
+
+  // Sync zone dropdown selected value
+  const sel = document.getElementById('zoneSelect');
+  if (sel && typeof selectedZone !== 'undefined') sel.value = selectedZone;
 });

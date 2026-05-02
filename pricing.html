@@ -19,42 +19,46 @@
 <body>
 
 <div class="ann-bar" id="annBar">
-  <strong>Free velvet add-on</strong> on all orders of 10+ sets &nbsp;·&nbsp; <strong>Up to 54% off</strong> on bulk orders
+  <span data-i18n="ann_pricing"></span>
   <button class="ann-close" onclick="closeAnn()">×</button>
 </div>
 
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><img src="assets/images/logo.png" alt="Décorous Plus" class="logo-icon"><span class="nav-logo-text"><span class="nav-logo-name">Décorous Plus</span><span class="nav-logo-tagline">Quality · Luxury · Exclusivity</span></span></a>
+    <a href="index.html" class="nav-logo"><img src="assets/images/logo.png" alt="Décorous Plus" class="logo-icon"><span class="nav-logo-text"><span class="nav-logo-name">Décorous Plus</span><span class="nav-logo-tagline" data-i18n="nav_tagline">Quality · Luxury · Exclusivity</span></span></a>
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="collections.html">Collections</a></li>
-      <li><a href="pricing.html" class="active">Pricing & Delivery</a></li>
-      <li><a href="order.html">Order</a></li>
+      <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+      <li><a href="collections.html" data-i18n="nav_collections">Collections</a></li>
+      <li><a href="pricing.html" class="active" data-i18n="nav_pricing">Pricing & Delivery</a></li>
+      <li><a href="order.html" data-i18n="nav_order">Order</a></li>
     </ul>
     <div class="nav-right">
       <button class="nav-wa-btn" onclick="window.open('https://wa.me/97450393653','_blank')">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.821.487 3.53 1.338 5L2 22l5.1-1.32A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.083-1.12l-.29-.174-3.027.783.804-2.946-.19-.302A8 8 0 1112 20z"/></svg>
-        WhatsApp
+        <span data-i18n="nav_whatsapp">WhatsApp</span>
       </button>
       <button class="nav-cart-btn" onclick="openCart()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        Cart <div class="nav-cart-badge cart-count" style="display:none;">0</div>
+        <span data-i18n="nav_cart">Cart</span> <div class="nav-cart-badge cart-count" style="display:none;">0</div>
       </button>
-    </div>
+    
+      <button class="lang-toggle" onclick="I18N.toggle()" data-current="en" aria-label="Toggle language">
+        <span class="lang-opt lang-opt-en">EN</span>
+        <span class="lang-opt lang-opt-ar">عربي</span>
+      </button>
   </div>
 </nav>
 
 <!-- Page Header -->
 <div style="background:var(--white);border-bottom:1px solid var(--border);padding:48px 0 40px;">
   <div class="container">
-    <div class="eyebrow">Transparent Pricing</div>
-    <h1 class="display-title">Simple Pricing. <em>Real Value.</em></h1>
+    <div class="eyebrow" data-i18n="pricing_eyebrow">Transparent Pricing</div>
+    <h1 class="display-title" data-i18n="pricing_title">Simple Pricing. <em>Real Value.</em></h1>
     <p class="lead mt-16" style="max-width:600px;">Every set includes robe, mortarboard & personalised Arabic sash. The more you order, the more you save.</p>
     <div style="display:flex;gap:24px;margin-top:20px;">
-      <div style="display:flex;align-items:center;gap:7px;font-size:14px;color:var(--ink-m);"><span style="color:var(--gold);font-size:11px;">✦</span> No hidden fees</div>
-      <div style="display:flex;align-items:center;gap:7px;font-size:14px;color:var(--ink-m);"><span style="color:var(--gold);font-size:11px;">✦</span> Bulk discounts up to 54%</div>
-      <div style="display:flex;align-items:center;gap:7px;font-size:14px;color:var(--ink-m);"><span style="color:var(--gold);font-size:11px;">✦</span> Free velvet add-on at 10+</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:14px;color:var(--ink-m);"><span style="color:var(--gold);font-size:11px;">✦</span> <span data-i18n="pricing_feat1">No hidden fees</span></div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:14px;color:var(--ink-m);"><span style="color:var(--gold);font-size:11px;">✦</span> <span data-i18n="pricing_feat2">Bulk discounts up to 54%</span></div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:14px;color:var(--ink-m);"><span style="color:var(--gold);font-size:11px;">✦</span> <span data-i18n="pricing_feat3">Free velvet add-on at 10+</span></div>
     </div>
   </div>
 </div>
@@ -64,56 +68,56 @@
   <div class="container">
     <div class="pricing-grid">
       <div class="pricing-card">
-        <div class="pricing-range">1 – 9 pieces</div>
+        <div class="pricing-range" data-i18n="pricing_tier1_range">1 – 9 pieces</div>
         <div class="pricing-price">QR 329</div>
-        <div class="pricing-per">per set</div>
+        <div class="pricing-per" data-i18n="pricing_tier1_per">per set</div>
         <ul class="pricing-features">
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Full 3-piece set</li>
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Order online instantly</li>
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Pick your size & sash name</li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier1_f1">Full 3-piece set</span></li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier1_f2">Order online instantly</span></li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier1_f3">Pick your size & sash name</span></li>
         </ul>
-        <a href="collections.html" class="pricing-cta gold">Browse &amp; Order Online</a>
+        <a href="collections.html" class="pricing-cta gold" data-i18n="pricing_tier1_cta">Browse &amp; Order Online</a>
       </div>
 
       <div class="pricing-card featured">
-        <div class="pricing-badge">Most Common</div>
-        <div class="pricing-range">10 – 40 pieces</div>
+        <div class="pricing-badge" data-i18n="pricing_tier2_badge">Most Common</div>
+        <div class="pricing-range" data-i18n="pricing_tier2_range">10 – 40 pieces</div>
         <div class="pricing-price">QR 199</div>
-        <div class="pricing-per">per set</div>
+        <div class="pricing-per" data-i18n="pricing_tier1_per">per set</div>
         <ul class="pricing-features">
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Full 3-piece set</li>
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Free velvet cuff add-on</li>
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Personalised per graduate</li>
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Delivery coordinated</li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier2_f1">Full 3-piece set</span></li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier2_f2">Free velvet cuff add-on</span></li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier2_f3">Personalised per graduate</span></li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier2_f4">Delivery coordinated</span></li>
         </ul>
-        <button class="pricing-cta gold" onclick="window.open('https://wa.me/97450393653?text=Hi Décorous Plus — bulk quote for 10–40 sets','_blank')">Get a Quote on WhatsApp</button>
+        <button class="pricing-cta gold" onclick="window.open('https://wa.me/97450393653?text=Hi Décorous Plus — bulk quote for 10–40 sets','_blank')" data-i18n="pricing_tier2_cta">Get a Quote on WhatsApp</button>
       </div>
 
       <div class="pricing-card">
-        <div class="pricing-range">41 – 100 pieces</div>
+        <div class="pricing-range" data-i18n="pricing_tier3_range">41 – 100 pieces</div>
         <div class="pricing-price">QR 175</div>
-        <div class="pricing-per">per set</div>
+        <div class="pricing-per" data-i18n="pricing_tier1_per">per set</div>
         <ul class="pricing-features">
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Full 3-piece set</li>
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Free velvet cuff add-on</li>
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Personalised per graduate</li>
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Dedicated coordinator</li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier2_f1">Full 3-piece set</span></li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier2_f2">Free velvet cuff add-on</span></li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier2_f3">Personalised per graduate</span></li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier3_f4">Dedicated coordinator</span></li>
         </ul>
-        <button class="pricing-cta outline" onclick="window.open('https://wa.me/97450393653?text=Hi Décorous Plus — bulk quote for 41–100 sets','_blank')">Get a Quote on WhatsApp</button>
+        <button class="pricing-cta outline" onclick="window.open('https://wa.me/97450393653?text=Hi Décorous Plus — bulk quote for 41–100 sets','_blank')" data-i18n="pricing_tier3_cta">Get a Quote on WhatsApp</button>
       </div>
 
       <div class="pricing-card">
-        <div class="pricing-badge">Best Price</div>
-        <div class="pricing-range">101+ pieces</div>
+        <div class="pricing-badge" data-i18n="pricing_tier4_badge">Best Price</div>
+        <div class="pricing-range" data-i18n="pricing_tier4_range">101+ pieces</div>
         <div class="pricing-price">QR 150</div>
-        <div class="pricing-per">per set · best price</div>
+        <div class="pricing-per" data-i18n="pricing_tier4_per">per set · best price</div>
         <ul class="pricing-features">
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Full 3-piece set</li>
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Free velvet cuff add-on</li>
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Personalised per graduate</li>
-          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> Premium logistics support</li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier2_f1">Full 3-piece set</span></li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier2_f2">Free velvet cuff add-on</span></li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier2_f3">Personalised per graduate</span></li>
+          <li><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke="#B8922A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div> <span data-i18n="pricing_tier4_f4">Premium logistics support</span></li>
         </ul>
-        <button class="pricing-cta outline" onclick="window.open('https://wa.me/97450393653?text=Hi Décorous Plus — bulk quote for 101+ sets','_blank')">Get a Quote on WhatsApp</button>
+        <button class="pricing-cta outline" onclick="window.open('https://wa.me/97450393653?text=Hi Décorous Plus — bulk quote for 101+ sets','_blank')" data-i18n="pricing_tier4_cta">Get a Quote on WhatsApp</button>
       </div>
     </div>
   </div>
@@ -122,15 +126,15 @@
 <!-- Add-ons -->
 <section class="section-sm" style="background:var(--white);border-top:1px solid var(--border);">
   <div class="container">
-    <div class="eyebrow">Optional Add-Ons</div>
-    <h2 class="section-title mb-8">Velvet Cuff <em>Add-Ons</em></h2>
-    <p style="font-size:14px;color:var(--ink-l);margin-bottom:32px;">Available for Black Classic (Set 1) and Navy Blue (Set 2) only. Free when ordering 10+ sets.</p>
+    <div class="eyebrow" data-i18n="addons_eyebrow">Optional Add-Ons</div>
+    <h2 class="section-title mb-8" data-i18n="addons_title">Velvet Cuff <em>Add-Ons</em></h2>
+    <p style="font-size:14px;color:var(--ink-l);margin-bottom:32px;" data-i18n="addons_page_desc">Available for Black Classic (Set 1) and Navy Blue (Set 2) only. Free when ordering 10+ sets.</p>
     <div style="display:flex;gap:20px;flex-wrap:wrap;">
       <div style="background:var(--cream);border:1px solid var(--border);border-radius:16px;display:flex;gap:0;overflow:hidden;width:320px;">
         <img src="assets/images/addon-velvet-black.png" style="width:110px;height:120px;object-fit:contain;background:#fff;padding:8px;flex-shrink:0;">
         <div style="padding:18px;">
-          <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:4px;">Black Velvet Cuffs</div>
-          <div style="font-size:13px;color:var(--ink-l);margin-bottom:8px;">Set 1 (Black Classic) only</div>
+          <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:4px;" data-i18n="addon1_name">Black Velvet Cuffs</div>
+          <div style="font-size:13px;color:var(--ink-l);margin-bottom:8px;" data-i18n="addon1_set_page">Set 1 (Black Classic) only</div>
           <div style="font-size:16px;color:var(--gold);font-weight:700;">+QR 35</div>
           <div style="font-size:12px;color:var(--ink-f);margin-top:2px;">Free with 10+ sets</div>
         </div>
@@ -139,7 +143,7 @@
         <img src="assets/images/addon-velvet-navy.png" style="width:110px;height:120px;object-fit:contain;background:#fff;padding:8px;flex-shrink:0;">
         <div style="padding:18px;">
           <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:4px;">Navy-Blue Velvet Cuffs</div>
-          <div style="font-size:13px;color:var(--ink-l);margin-bottom:8px;">Set 2 (Navy Blue) only</div>
+          <div style="font-size:13px;color:var(--ink-l);margin-bottom:8px;" data-i18n="addon2_set_page">Set 2 (Navy Blue) only</div>
           <div style="font-size:16px;color:var(--gold);font-weight:700;">+QR 35</div>
           <div style="font-size:12px;color:var(--ink-f);margin-top:2px;">Free with 10+ sets</div>
         </div>
@@ -151,34 +155,34 @@
 <!-- Delivery -->
 <section class="section" id="delivery">
   <div class="container">
-    <div class="eyebrow">Delivery</div>
-    <h2 class="section-title mb-40">Fast across <em>all of Qatar</em></h2>
+    <div class="eyebrow" data-i18n="delivery_eyebrow">Delivery</div>
+    <h2 class="section-title mb-40" data-i18n="delivery_title">Fast across <em>all of Qatar</em></h2>
     <div class="delivery-grid">
       <div>
         <div class="delivery-times">
           <div class="delivery-time-card">
             <div class="del-days">2–3</div>
-            <div class="del-unit">days</div>
-            <div class="del-desc">Black Classic (Set 1)<br>Always in stock — dispatched same day.</div>
+            <div class="del-unit" data-i18n="del_days_label">days</div>
+            <div class="del-desc" data-i18n="del_set1_desc">Black Classic (Set 1)<br>Always in stock — dispatched same day.</div>
           </div>
           <div class="delivery-time-card">
             <div class="del-days">7</div>
-            <div class="del-unit">days</div>
+            <div class="del-unit" data-i18n="del_days_label">days</div>
             <div class="del-desc">All Other Sets (2–6)<br>Assembled & delivered within one week.</div>
           </div>
         </div>
         <p style="font-size:13px;color:var(--ink-l);line-height:1.7;">For bulk orders (10+ sets), delivery timeline is coordinated directly via WhatsApp based on quantity and location.</p>
       </div>
       <div>
-        <div style="font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink-f);margin-bottom:12px;">Delivery fees</div>
+        <div style="font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink-f);margin-bottom:12px;" data-i18n="del_fees_title">Delivery fees</div>
         <div class="rate-table">
-          <div class="rate-row"><div class="rate-area">Most of Doha, Al Rayyan &amp; surrounds</div><div class="rate-fee">QR 30</div></div>
-          <div class="rate-row"><div class="rate-area">Al Wakrah, Lusail, Umm Salal, Industrial Area</div><div class="rate-fee">QR 40</div></div>
-          <div class="rate-row"><div class="rate-area">Al Khor, Mesaieed, Al Shahaniya &amp; mid-Qatar</div><div class="rate-fee">QR 50</div></div>
-          <div class="rate-row"><div class="rate-area">Far North, Dukhan, Abu Samra, Khor Al Udaid</div><div class="rate-fee">QR 70</div></div>
+          <div class="rate-row"><div class="rate-area" data-i18n="del_zone1">Most of Doha, Al Rayyan &amp; surrounds</div><div class="rate-fee">QR 30</div></div>
+          <div class="rate-row"><div class="rate-area" data-i18n="del_zone2">Al Wakrah, Lusail, Umm Salal, Industrial Area</div><div class="rate-fee">QR 40</div></div>
+          <div class="rate-row"><div class="rate-area" data-i18n="del_zone3">Al Khor, Mesaieed, Al Shahaniya &amp; mid-Qatar</div><div class="rate-fee">QR 50</div></div>
+          <div class="rate-row"><div class="rate-area" data-i18n="del_zone4">Far North, Dukhan, Abu Samra, Khor Al Udaid</div><div class="rate-fee">QR 70</div></div>
           
         </div>
-        <p style="font-size:12px;color:var(--ink-l);margin-top:10px;line-height:1.6;">Not sure which zone you're in? Just message us on WhatsApp with your area and we'll confirm.</p>
+        <p style="font-size:12px;color:var(--ink-l);margin-top:10px;line-height:1.6;"><span data-i18n="del_zone_note"><span data-i18n="del_zone_note"><span data-i18n="del_zone_note">Not sure which zone you're in? Just message us on WhatsApp with your area and we'll confirm.</span></span></span></p>
       </div>
     </div>
   </div>
@@ -188,28 +192,49 @@
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
-      <div><img src="assets/images/logo-with-text.png" class="footer-logo" alt="Décorous Plus"><p class="footer-tagline">Qatar's premier destination for bespoke graduation robe sets.</p></div>
-      <div><div class="footer-col-title">Navigate</div><ul class="footer-links"><li><a href="collections.html">Collections</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="order.html">Order Now</a></li></ul></div>
-      <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="https://wa.me/97450393653">WhatsApp Us</a></li><li><a href="https://instagram.com/decorousplus">Instagram</a></li><li><a href="mailto:decorousmarketing@outlook.com">Email Us</a></li></ul></div>
-      <div><div class="footer-col-title">Quick links</div><ul class="footer-links"><li><a href="pricing.html#delivery">Delivery fees</a></li><li><a href="collections.html#sizes">Size guide</a></li><li><a href="order.html">Place an order</a></li></ul></div>
+      <div><img src="assets/images/logo-with-text.png" class="footer-logo" alt="Décorous Plus"><p class="footer-tagline" data-i18n="footer_tagline">Qatar's premier destination for bespoke graduation robe sets.</p></div>
+      <div><div class="footer-col-title" data-i18n="footer_navigate">Navigate</div><ul class="footer-links"><li><a href="collections.html" data-i18n="footer_links_collections">Collections</a></li><li><a href="pricing.html" data-i18n="footer_links_pricing">Pricing</a></li><li><a href="order.html" data-i18n="footer_links_order">Order Now</a></li></ul></div>
+      <div><div class="footer-col-title" data-i18n="footer_contact">Contact</div><ul class="footer-links"><li><a href="https://wa.me/97450393653" data-i18n="footer_links_wa">WhatsApp Us</a></li><li><a href="https://instagram.com/decorousplus" data-i18n="footer_links_ig">Instagram</a></li><li><a href="mailto:decorousmarketing@outlook.com" data-i18n="footer_links_email">Email Us</a></li></ul></div>
+      <div><div class="footer-col-title" data-i18n="footer_quick">Quick links</div><ul class="footer-links"><li><a href="pricing.html#delivery" data-i18n="footer_links_del_fees">Delivery fees</a></li><li><a href="collections.html#sizes" data-i18n="footer_links_size">Size guide</a></li><li><a href="order.html" data-i18n="footer_links_order">Place an order</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><div class="footer-copy">© 2025 Décorous Plus. All rights reserved. · Doha, Qatar</div></div>
+    <div class="footer-bottom"><div class="footer-copy" data-i18n="footer_copy">© 2025 Décorous Plus. All rights reserved. · Doha, Qatar</div></div>
   </div>
 </footer>
 
 <!-- Cart -->
 <div class="cart-overlay" id="cartOverlay"></div>
 <div class="cart-drawer" id="cartDrawer">
-  <div class="cart-drawer-header"><div class="cart-drawer-title">Your Order</div><button class="cart-close-btn" onclick="closeCart()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
-  <div id="cartEmpty" class="cart-empty-state"><div class="cart-empty-icon"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div><div class="cart-empty-text">Your order is empty</div><div class="cart-empty-sub">Browse collections to add sets</div></div>
+  <div class="cart-drawer-header"><div class="cart-drawer-title" data-i18n="cart_title">Your Order</div><button class="cart-close-btn" onclick="closeCart()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+  <div id="cartEmpty" class="cart-empty-state"><div class="cart-empty-icon"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div><div class="cart-empty-text" data-i18n="cart_empty_text">Your order is empty</div><div class="cart-empty-sub" data-i18n="cart_empty_sub">Browse collections to add sets</div></div>
   <div class="cart-items-list" id="cartItemsList"></div>
   <div class="cart-footer">
-    <div class="cart-zone-section"><div class="cart-zone-label">Delivery zone</div><div class="cart-zone-grid"><button class="zone-chip active" onclick="selectZone(0)">Most of Doha +QR30</button><button class="zone-chip" onclick="selectZone(1)">Wakrah / Lusail +QR40</button><button class="zone-chip" onclick="selectZone(2)">Al Khor / Mesaieed +QR50</button><button class="zone-chip" onclick="selectZone(3)">Far North / Dukhan +QR70</button></div></div>
-    <div class="cart-summary"><div class="cart-sum-row"><div class="cart-sum-label">Subtotal</div><div class="cart-sum-value" id="cartSub">QR 0</div></div><div class="cart-sum-row"><div class="cart-sum-label">Delivery</div><div class="cart-sum-value" id="cartFee">QR 15</div></div><div class="cart-sum-row total"><div class="cart-sum-label">Total</div><div class="cart-sum-value" id="cartTotal">QR 0</div></div></div>
+    <div class="cart-zone-section">
+      <div class="cart-zone-header">
+        <div class="cart-zone-label" data-i18n="cart_zone_label">Delivery zone</div>
+        <button class="zone-locate-btn" onclick="detectZone()" title="Use my location">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+          <span data-i18n="cart_locate">My location</span>
+        </button>
+      </div>
+      <div class="cart-zone-grid zone-chips-desktop">
+        <button class="zone-chip active" onclick="selectZone(0)" data-i18n="zone0">Most of Doha +QR30</button>
+        <button class="zone-chip" onclick="selectZone(1)" data-i18n="zone1">Wakrah / Lusail +QR40</button>
+        <button class="zone-chip" onclick="selectZone(2)" data-i18n="zone2">Al Khor / Mesaieed +QR50</button>
+        <button class="zone-chip" onclick="selectZone(3)" data-i18n="zone3">Far North / Dukhan +QR70</button>
+      </div>
+      <select class="zone-select zone-chips-mobile" id="zoneSelect" onchange="selectZone(parseInt(this.value))">
+        <option value="0" data-i18n="zone0">Most of Doha +QR30</option>
+        <option value="1" data-i18n="zone1">Wakrah / Lusail +QR40</option>
+        <option value="2" data-i18n="zone2">Al Khor / Mesaieed +QR50</option>
+        <option value="3" data-i18n="zone3">Far North / Dukhan +QR70</option>
+      </select>
+    </div>
+    <div class="cart-summary"><div class="cart-sum-row"><div class="cart-sum-label" data-i18n="cart_subtotal">Subtotal</div><div class="cart-sum-value" id="cartSub">QR 0</div></div><div class="cart-sum-row"><div class="cart-sum-label" data-i18n="cart_delivery">Delivery</div><div class="cart-sum-value" id="cartFee">QR 15</div></div><div class="cart-sum-row total"><div class="cart-sum-label" data-i18n="cart_total">Total</div><div class="cart-sum-value" id="cartTotal">QR 0</div></div></div>
     <div class="pay-section" id="paySection"></div>
   </div>
 </div>
 <div class="toast-container" id="toastContainer"></div>
+<script src="assets/js/i18n.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/mobile-init.js"></script>
 </body>

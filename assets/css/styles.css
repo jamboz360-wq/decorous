@@ -821,3 +821,133 @@ input, select, textarea { font-family: 'DM Sans', sans-serif; }
   60%  { width: 75%; }
   100% { width: 100%; }
 }
+
+/* =============================================
+   Language Toggle
+   ============================================= */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: 30px;
+  padding: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s;
+  flex-shrink: 0;
+  user-select: none;
+}
+.lang-toggle:hover { border-color: var(--gold); }
+.lang-toggle .lang-opt {
+  padding: 4px 10px;
+  border-radius: 24px;
+  transition: background 0.18s, color 0.18s;
+  color: var(--ink-f);
+  line-height: 1;
+}
+.lang-toggle[data-current="en"] .lang-opt-en,
+.lang-toggle[data-current="ar"] .lang-opt-ar {
+  background: var(--ink);
+  color: #fff;
+}
+[dir="rtl"] .nav-inner { flex-direction: row; }
+[dir="rtl"] .nav-links { margin-right: auto; margin-left: 0; }
+[dir="rtl"] .nav-right { margin-left: 0; }
+[dir="rtl"] .hero-content-col { text-align: right; }
+[dir="rtl"] .hero-btns { justify-content: flex-start; }
+[dir="rtl"] .hero-h1 { font-family: 'Playfair Display', serif; }
+[dir="rtl"] .ann-marquee-track { animation-direction: reverse; }
+[dir="rtl"] .footer-grid { direction: rtl; }
+[dir="rtl"] .rate-row { flex-direction: row-reverse; }
+[dir="rtl"] .include-item { flex-direction: row; }
+[dir="rtl"] .modal-box { direction: rtl; text-align: right; }
+[dir="rtl"] .cart-drawer { direction: rtl; }
+[dir="rtl"] .cart-sum-row { direction: rtl; }
+[dir="rtl"] .sidebar-card { direction: rtl; text-align: right; }
+[dir="rtl"] .form-field { text-align: right; }
+[dir="rtl"] .form-input, [dir="rtl"] .form-select, [dir="rtl"] .form-textarea { text-align: right; }
+[dir="rtl"] .order-form-card { direction: rtl; }
+[dir="rtl"] .pricing-card { direction: rtl; text-align: right; }
+[dir="rtl"] .pricing-features li { flex-direction: row-reverse; justify-content: flex-end; }
+[dir="rtl"] .delivery-time-card { direction: rtl; text-align: right; }
+[dir="rtl"] .rate-table { direction: rtl; }
+[dir="rtl"] .addon-card { direction: rtl; }
+[dir="rtl"] .product-card-body { text-align: right; }
+[dir="rtl"] .product-card-footer { flex-direction: row-reverse; }
+[dir="rtl"] .product-card-cta { flex-direction: row-reverse; }
+[dir="rtl"] .bulk-popup { direction: rtl; text-align: right; }
+[dir="rtl"] .bulk-popup-close { right: auto; left: 16px; }
+[dir="rtl"] .footer-bottom { flex-direction: row-reverse; }
+[dir="rtl"] .ann-bar { direction: rtl; text-align: right; }
+[dir="rtl"] .ann-close { right: auto; left: 12px; }
+[dir="rtl"] .size-tbl, [dir="rtl"] .size-table { direction: rtl; }
+
+/* Arabic font enhancement */
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] .hero-h1,
+[dir="rtl"] .section-title, [dir="rtl"] .display-title {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* ── Zone: header row with locate button ── */
+.cart-zone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.cart-zone-header .cart-zone-label { margin-bottom: 0; }
+
+.zone-locate-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 6px;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.zone-locate-btn:hover { background: var(--cream); }
+.zone-locate-btn svg { flex-shrink: 0; stroke: var(--gold); }
+.zone-locate-btn.loading { opacity: .6; pointer-events: none; }
+
+/* ── Mobile: show dropdown, hide chips ── */
+.zone-chips-mobile { display: none; }
+
+.zone-select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.zone-select:focus { outline: none; border-color: var(--gold); }
+[dir="rtl"] .zone-select {
+  background-position: left 12px center;
+  padding-right: 12px;
+  padding-left: 32px;
+}
+
+@media (max-width: 768px) {
+  .zone-chips-desktop { display: none !important; }
+  .zone-chips-mobile  { display: block !important; }
+}
